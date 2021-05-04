@@ -1,0 +1,116 @@
+.nav{
+    max-width: 100%;
+    height: 10vh;
+    background-color: red;
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    padding: 0 10px;
+}
+.cmp_info{
+    width: 40%;
+}
+.nav_links_container{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.messaging_container, .notofication_container , .sunscribe_btn{
+    width: 8vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.sunscribe_btn{
+    text-align: center;
+    background-color: aqua;
+    padding: 2px;
+    border-radius: 2px;
+    font-size: 1vw;
+    
+}
+.profile_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 20px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.user_landing_page{
+    background-image: url('./images//landing_page_2.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    padding: 10px;
+    
+}
+.landing_page_cient_container{
+    width: 25%;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.client_name{
+    font-size: 4vw;
+    margin: 10px 0;
+    color: white;
+    font-weight: 800;
+}
+.msg_tip_container{
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+}
+.message_me_btn , .tip_me_btn{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 0;
+    background-color: aqua;
+    width: 48%;
+    cursor: pointer;
+}
+.landing_page_cient_container .subscibe_btn{
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background-color: red;
+    padding: 20px 0 ;
+    cursor: pointer;
+}
