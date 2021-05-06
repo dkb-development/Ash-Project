@@ -1,0 +1,41 @@
+<div class="upload_container">
+    <div ngx-dropzone class="dropzone" (change)="onSelect($event)" [accept]="'*'" [multiple]="false">
+        <ngx-dropzone-label>
+            <div>
+                <i class="fas fa-cloud-upload-alt fa-5x"></i>
+                <h2>Drag and drop Files to Upload</h2>
+                <h6>Or</h6>
+            </div>
+            <button class="btn" style="background-color: #457B9D;color: white;font-weight: 600;">Browse Files</button>
+        </ngx-dropzone-label>
+        <ngx-dropzone-image-preview  ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
+            <ngx-dropzone-label style="margin: auto;">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
+        </ngx-dropzone-image-preview>
+    </div>
+    <form #post_form="ngForm">
+        <div class="form-group mt-4">
+            <label style="line-height: 0.8rem;">Title/Caption</label>
+            <textarea class="form-control" rows="3" placeholder="Add your Post Title/Caption Here ...." name="post_caption" #post_caption="ngModel" ngModel required></textarea>
+        </div>
+    
+        <label style="line-height: 0.8rem;">User Accessibility</label>
+        <div style="display: flex;justify-content: flex-start;">
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="accessibility" id="accessibility_all" value="accessibility_all" checked>
+                <label class="form-check-label" for="accessibility_all">
+                  All
+                </label>
+            </div>
+            <div class="form-check" style="margin-left: 20px;">
+                <input class="form-check-input" type="radio" name="accessibility" id="accessibility_subscribed" value="accessibility_subscribed">
+                <label class="form-check-label" for="accessibility_subscribed">
+                  Subscribed User
+                </label>
+            </div>
+        </div>
+        <!-- (change)="changeAccessibility($event)" -->
+        <button (click)="onUploadPost(post_form)" class="btn btn-primary mt-4">Upload Post</button>
+    </form>
+    
+</div>
+

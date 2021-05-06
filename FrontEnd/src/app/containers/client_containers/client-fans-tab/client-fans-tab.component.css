@@ -1,0 +1,159 @@
+.btn{
+    box-shadow: 2px 4px 5px gray;
+    font-weight: 600;
+}
+.btn:hover{
+    box-shadow: 4px 8px 5px gray;
+    transform: translate(-1px,-1px);
+}
+.user_list_container{
+    width: 98%;
+    margin: auto;
+}
+.user_list_item{
+    max-width: 100%;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 10px;
+    padding-top: 0;
+    background-color: #EDF2F4;
+    border-radius: 5px;
+    box-shadow: 1px 2px 5px gray;
+    margin: 10px auto;
+
+}
+
+.user_list_item:hover {
+    box-shadow: 4px 8px 5px gray;
+    transform: translate(-1px,-1px);
+}
+.user_list_info{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.user_list_info img{
+    max-width: 3rem;
+}
+.user_list_info .user_info{
+    padding-left: 10px;
+    font-weight: 600;
+    
+}
+.user_list_info .user_info .username{
+    font-size: 1.2rem;
+}
+.badge_subscribed{
+    background-color: #009DEA;
+    color: white;
+}
+.badge_blocked{
+    background-color: #D90429;
+    color: white;
+}
+.badge_not_subscribed{
+    background-color: #E63946;
+    color: #F1FAEE;
+}
+.badge_restricted{
+    background-color: #FFDB15;
+    color: #1D3557;
+}
+.badge_active{
+    background-color: #32CD32;
+    color: #14213D;
+}
+.user_badges_container > span{
+    margin: 0 2px;
+}
+
+.user_list_add_info{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.user_list_add_info > div{
+    margin: 0 10px;
+}
+.user_tips_container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-right: 10px;
+}
+.user_tips_container img{
+    max-width: 2rem;
+    margin-right: 5px;
+}
+.tip_info{
+    line-height: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #8D99AE;
+}
+.tip_info .tip_amount{
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #1D3557;
+}
+.message_btn{
+    display: flex;
+}
+.message_btn img{
+    max-width: 1rem;
+    margin-right: 5px;
+}
+.user_action_container{
+    padding: 10px 10px;
+    border-radius: 5px;
+    border: 1px dotted red;
+    border-style: dashed;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+}
+.user_action_container > div{
+    margin: 0 10px;
+}
+.btn_restrict{
+    background-color: #FFDB15;
+    color: #1D3557;
+}
+.btn_unblock{
+    background-color: #32CD32;
+    color: #14213D;
+}
+.btn_remove_restriction{
+    background-color: #A8DADC;
+    color: #1D3557;
+}
+.btn_block{
+    background-color: #D90429;
+    color: #F1FAEE;
+}
+
+@media(max-width: 760px){
+    .user_list_item{
+        padding-top: 5px;
+        flex-direction: column;
+        align-items: flex-start;
+        height: fit-content;
+    }
+    .user_list_add_info{
+        flex-wrap: wrap;
+        margin: 10px auto;
+    }
+    .user_list_add_info > div{
+        margin: 10px auto;
+    }
+    .user_action_container{
+        width: 100%;
+    }
+}

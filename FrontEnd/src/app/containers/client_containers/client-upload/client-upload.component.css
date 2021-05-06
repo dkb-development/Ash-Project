@@ -1,0 +1,11 @@
+.upload_container{
+    width: 95%;
+    height: 50vh;
+    margin: auto;
+}
+.upload_container > div{
+    width: 100%;
+}
+.dropzone{
+    height: 50vh;
+}
