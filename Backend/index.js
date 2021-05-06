@@ -45,7 +45,9 @@ app.use(passport.initialize());
 
 const user_routes = require('./routes/User/user_rout');
 const client_routes = require('./routes/Client/client_routes');
+const post_routes = require('./routes/User/posts');
 // app.use("/client",verify_token,post_routes);
+app.use("/",post_routes);
 app.use("/client",client_routes);
 app.use("/user",user_routes);
 const presigned_url_routes = require('./routes/Client/presigned_url_routes');

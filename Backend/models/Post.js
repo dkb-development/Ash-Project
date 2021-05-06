@@ -9,15 +9,22 @@ const Schema = mongoose.Schema;
 const postSchema = new Schema({
     created_by: {
         type: Schema.Types.ObjectId, 
-        ref: Client 
+        ref: Client,
+        required: true
     },
     caption: {
         type: String,
     },
+    accessible_by_all: {
+        type: Boolean,
+        default: true,
+        
+    },
     accessibility: {
         type: String, 
         enum: ["all", "subscribed",'private_chat'] ,
-        required: true
+        required: true,
+        
     },
     date_created: {
         type: Date,

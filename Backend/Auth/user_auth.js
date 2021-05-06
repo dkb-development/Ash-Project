@@ -28,8 +28,12 @@ module.exports.register = (req, res, next) => {
                 else{
                     res.status(422).send(['Duplicate email found.']);
                 }
-            else
+            else{
+                console.log(err);
                 return next(err);
+            }
+            
+                
         }
 
     });
@@ -51,14 +55,27 @@ module.exports.authenticate = (req, res, next) => {
 }
 
 module.exports.userProfile = (req, res, next) =>{
-    User.findOne({ _id: req._id },
-        (err, user) => {
-            if (!user)
-                return res.status(404).json({ status: false, message: 'User record not found.' });
-            else
-                return res.status(200).json({ status: true, user_info : user });
+    var token = req.headers['authorization'].split(' ')[1];
+    var _user_id = this.getUserFromToken(token);
+    User.findById(_user_id,(err,usr)=>{
+        if(err){
+            return res.status(404).json({ status: false, message: 'User record not found.',error: err });
         }
-    );
+        else{
+            return res.status(200).json({ status: true, user_info : usr });
+        }
+    
+    });
+    // console.log(this.getUserFromToken(token));
+
+    // User.findOne({ _id: req._id },
+    //     (err, user) => {
+    //         if (!user)
+    //             return res.status(404).json({ status: false, message: 'User record not found.' });
+    //         else
+    //             return res.status(200).json({ status: true, user_info : user });
+    //     }
+    // );
 }
 
 
@@ -83,4 +100,12 @@ module.exports.verifyJwtToken = (req, res, next) => {
             }
         )
     }
+}
+
+module.exports.getUserFromToken = (token)=>{
+    return jwt.decode(token)['_id'];
+}
+
+module.exports.getTokenFromReq = (req)=>{
+    return req.headers.authorization.split(' ')[1];
 }

@@ -20,6 +20,22 @@ const userSchema = new mongoose.Schema({
     join_date: {
         type: Date,
         default: Date.now,
+    },
+    is_client:{
+        type: Boolean,
+        default: false
+    },
+    is_subscribed:{
+        type: Boolean,
+        default: false
+    },
+    is_restricted: {
+        type: Boolean,
+        default: false
+    },
+    is_blocked: {
+        type: Boolean,
+        default: false
     }
     
 
@@ -31,7 +47,10 @@ userSchema.methods.verifyPassword = function (password) {
 };
 
 userSchema.methods.generateJwt = function () {
-    return jwt.sign({ _id: this._id},
+    return jwt.sign({ 
+        _id: this._id,
+        username: this.username
+    },
         process.env.JWT_SECRET,
     {
         expiresIn: process.env.JWT_EXP
