@@ -28,6 +28,13 @@ router.post('/create_post',user_auth.verifyJwtToken,(req,res)=>{
     })
     if(req.body.accessibility != "all"){
         new_post.accessible_by_all = false;
+        var tip_to_unlock = req.body.tip_to_unlock;
+        if(tip_to_unlock > 0){
+            new_post.is_tipped = true;
+            new_post.tip_to_unlock = tip_to_unlock;
+            new_post.accessibility = "tipped";
+        }
+        
     }
     new_post.save((err,success)=>{
         if(!err){

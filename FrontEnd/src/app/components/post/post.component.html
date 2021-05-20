@@ -6,51 +6,126 @@
             <div class="post_client_profile">
                 <img class="post_client_image rounded-circle" src="../../../../assets/images/profile_2.jpeg">
                 <div class="post_client_info">
-                    <div class="post_client_name">Username</div>
-                    <div class="post_client_followers">100,900 Followers</div>
+                    <div class="post_client_name">{{post_details.client_username}}</div>
+                    <div class="post_client_followers">{{post_details.client_subscriber_count}} Subscribers</div>
                 </div>
             </div>
         </div>
         <div class="post_content">
             <div class="post_caption">
-                {{post_details.caption}}
+                {{post_details.post_info.caption}}
             </div>
-            <div *ngIf="post_details.media" class="post_media">
-                <img src={{post_details.media}}>
-            </div>
-            <div *ngIf="!post_details.media" class="post_media">
+            <div *ngIf="!is_logged_in;else logedInNav" class="post_media">
                 <div class="no_access_media">
                     <img src="../../../../assets/icons/lock.svg">
-                    <div class="btn btn-danger">Subscribe</div>
+                    <div class="btn btn-danger">LogIn/SignUp</div>
                 </div>
                 <img src="../../../../assets/images/post_2.jpg">
             </div>
+            <ng-template #logedInNav>
+                <div *ngIf="!post_details.user_is_subscribed;else subscribed_post" class="post_media">
+                    <div *ngIf="!post_details.post_info.media" class="post_media">
+                        <div class="no_access_media">
+                            <img src="../../../../assets/icons/lock.svg">
+                            <div class="btn btn-danger" data-toggle="modal" data-target="#subscribeModal">Subscribe</div>
+                            
+                        </div>
+                        <img src="../../../../assets/images/post_2.jpg">
+                    </div>
+                    <div *ngIf="post_details.post_info.media" class="post_media">
+                        <img src={{post_details.post_info.media}}>
+                    </div>
+                </div>
+                <ng-template #subscribed_post>
+                    <div *ngIf="post_details.post_info.media" class="post_media">
+                        <img src={{post_details.post_info.media}}>
+                    </div>
+                    <div *ngIf="!post_details.post_info.media" class="post_media">
+                        <div class="no_access_media">
+                            <img src="../../../../assets/icons/lock.svg">
+                            <div class="btn btn-danger" (click)="openTipToUnlockModal(post_details)" data-toggle="modal" data-target="#tipToUnlockModal">Tip ${{post_details.post_info.tip_to_unlock}} to unlock</div>
+                        </div>
+                        <img src="../../../../assets/images/post_2.jpg">
+                    </div>
+                </ng-template>
+            </ng-template>
+            
         </div>
         <div class="post_footer">
             <div class="post_date_container">
                 <img src="../../../../assets/icons/calendar.svg">
                 <div>
-                    <div>Publlished On</div>
-                    <div class="post_publish_date">20 Feb 2021</div>
+                    <div>{{tm}}</div>
+                    <div class="post_publish_date">{{dt}}</div>
                 </div>
             </div>
             <div class="post_views_container">
                 <img src="../../../../assets/icons/view.svg">
                 <div class="post_views_count">67k Views</div>
             </div>
-            <div class="post_likes_container">
+            <!-- <div *ngIf="expression" class="post_likes_container" (click)="likeOrDislikePost(post_details)">
                 <img src="../../../../assets/icons/heart_blank.svg">
                 <div class="post_likes_count">67k Likes</div>
+            </div> -->
+            <div *ngIf="!is_logged_in;else logged_in_like_container">
+                <div class="post_likes_container">
+                    <img src="../../../../assets/icons/heart_blank.svg">
+                    <div class="post_likes_count">{{post_details.post_info.no_of_likes}} Likes</div>
+                </div>
             </div>
-            <div class="post_tips_container">
+            <ng-template #logged_in_like_container>
+                <div *ngIf="post_details.post_info.accessible_by_all;else logged_in_unaccessible_like_container">
+                    <div class="post_likes_container" (click)="likeOrDislikePost(post_details)">
+                        <img *ngIf="post_details.is_liked" src="../../../../assets/icons/heart.svg">
+                        <img *ngIf="!post_details.is_liked" src="../../../../assets/icons/heart_blank.svg">
+                        <div class="post_likes_count">{{post_details.post_info.no_of_likes}} Likes</div>
+                    </div>
+                </div>
+                <ng-template #logged_in_unaccessible_like_container>
+                    <div *ngIf="!post_details.user_is_subscribed;else subscribed_like_container" data-toggle="modal" data-target="#subscribeModal" class="post_likes_container">
+                        <img src="../../../../assets/icons/heart_blank.svg">
+                        <div class="post_likes_count">{{post_details.post_info.no_of_likes}} Likes</div>
+                    </div>
+                </ng-template>
+                
+               
+                <ng-template #subscribed_like_container>
+                    <div *ngIf="post_details && post_details.hasOwnProperty('isTipEnough');else canLikeDislikePost" class="post_likes_container" (click)="openTipToUnlockModal(post_details)">
+                        <img src="../../../../assets/icons/heart_blank.svg">
+                        <div class="post_likes_count">{{post_details.post_info.no_of_likes}} Likes</div>
+                    </div>
+                    <ng-template #canLikeDislikePost>
+                        <div class="post_likes_container" (click)="likeOrDislikePost(post_details)">
+                            <img *ngIf="post_details.is_liked" src="../../../../assets/icons/heart.svg">
+                            <img *ngIf="!post_details.is_liked" src="../../../../assets/icons/heart_blank.svg">
+                            <div class="post_likes_count">{{post_details.post_info.no_of_likes}} Likes</div>
+                        </div>
+                    </ng-template>
+                </ng-template>
+                
+            </ng-template>
+            
+            
+            
+            
+            <!-- <div class="post_tips_container">
                 <img src="../../../../assets/icons/tip_4.svg">
                 <div class="post_tips_count">$67k Tips</div>
-            </div>
+            </div> -->
             <div class="tip_me_container">
-                <a class="btn tip_btn">
+                <a id="pay_to_unlock_post_btn" *ngIf="post_details.hasOwnProperty('isTipEnough') && !post_details.isTipEnough;else non_tip_post" class="btn tip_btn" (click)="openTipToUnlockModal(post_details)" data-toggle="modal" data-target="#tipToUnlockModal">
                     <img src="../../../../assets/icons/tip_2.svg">
                     <div>Tip Me</div>
                 </a>
+                
+                <ng-template #non_tip_post>
+                    <a class="btn tip_btn" (click)="openTipModal(post_details)" data-toggle="modal" data-target="#tipModal">
+                        <img src="../../../../assets/icons/tip_2.svg">
+                        <div>Tip Me</div>
+                    </a>
+                </ng-template>
+                
+                
             </div>
         </div>
     </div>
@@ -106,4 +181,78 @@
     </div> -->
     
 </div>
+
+
+<!-- Tip for Tipped Content -->
+<!-- <div class="modal fade" id="tipToUnlockModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tip to Unlock the post</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Min $5 tip needed to unlock the post&hellip;</p>
+
+          <form #tipToUnlockForm="ngForm" class="form-inline" style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
+            <div class="form-group mb-2">
+              <h6 style="font-weight: 600;">Tip Amount : </h6>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="inputPassword2" class="sr-only">$</label>
+              <input #tipToUnlockAmount="ngModel" *ngIf="tipToUnlockPostAmount!=0" type="number" class="form-control" id="tip_to_unlock_amount" name="tipToUnlockAmount" placeholder="Tip Amount" [(ngModel)]="tipToUnlockPostAmount">
+              
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" (click)="payToUnlockPost(tipToUnlockForm)" [class.disabled]="tipToUnlockForm.value.tipToUnlockAmount < post_details.post_info.tip_to_unlock" >Pay to Unlock</button>
+          </form>
+          <div *ngIf="tipToUnlockForm.value.tipToUnlockAmount < post_details.post_info.tip_to_unlock">
+              <small style="color: red;">Min ${{post_details.post_info.tip_to_unlock}} Tip needed to Unlock the Post</small>
+          </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div> -->
+
+<!-- Tip for free content -->
+<!-- <div class="modal fade" id="tipModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tip for the Post</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Your every Tip means a lot to me&hellip;</p>
+
+          <form #tipPostForm="ngForm" class="form-inline" style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
+            <div class="form-group mb-2">
+              <h6 style="font-weight: 600;">Tip Amount : </h6>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="inputPassword2" class="sr-only">$</label>
+              <input #tipPostAmount="ngModel" type="number" class="form-control" id="tip_amount" name="tip_amount" placeholder="Tip Amount" ngModel>
+              
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" (click)="tipToPost(tipPostForm)" [class.disabled]="tipPostForm.value.tip_amount <= 0">Pay Tip</button>
+          </form>
+          <div *ngIf="tipPostForm.value.tip_amount <= 0 && tipPostAmount.touched">
+            <small style="color: red;">Enter a valid Postitive amount</small>
+        </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        </div>
+      </div>
+    </div>
+</div> -->
+
 

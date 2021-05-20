@@ -6,16 +6,15 @@ const Schema = mongoose.Schema;
 
 const likeSchema = new Schema({
     liked_post_id: {
-        type: String
+        type: String,
+        required: true
     },
-    liked_content_by: {
-        type: Schema.Types.ObjectId,
-        ref: Client,
+    liked_content_creator: {
+        type: String,
         required: true,
     },
     liked_by: {
-        type: Schema.Types.ObjectId,
-        ref: User,
+        type: String,
         required: true,
     },
     liked_date: {

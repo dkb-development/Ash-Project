@@ -10,12 +10,18 @@ export class ClientHomeComponent implements OnInit {
 
   constructor(private FetchPostsService: FetchPostsService) { }
   posts:any = [];
+  post_container_spinner = true;
   ngOnInit(): void {
     this.FetchPostsService.fetch_posts().subscribe(
       (res:any)=>{
-        res.forEach((post:any)=>{
+        if(res){
+          this.post_container_spinner = false;
+        }
+        // console.log(res);
+        res.forEach((post_details:any)=>{
+          var post = post_details.post_info;
           post.media = post.media.split('?')[0];
-          this.posts.push(post);
+          this.posts.push(post_details);
         })
         
         // this.posts.forEach((post:any)=>{

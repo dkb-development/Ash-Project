@@ -24,8 +24,9 @@ export class UserHomeComponent implements OnInit {
   logInForm: FormGroup;
   signUpForm: FormGroup;
   user: any = {};
-  posts:any = [];
-  
+  posts:any = []; 
+  post_container_spinner = true;
+  tip_to_unlock_post: any = null;
   ngOnInit(): void {
     this.is_logged_in = this.AuthService.isLoggedIn();
     if(this.is_logged_in){
@@ -47,8 +48,34 @@ export class UserHomeComponent implements OnInit {
       // Fetch Posts
       this.FetchPostsService.fetch_posts().subscribe(
         (res:any)=>{
+          if(res){
+            this.post_container_spinner = false;
+          }
+          console.log(res);
+          res.forEach((post_details:any)=>{
+            var post = post_details.post_info;
+            // console.log(res.is_tip_not_enough,post);
+            if(post.media != null){
+              post.media = post.media.split('?')[0];
+            }
+            this.posts.push(post_details);
+          })
+          // this.posts.forEach((post:any)=>{
+          //   console.log("Post media Url : " ,post.media);
+          // })
+        },
+        (err: any)=>{
+          console.log(err);
+        }
+      )
+    }
+    else{
+      this.FetchPostsService.fetch_posts_no_auth().subscribe(
+        (res:any)=>{
+          if(res){
+            this.post_container_spinner = false;
+          }
           res.forEach((post:any)=>{
-            console.log(post.media);
             if(post.media != null){
               post.media = post.media.split('?')[0];
             }
@@ -83,7 +110,10 @@ export class UserHomeComponent implements OnInit {
     },
     );
   }
-  
+  openTipModal(event: any){
+    // console.log(event);
+    this.tip_to_unlock_post = event;
+  }
   // posts = [
   //   {
   //     "name": "post 1",

@@ -6,16 +6,15 @@ const Schema = mongoose.Schema;
 
 const tipSchema = new Schema({
     tip_post_id: {
-        type: String
+        type: String,
+        required: true,
     },
-    tip_content_by: {
-        type: Schema.Types.ObjectId,
-        ref: Client,
+    tip_content_creator: {
+        type: String,
         required: true,
     },
     tip_by: {
-        type: Schema.Types.ObjectId,
-        ref: User,
+        type: String,
         required: true,
     },
     tip_date: {

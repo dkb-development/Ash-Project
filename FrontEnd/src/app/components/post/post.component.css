@@ -13,6 +13,7 @@
     border-radius: 10px;
     box-shadow: 2px 4px 10px gray;
 }
+
 .post_header{
     width: 100%;
     height: 10vh;
@@ -103,6 +104,7 @@
     align-items: center;
     font-weight: 600;
     color: #8D99AE;
+    cursor: pointer;
 }
 .post_likes_container img{
     max-width: 1rem;
@@ -138,6 +140,7 @@
     font-size: 0.8rem;
     font-weight: 600;
     border-radius: 0;
+    box-shadow: 1px 2px 5px gray;
 }
 .tip_btn img{
     max-width: 1rem;
@@ -170,3 +173,23 @@
     width: 10%;
     margin: 10px;
 }
+
+
+@media screen and (max-width: 1200px) {
+    .post_card{
+        max-width: 95%;
+    }
+    .post_date_container{
+        line-height: 0.5rem;
+    }
+}
+@media screen and (max-width: 1200px){
+    .post_footer > div{
+        width: 30%;
+        margin: 5px auto;
+        /* padding: 0 10px; */
+    }
+    .post_footer{
+        flex-wrap: wrap;
+    }
+}   

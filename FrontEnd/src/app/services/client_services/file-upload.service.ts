@@ -17,7 +17,7 @@ export class FileUploadService {
   getpresignedurls(logNamespace: any, fileType: any) {
     let getheaders = new HttpHeaders().set('Accept', 'application/json');
     let params = new HttpParams().set('fileName', logNamespace).set('fileType', fileType);
-    return this.http.get<any>('http://localhost:3000/generatepresignedurl', { params: params, headers: getheaders });
+    return this.http.get<any>(environment.apiBaseUrl + 'generatepresignedurl', { params: params, headers: getheaders });
   }
 
   uploadfileAWSS3(fileuploadurl: any, contenttype: any, file: any) { 

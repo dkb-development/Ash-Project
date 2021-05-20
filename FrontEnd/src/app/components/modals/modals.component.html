@@ -1,0 +1,72 @@
+<!-- Tip for Tipped Content -->
+<div class="modal fade" id="tipToUnlockModal" *ngIf="tip_post_details && !tip_post_details.post_info.isTipEnough">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tip to Unlock the post</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div *ngIf="tip_post_details" class="modal-body">
+          <p >Min ${{ tip_post_details.post_info.tip_to_unlock}} tip needed to unlock the post&hellip;</p>
+          <form #tipToUnlockForm="ngForm" class="form-inline" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+            <div class="form-group mb-2">
+              <h6 style="font-weight: 600;">Tip Amount : </h6>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="tip_to_unlock_amount" class="mr-1">$</label>
+              <input *ngIf="tip_post_details" type="number" class="form-control" id="tip_to_unlock_amount" name="tipToUnlockAmount" placeholder="Tip Amount" [(ngModel)]="tip_amount_chosen_by_user">
+              
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" (click)="payToUnlockPost(tipToUnlockForm)" [class.disabled]="tip_amount_chosen_by_user < tip_post_details.post_info.tip_to_unlock" >Pay to Unlock</button>
+          </form>
+          <div *ngIf="tip_amount_chosen_by_user < tip_post_details.post_info.tip_to_unlock">
+              <small style="color: red;">Min {{tip_post_details.post_info.tip_to_unlock}} Tip needed to Unlock the Post</small>
+          </div>
+          <!-- <p *ngIf="tip_post_details">{{tipToUnlockForm.value | json}}</p> -->
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<!-- Tip for free content -->
+<div class="modal fade" id="tipModal" *ngIf="tip_post_details">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tip for the Post</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Your every Tip means a lot to me&hellip;</p>
+
+          <form #tipPostForm="ngForm" class="form-inline" style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
+            <div class="form-group mb-2">
+              <h6 style="font-weight: 600;">Tip Amount : </h6>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="tip_amount" class="sr-only">$</label>
+              <input #tipPostAmount="ngModel" type="number" class="form-control" id="tip_amount" name="tip_amount" placeholder="Tip Amount" ngModel>
+              
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" (click)="tipToPost(tipPostForm)" [class.disabled]="tipPostForm.value.tip_amount <= 0">Pay Tip</button>
+          </form>
+          <div *ngIf="tipPostForm.value.tip_amount <= 0 && tipPostAmount.touched">
+            <small style="color: red;">Enter a valid Postitive amount</small>
+        </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+

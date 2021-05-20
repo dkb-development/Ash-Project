@@ -29,6 +29,10 @@ import { ClientProfileComponent } from './containers/client_containers/client-pr
 import { ClientFinanceTabComponent } from './containers/client_containers/client-finance-tab/client-finance-tab.component';
 import { AuthService } from './services/user_services/auth.service';
 import { PostComponent } from './components/post/post.component';
+import { UserPostService } from './services/user_services/user-post.service';
+import { ModalsComponent } from './components/modals/modals.component';
+import { UserPaymentService } from './services/user_services/user-payment.service';
+import { SubscribeModalComponent } from './components/subscribe-modal/subscribe-modal.component';
 
 
 
@@ -47,7 +51,9 @@ import { PostComponent } from './components/post/post.component';
     ClientProfileComponent,
     ClientFinanceTabComponent,
     FilterPostsPipe,
-    PostComponent
+    PostComponent,
+    ModalsComponent,
+    SubscribeModalComponent
   ],
   imports: [
     HttpClientModule,
@@ -62,7 +68,9 @@ import { PostComponent } from './components/post/post.component';
   ],
   providers: [FetchPostsService,
               FileUploadService,
+              UserPostService,
               AuthService,
+              UserPaymentService,
               {
                 provide: 'SocialAuthServiceConfig',
                 useValue: {

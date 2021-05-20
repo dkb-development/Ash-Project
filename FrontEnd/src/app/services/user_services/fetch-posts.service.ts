@@ -15,18 +15,21 @@ export class FetchPostsService {
   ngOnInit(): void {
     
   }
-
+  
   noAuthHeader = { headers: new HttpHeaders({ 'NoAuth': 'True' }) };
   authHeaders = { headers: new HttpHeaders().set("Authorization", "Bearer " + this.AuthService.getToken()) }
   
   fetch_posts(){
     return this.http.get(environment.apiBaseUrl + 'posts/',this.authHeaders)
   }
+  fetch_posts_no_auth(){
+    return this.http.get(environment.apiBaseUrl + 'posts_no_auth/',this.noAuthHeader)
+  }
   get_posts(){
-    return this.http.get('http://localhost:3000/user/posts').pipe(retry(3), catchError(this.handleError));
+    return this.http.get(environment.apiBaseUrl+'user/posts').pipe(retry(3), catchError(this.handleError));
   }
   create_post(post_data:Post_data){
-    return this.http.post<any>('http://localhost:3000/client/create_post',post_data)
+    return this.http.post<any>(environment.apiBaseUrl + 'client/create_post', post_data)
   }
 
   

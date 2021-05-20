@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { FetchPostsService } from '../../../services/user_services/fetch-posts.service';
 import { FileUploadService } from '../../../services/client_services/file-upload.service';
@@ -22,54 +22,72 @@ export class ClientUploadComponent implements OnInit {
     ) { }
 
   posts:any;
+  // @ViewChild('post_tip_to_unlock', { static: true }) input: ElementRef;
   ngOnInit(): void {
-    
-
+    console.log(this.files);
   }
+
   fetch_posts(){
     this.FetchPostsService.get_posts().subscribe((res)=>{
       this.posts = res;
     })
   }
 
-  create_post(form: NgForm){
-    this.FetchPostsService.create_post({
-      post_title: form.value.post_title,
-      post_description: form.value.post_content 
-    }).subscribe((res)=>{
-      console.log(res.post_title);
-    })
-  }
+  // create_post(form: NgForm){
+  //   this.FetchPostsService.create_post({
+  //     post_title: form.value.post_title,
+  //     post_description: form.value.post_content 
+  //   }).subscribe((res)=>{
+  //     console.log(res.post_title);
+  //   })
+  // }
 
 
 
   files: File[] = [];
   fileObj:File;
+  
 	onSelect(event: any) {
 		this.files.push(...event.addedFiles);
+    console.log(this.files);
 	}
 
 	onRemove(file: File) {
 		this.files.splice(this.files.indexOf(file), 1);
+    console.log(this.files);
 	}
 
 
   upload_server_error_message: String;
+  post = {
+    caption: "",
+    accessibility: "all",
+    media_type: "",
+    media: "",
+    tip_to_unlock: 0
+
+  };
+  media_upload_error_message: any;
+  uploading_post_spinner = false;
   onUploadPost(post_form: any){
-    var post:any = {
-      caption: "",
-      accessibility: "all",
-
-    }
-    post.caption = post_form.value.post_caption;
+    this.uploading_post_spinner = true;
+    // var post:any = {
+    //   caption: "",
+    //   accessibility: "all",
+    // }
+    this.post.caption = post_form.value.post_caption;
     var post_access = (document.getElementById('accessibility_subscribed') as HTMLInputElement).checked ? "subscribed":"all";
-    post.accessibility = post_access;
-    post.media_type = this.files[0].type.split('/')[0];
+    this.post.accessibility = post_access;
+    this.post.media_type = this.files[0].type.split('/')[0];
 
+    // Checking the accessibility and setting the tip amount accordingly
+    if(this.post.accessibility== "all"){
+      this.post.tip_to_unlock = 0;
+    }
+    
     this.fileObj = this.files[0];
     if (!this.fileObj) {
-      // this.errorMsg = true
-      return
+      this.media_upload_error_message = "Select a Image/Video/Audio to upload a Post";
     }
     
     this.FileUploadService.getpresignedurls(this.fileObj.name, this.fileObj.type).subscribe(async (res) => {
@@ -81,10 +99,14 @@ export class ClientUploadComponent implements OnInit {
           var media_url = (res as any).url;
           var status = (res as any).status;
           if(status == 200){
-            post.media = media_url;
-            this.FileUploadService.uploadPost(post).subscribe(
+            this.post.media = media_url;
+            this.FileUploadService.uploadPost(this.post).subscribe(
               (res: any)=>{
-                console.log(res);
+                if(res){
+                  this.uploading_post_spinner = false;
+                }
+                // console.log(res);
+                
                 // Successfully Created Post
                 var Toast = Swal.mixin({
                   toast: true,

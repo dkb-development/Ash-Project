@@ -1,0 +1,41 @@
+<p>subscribe-modal works!</p>
+<!-- Subscribe Modal -->
+<div class="modal fade" id="subscribeModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+            <!-- <span id="subscription_fee_per_month"></span> -->
+          <h4 class="modal-title" >Subscribe for ${{subscription_fee_per_month | async }}/month</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        
+        <div class="modal-body">
+            <button type="button" class="btn btn-primary" (click)="pay_to_subscribe()">
+                Pay ${{subscription_fee_per_month | async}} to Subscribe
+            </button>
+          <!-- <p >Min ${{ tip_post_details.post_info.tip_to_unlock}} tip needed to unlock the post&hellip;</p>
+          <form #tipToUnlockForm="ngForm" class="form-inline" style="display: flex;flex-direction: row;justify-content: space-between;align-items: center;">
+            <div class="form-group mb-2">
+              <h6 style="font-weight: 600;">Tip Amount : </h6>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="tip_to_unlock_amount" class="mr-1">$</label>
+              <input *ngIf="tip_post_details" type="number" class="form-control" id="tip_to_unlock_amount" name="tipToUnlockAmount" placeholder="Tip Amount" [(ngModel)]="tip_amount_chosen_by_user">
+              
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" (click)="payToUnlockPost(tipToUnlockForm)" [class.disabled]="tip_amount_chosen_by_user < tip_post_details.post_info.tip_to_unlock" >Pay to Unlock</button>
+          </form>
+          <div *ngIf="tip_amount_chosen_by_user < tip_post_details.post_info.tip_to_unlock">
+              <small style="color: red;">Min {{tip_post_details.post_info.tip_to_unlock}} Tip needed to Unlock the Post</small>
+          </div>
+          <p *ngIf="tip_post_details">{{tipToUnlockForm.value | json}}</p> -->
+        </div>
+  
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>

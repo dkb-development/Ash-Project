@@ -20,12 +20,20 @@ const postSchema = new Schema({
         default: true,
         
     },
+    is_tipped:{
+        type: Boolean,
+        default: false,
+    },
+    tip_to_unlock:{
+        type: Number,
+        default: 0
+    },
     accessibility: {
         type: String, 
-        enum: ["all", "subscribed",'private_chat'] ,
+        enum: ["all", "subscribed",'tipped'] ,
         required: true,
-        
     },
+    
     date_created: {
         type: Date,
         default: Date.now,
@@ -34,27 +42,27 @@ const postSchema = new Schema({
         type: Number,
         default: 0
     },
-    views_details: [{
-        type: Schema.Types.ObjectId, 
-        ref: View
-    }],
+    // views_details: [{
+    //     type: Schema.Types.ObjectId, 
+    //     ref: View
+    // }],
     no_of_likes: {
         type: Number,
         default: 0
     },
-    likes_details: [{
-        type: Schema.Types.ObjectId, 
-        ref: Like 
-    }],
+    // likes_details: [{
+    //     type: Schema.Types.ObjectId, 
+    //     ref: Like 
+    // }],
     total_tips_amount: {
         type: Number,
         default: 0
     },
-    tips_details: [{
-        type: Schema.Types.ObjectId, 
-        ref: Tip,
-        tip_amount: Number
-    }],
+    // tips_details: [{
+    //     type: Schema.Types.ObjectId, 
+    //     ref: Tip,
+    //     tip_amount: Number
+    // }],
     media: {
         type: String,
         
@@ -68,6 +76,6 @@ const postSchema = new Schema({
     },
     
 
-})
+}, {timestamps: true})
 
 module.exports = mongoose.model('Post',postSchema);

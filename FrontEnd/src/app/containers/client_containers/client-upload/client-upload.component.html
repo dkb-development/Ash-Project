@@ -11,30 +11,73 @@
         <ngx-dropzone-image-preview  ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
             <ngx-dropzone-label style="margin: auto;">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
         </ngx-dropzone-image-preview>
+        
     </div>
+    <small style="color: red;">{{media_upload_error_message}}</small>
     <form #post_form="ngForm">
         <div class="form-group mt-4">
+            
             <label style="line-height: 0.8rem;">Title/Caption</label>
+            <small style="color: red;display: block;" *ngIf="(post_caption.invalid &&( post_caption.dirty || post_caption.touched))">
+                Please provide a caption for your Post
+            </small>
             <textarea class="form-control" rows="3" placeholder="Add your Post Title/Caption Here ...." name="post_caption" #post_caption="ngModel" ngModel required></textarea>
         </div>
     
         <label style="line-height: 0.8rem;">User Accessibility</label>
-        <div style="display: flex;justify-content: flex-start;">
+        <!-- <div style="display: flex;justify-content: flex-start;">
             <div class="form-check">
                 <input class="form-check-input" type="radio" name="accessibility" id="accessibility_all" value="accessibility_all" checked>
                 <label class="form-check-label" for="accessibility_all">
                   All
                 </label>
             </div>
-            <div class="form-check" style="margin-left: 20px;">
+            <div class="form-check row" style="margin-left: 20px;">
                 <input class="form-check-input" type="radio" name="accessibility" id="accessibility_subscribed" value="accessibility_subscribed">
                 <label class="form-check-label" for="accessibility_subscribed">
                   Subscribed User
                 </label>
+                <div class="form-group row">
+                    <label for="inputEmail3" class="col-form-label">Email</label>
+                    <input class="form-control" type="email" id="inputEmail3" placeholder="Email">
+                </div>
+                
             </div>
+        </div> -->
+        <div class="form-inline d-flex flex-row justify-content-start">
+            <input class="form-check-input" type="radio" name="accessibility" id="accessibility_all" checked [(ngModel)]="post.accessibility" value="all">
+            <label class="form-check-label" for="accessibility_all">
+                <div>
+                    All
+                </div>
+                <div>
+                    <small style="color: gray;">(Free for all Users)</small>
+                </div>
+                
+                
+            </label>
+          
+            <input style="margin-left: 20px;" class="form-check-input" type="radio" name="accessibility" id="accessibility_subscribed" [(ngModel)]="post.accessibility" value="subscribed">
+            <label class="form-check-label" for="accessibility_subscribed">
+                Subscribed User
+            </label>
+            
+            <div *ngIf="post.accessibility === 'subscribed' " class="form-group row ml-2">
+                <label for="tip_amount" class="col-form-label">$</label>
+                <input class="form-control ml-1" type="number" id="tip_amount" placeholder="Tip Amount" name="post_tip_to_unlock" #post_tip_to_unlock="ngModel" [(ngModel)]="post.tip_to_unlock">
+            </div>
+
+            
         </div>
         <!-- (change)="changeAccessibility($event)" -->
-        <button (click)="onUploadPost(post_form)" class="btn btn-primary mt-4">Upload Post</button>
+        <!-- [class.d-none]="post_form.invalid || files==[] -->
+        
+        <button *ngIf="files.length==0 || post_form.invalid" (click)="onUploadPost(post_form)" class="btn btn-primary mt-4" disabled>Upload Post</button>
+        <button *ngIf="!(files.length==0 || post_form.invalid)" (click)="onUploadPost(post_form)" class="btn btn-primary mt-4">
+            <span *ngIf="uploading_post_spinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span *ngIf="uploading_post_spinner">Uploading ...</span>
+            <span *ngIf="!uploading_post_spinner">Upload Post</span>
+        </button>
     </form>
     
 </div>
