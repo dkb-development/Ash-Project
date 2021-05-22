@@ -77,6 +77,14 @@
 .navbar_profile > div{
     padding-left: 5px;
 }
+
+/* @media(max-width: 1100px){
+    aside{
+        position: absolute;
+        left: ;
+    }
+    
+} */
 @media(max-width: 760px){
     .navbar_profile > div{
         display: none;
@@ -90,6 +98,8 @@
 .navbar_profile_dropdown > div{
     padding-left: 10px;
 }
+
+
 
 
 

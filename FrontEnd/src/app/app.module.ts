@@ -16,6 +16,9 @@ import { FilterPostsPipe } from './containers/user_containers/user-home/filter_p
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
+// import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
+// const socket_io_config: SocketIoConfig = { url: 'http://localhost:5000/', options: {} };
+
 
 // Services
 import { FetchPostsService } from './services/user_services/fetch-posts.service';
@@ -33,6 +36,7 @@ import { UserPostService } from './services/user_services/user-post.service';
 import { ModalsComponent } from './components/modals/modals.component';
 import { UserPaymentService } from './services/user_services/user-payment.service';
 import { SubscribeModalComponent } from './components/subscribe-modal/subscribe-modal.component';
+import { GetUserInfoService } from './services/client_services/get-user-info.service';
 
 
 
@@ -63,14 +67,16 @@ import { SubscribeModalComponent } from './components/subscribe-modal/subscribe-
     ReactiveFormsModule,
     NgxDropzoneModule,
     SocialLoginModule,
-    RouterModule
+    RouterModule,
     // RouterModule.forRoot(appRoutes),
+    // SocketIoModule.forRoot(socket_io_config)
   ],
   providers: [FetchPostsService,
               FileUploadService,
               UserPostService,
               AuthService,
               UserPaymentService,
+              GetUserInfoService,
               {
                 provide: 'SocialAuthServiceConfig',
                 useValue: {

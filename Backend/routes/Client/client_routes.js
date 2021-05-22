@@ -53,6 +53,40 @@ router.post('/create_post',user_auth.verifyJwtToken,(req,res)=>{
     // res.json(client_id);
 })
 
+router.get('/get_users',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        var users = User.find({
+            _id: { $ne: client_id }
+        },(err,usrs)=>{
+            if(err){
+                return res.status(500).json({
+                    "success": false,
+                    "Error": err
+                });
+            }
+            else{
+                usrs.forEach((usr)=>{
+                    usr.password = null
+                })
+                return res.status(200).json(usrs);
+            }
+        });
+
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
+
 // getUserFromToken = (token)=>{
 //     return jwt.decode(token)['_id'];
 

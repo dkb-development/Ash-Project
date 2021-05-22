@@ -56,4 +56,33 @@ app.listen(3000,()=>{
     console.log(`Backend Server is running at PORT No : ${PORT}`);
 })
 
+app.use((req,res)=>{
+    res.setHeader("Access-Control-Allow-Origin","http://example.com");
+})
+
+
+var webSocketPort = 5000;
+const chat_server = app.listen(webSocketPort, () => {
+    console.log(`Backend Chat Server is running in ${webSocketPort} mode on Port No :  ${webSocketPort}`)
+  });
+// Socket-io
+// var server = require('http').createServer(app)
+//   .listen(webSocketPort, function() {
+//     console.log("WebSocket listening on port %d", webSocketPort);
+//   });   
+var socketIO = require('socket.io')(chat_server,{
+    cors: {
+        origin: '*',
+      }
+});
+socketIO.on("connection", socket => {
+    console.log("One User Connected");
+    socket.emit("receive",'Hello World from Backend');
+    socket.on("message", msg => {
+        console.log(msg);
+        socket.emit("receive",'Hello World from Backend');   
+     })
+     
+  
+  })
 module.exports.app = app;

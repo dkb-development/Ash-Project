@@ -1,0 +1,22 @@
+{
+  "name": "chat-backend",
+  "version": "1.0.0",
+  "description": "Chat BAckend Server",
+  "main": "index.js",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node server",
+    "dev": "cross-env NODE_ENV=development nodemon server"
+  },
+  "author": "DKB",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
+    "dotenv": "^9.0.2",
+    "express": "^4.17.1",
+    "mongoose": "^5.12.10",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.7",
+    "socket.io": "^4.1.2"
+  }
+}

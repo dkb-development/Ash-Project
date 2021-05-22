@@ -65,6 +65,14 @@
     background-color: #32CD32;
     color: #14213D;
 }
+/* .user_badges_container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 50%;
+    border: 1px solid red;
+
+} */
 .user_badges_container > span{
     margin: 0 2px;
 }

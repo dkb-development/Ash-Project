@@ -1,13 +1,20 @@
 <p>client-fans-tab works!</p>
 <div class="user_list_container">
-    <div class="user_list_item">
+    <div *ngFor="let fan of fans" class="user_list_item">
         <div class="user_list_info">
-            <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle">
+            <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
+            <img src={{fan.avatar}} class="rounded-circle">
             <div class="user_info">
-                <div class="username">Username</div>
+                <div class="username">{{fan.username}}</div>
                 <div class="user_badges_container">
-                    <span class="badge badge_subscribed">Subscribed</span>
-                    <span class="badge badge_blocked">Blocked</span>
+                    <span *ngIf="fan.is_subscribed; else not_subscribed" class="badge badge_subscribed">Subscribed</span>
+                    <ng-template #not_subscribed>
+                        <span class="badge badge_not_subscribed">Unsubscribed</span>
+                    </ng-template>
+                    
+                    <span *ngIf="fan.is_subscribed" class="badge badge_active">Active</span>
+                    <span *ngIf="fan.is_blocked" class="badge badge_blocked">Blocked</span>
+                    <span *ngIf="fan.is_restricted" class="badge badge_restricted">Restricted</span>
                 </div>
             </div>
         </div>
@@ -19,18 +26,25 @@
                     <div>Tips</div>
                 </div>
             </div>
-            <div class="btn" style="background-color: #457B9D;color: #F1FAEE;">Details</div>
+            <div class="btn" style="background-color: #457B9D;color: #F1FAEE;" data-toggle="modal" data-target="#fanDetailsModal" (click)="showFanDetails(fan)">Details</div>
             <div class="btn message_btn" style="background-color: #1D3557;color: #F1FAEE;">
                 <img src="../../../../assets/icons/chatting.svg">
-                <div>Message</div>
+                <div (click)="message_with_fan(fan)">Message</div>
             </div>
             <div class="user_action_container">
-                <div class="btn btn_restrict">Restrict</div>
-                <div class="btn btn_unblock">Unblock</div>
+                <div *ngIf="fan.is_restricted;else remove_restriction" class="btn btn_remove_restriction">Remove Restriction</div>
+                <ng-template #remove_restriction>
+                    <div class="btn btn_restrict">Restrict</div>
+                </ng-template>  
+                <div *ngIf="fan.is_blocked;else unblock" class="btn btn_unblock">Unblock</div>
+                <ng-template #unblock>
+                    <div class="btn btn_block">Block</div>
+                </ng-template>
+                
             </div>
         </div>
     </div>
-    <div class="user_list_item">
+    <!-- <div class="user_list_item">
         <div class="user_list_info">
             <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle">
             <div class="user_info">
@@ -60,5 +74,49 @@
                 <div class="btn btn_unblock">Unblock</div>
             </div>
         </div>
-    </div>  
+    </div>   -->
+</div>
+
+<div class="modal fade" id="fanDetailsModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Fan Details</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="fan_details">
+            <div class="card container-fluid w-100" style="width: 18rem;">
+                <!-- <img class="card-img-top" src="..." alt="Card image cap"> -->
+                <div class="card-body">
+                  <h5 class="card-title w-100" style="display: flex;justify-content: flex-start;align-items: center;margin: auto">
+                    <img src={{fan_details.avatar}} class="rounded-circle" style="max-width: 10%;">
+                    <span class="ml-2" style="font-weight: 600;font-size: large;">{{fan_details.username}}</span>
+                  </h5>
+                  <table class="table table-striped w-100 mt-2">
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td>Join Date</td>
+                        <td>{{fan_details.join_date | date}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td>Email</td>
+                        <td>{{fan_details.email}}</td>
+
+                      </tr>
+                      
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        </div>
+      </div>
+    </div>
 </div>
