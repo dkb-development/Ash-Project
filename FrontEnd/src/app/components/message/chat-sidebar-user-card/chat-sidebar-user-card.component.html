@@ -1,0 +1,15 @@
+<div class="chat_sidebar_user_card" (click)="showConversationMessages()">
+  <div class="chat_sidebar_card_avatar">
+    <!-- <img src="../../../../assets/images/profile_picture.jpeg" class="rounded-circle"> -->
+    
+    <img *ngIf="chatting_friend" src={{GetUserProfilePicService.getProfilePicUrlFromUsername(chatting_friend.username)}} class="rounded-circle">
+  </div>
+  <div class="chat_sidebar_card_body ml-1">
+    <div *ngIf="chatting_friend" class="chat_sidebar_card_username">{{chatting_friend.username}}</div>
+    <!-- <div class="chat_sidebar_card_last_message">{{ChatStateService.getLastMessage().message_text}}</div> -->
+  </div>
+  <div class="chat_sidebar_card_add_info">
+    <!-- <div class="last_message_time">9:54 PM</div> -->
+  </div>
+</div>
+

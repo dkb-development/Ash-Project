@@ -46,12 +46,18 @@ app.use(passport.initialize());
 const user_routes = require('./routes/User/user_rout');
 const client_routes = require('./routes/Client/client_routes');
 const post_routes = require('./routes/User/posts');
+const conversation_routes = require('./routes/conversation');
+const message_routes = require('./routes/messages');
 // app.use("/client",verify_token,post_routes);
 app.use("/",post_routes);
 app.use("/client",client_routes);
 app.use("/user",user_routes);
 const presigned_url_routes = require('./routes/Client/presigned_url_routes');
 app.use('/',presigned_url_routes);
+app.use("/conversations", conversation_routes);
+app.use("/messages", message_routes);
+
+
 app.listen(3000,()=>{
     console.log(`Backend Server is running at PORT No : ${PORT}`);
 })
@@ -61,28 +67,28 @@ app.use((req,res)=>{
 })
 
 
-var webSocketPort = 5000;
-const chat_server = app.listen(webSocketPort, () => {
-    console.log(`Backend Chat Server is running in ${webSocketPort} mode on Port No :  ${webSocketPort}`)
-  });
+// var webSocketPort = 5000;
+// const chat_server = app.listen(webSocketPort, () => {
+//     console.log(`Backend Chat Server is running in ${webSocketPort} mode on Port No :  ${webSocketPort}`)
+//   });
 // Socket-io
 // var server = require('http').createServer(app)
 //   .listen(webSocketPort, function() {
 //     console.log("WebSocket listening on port %d", webSocketPort);
 //   });   
-var socketIO = require('socket.io')(chat_server,{
-    cors: {
-        origin: '*',
-      }
-});
-socketIO.on("connection", socket => {
-    console.log("One User Connected");
-    socket.emit("receive",'Hello World from Backend');
-    socket.on("message", msg => {
-        console.log(msg);
-        socket.emit("receive",'Hello World from Backend');   
-     })
+// var socketIO = require('socket.io')(chat_server,{
+//     cors: {
+//         origin: '*',
+//       }
+// });
+// socketIO.on("connection", socket => {
+//     console.log("One User Connected");
+//     socket.emit("receive",'Hello World from Backend');
+//     socket.on("message", msg => {
+//         console.log(msg);
+//         socket.emit("receive",'Hello World from Backend');   
+//      })
      
   
-  })
+//   })
 module.exports.app = app;

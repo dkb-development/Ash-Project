@@ -1,0 +1,50 @@
+<div id="user_chat_float_container" class="user_chat_float_container user_chat_float_container_close">
+    <div class="chat_header">
+        <!-- <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0" src="{{(ChatStateService.chattting_friend$ | async).avatar}}" class="rounded-circle"> -->
+        
+        <div class="header_friends_info">
+            <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle">
+            <div class="user_to_chat_with_username ml-1" >{{(ChatStateService.chattting_friend$ | async).username}}</div>
+        </div>
+        <div class="user_chat_container_close_btn" (click)="toggle_user_chat_container()">
+            <i class="fas fa-caret-down fa-2x" style="color: red;"></i>
+        </div>
+    </div>
+    <div class="chat_body" #scrollMe >
+        <div *ngFor="let message of ChatStateService.messages$ | async">
+            <div *ngIf="message.sender==user._id" class="message_sent_container">
+                <div  class="message_sent">
+                  <div class="message_sent_add_info">
+                    <div></div>
+                    <div class="message_sent_time">{{ message.createdAt | myDateAgoPipe}}</div>
+                  </div>
+                  <div class="message_body">
+                    {{message.message_text}}
+                  </div>
+                </div>
+              </div>
+              <div *ngIf="message.sender!=user._id" class="message_received_container">
+                <div class="message_received">
+                  <div class="message_received_add_info">
+                    <div class="message_received_username mr-2">{{(ChatStateService.chattting_friend$ | async).username}}</div>
+                    <div class="message_received_time">{{ message.createdAt | myDateAgoPipe}}</div>
+                  </div>
+                  <div class="message_body">
+                    {{message.message_text}}
+                  </div> 
+                </div>
+              </div>
+        </div>
+    </div>
+    <div class="chat_footer" style="height: 10%;">
+        <input #message_to_be_sent_text placeholder="Write your message here" class="user_chart_input_message">
+        <div class="send_message_btn rounded-circle" (click)="send_message(message_to_be_sent_text)">
+            <i class="fas fa-paper-plane fa-lg" style="color: white;"></i>
+        </div>
+    </div>
+    
+</div>
+
+<div id="user_chat_toggle_btn" class="user_chat_toggle_btn rounded-circle" (click)="toggle_user_chat_container()">
+    <img src="../../../../assets/icons/chatting.svg">
+</div>

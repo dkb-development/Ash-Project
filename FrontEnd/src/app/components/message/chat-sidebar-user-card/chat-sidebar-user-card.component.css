@@ -1,0 +1,59 @@
+.chat_sidebar_user_card{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #323739;
+    cursor: pointer;
+    background-color: #131C21;
+}
+.chat_sidebar_card_avatar{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 7px;
+}
+.chat_sidebar_card_avatar > img{
+    max-height: 100%;
+}
+.chat_sidebar_card_body{
+    width: 65%;
+    height: 100%;
+    padding: 10px 0 0 0;
+}
+.chat_sidebar_card_body > div{
+    max-width: 95%;
+    max-height: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+}
+.chat_sidebar_card_username{
+    font-size: medium;
+    font-weight: 600;
+    color: white;
+    
+}
+.chat_sidebar_card_last_message{
+    font-size: smaller;
+    color: gray;
+    
+}
+.chat_sidebar_card_add_info{
+    width: 15%;
+    height: 100%;
+}
+.last_message_time{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    color: gray;
+}

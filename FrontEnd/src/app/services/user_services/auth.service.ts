@@ -107,6 +107,18 @@ export class AuthService {
     else
       return false;
   }
+
+  getUserFromUsername(username: any){
+    var url = environment.apiBaseUrl + 'client/get_user_from_username/'+username;
+    return this.http.get(url,this.authHeaders);
+  }
+
+  getUserFromId(id: any){
+    var url = environment.apiBaseUrl + 'client/get_user_from_id/'+id;
+    var res = this.http.get(url,this.authHeaders);
+    
+    return res; 
+  }
 }
 interface Response {
   [key: string]: any;

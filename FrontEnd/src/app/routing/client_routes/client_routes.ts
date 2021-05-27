@@ -19,7 +19,7 @@ export var Client_routes: Route[] = [
           { path: 'fans_tab', component: ClientFansTabComponent },
           { path: 'finance', component: ClientFinanceTabComponent },
           { path: 'profile', component: ClientProfileComponent },
-          { path: '**', redirectTo: 'home' }, 
+          { path: '**', redirectTo: 'messaging' }, 
         ]
 
     },

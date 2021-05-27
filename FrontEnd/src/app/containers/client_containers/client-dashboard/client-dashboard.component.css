@@ -130,8 +130,15 @@
                                     footer
   =========================================================================================
   */
-  
-  .footer-wrap {
+
+footer{
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin-bottom: 0;
+    bottom: 0;
+}
+.footer-wrap {
     padding-top: 43px;
     background-size: cover;
 }

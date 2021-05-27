@@ -16,6 +16,8 @@ import { FilterPostsPipe } from './containers/user_containers/user-home/filter_p
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
 
+import {TimeAgoPipe} from 'time-ago-pipe';
+
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 // const socket_io_config: SocketIoConfig = { url: 'http://localhost:5000/', options: {} };
 
@@ -37,10 +39,17 @@ import { ModalsComponent } from './components/modals/modals.component';
 import { UserPaymentService } from './services/user_services/user-payment.service';
 import { SubscribeModalComponent } from './components/subscribe-modal/subscribe-modal.component';
 import { GetUserInfoService } from './services/client_services/get-user-info.service';
+import { MessageService } from './services/message_services/message.service';
+import { ChatStateService } from './services/State Services/chat-state.service';
+import { ChatSidebarUserCardComponent } from './components/message/chat-sidebar-user-card/chat-sidebar-user-card.component';
+import { MyDateAgoPipePipe } from './pipes/my-date-ago-pipe.pipe';
+import { ChatSidebarSearchPipe } from './pipes/chat-sidebar-search.pipe';
+import { UserChatComponent } from './components/message/user-chat/user-chat.component';
 
 
 
 @NgModule({
+  
   declarations: [
     AppComponent,
     AuthUserComponent,
@@ -57,7 +66,12 @@ import { GetUserInfoService } from './services/client_services/get-user-info.ser
     FilterPostsPipe,
     PostComponent,
     ModalsComponent,
-    SubscribeModalComponent
+    SubscribeModalComponent,
+    ChatSidebarUserCardComponent,
+    MyDateAgoPipePipe,
+    ChatSidebarSearchPipe,
+    UserChatComponent,
+    // TimeAgoPipe
   ],
   imports: [
     HttpClientModule,
@@ -77,6 +91,8 @@ import { GetUserInfoService } from './services/client_services/get-user-info.ser
               AuthService,
               UserPaymentService,
               GetUserInfoService,
+              MessageService,
+              ChatStateService,
               {
                 provide: 'SocialAuthServiceConfig',
                 useValue: {

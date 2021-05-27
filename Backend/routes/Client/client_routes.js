@@ -87,6 +87,70 @@ router.get('/get_users',user_auth.verifyJwtToken,async (req,res)=>{
     }
 })
 
+router.get('/get_user_from_username/:username',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        var user = User.findOne({
+            username: req.params.username
+        },(err,usr)=>{
+            if(err){
+                return res.status(500).json({
+                    "success": false,
+                    "Error": err
+                });
+            }
+            else{
+                usr.password = null
+                return res.status(200).json(usr);
+            }
+        });
+
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
+
+router.get('/get_user_from_id/:id',user_auth.verifyJwtToken,async (req,res)=>{
+    
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        var user = User.findOne({
+            _id: req.params.id
+        },(err,usr)=>{
+            if(err){
+                return res.status(500).json({
+                    "success": false,
+                    "Error": err
+                });
+            }
+            else{
+                usr.password = null
+                return res.status(200).json(usr);
+            }
+        });
+
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
 // getUserFromToken = (token)=>{
 //     return jwt.decode(token)['_id'];
 

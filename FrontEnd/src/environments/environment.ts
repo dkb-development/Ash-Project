@@ -4,8 +4,9 @@
 
 export const environment = {
   production: false,
-  // apiBaseUrl : 'http://18.141.146.26/api/'
-  apiBaseUrl : "http://localhost:3000/"
+  apiBaseUrl : "http://localhost:3000/",
+  chatSocketUrl : "ws://localhost:8900/"
+
 };
 // http://localhost:4200/
 

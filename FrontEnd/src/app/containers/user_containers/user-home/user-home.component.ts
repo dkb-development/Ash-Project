@@ -70,6 +70,7 @@ export class UserHomeComponent implements OnInit {
       )
     }
     else{
+      // Fetch Posts for not logged in Users
       this.FetchPostsService.fetch_posts_no_auth().subscribe(
         (res:any)=>{
           if(res){

@@ -1,0 +1,202 @@
+.user_chat_toggle_btn{
+    position:fixed;
+    bottom: 3vh;
+    right: 2vw;
+    z-index: 1050;
+    width: 5vw;
+    height: 5vw;
+    background-color: #007BFF;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+.user_chat_toggle_btn > img{
+    max-width: 50%;
+}
+
+.user_chat_float_container{
+    position: fixed;
+    width: 25vw;
+    height: 75vh;
+    right: 2vw;
+    bottom: 15vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    z-index: 1050;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 1s ease-in;
+}
+.user_chat_float_container_close{
+    display: none;
+}
+
+.chat_header{
+    width: 100%;
+    height: 10%;
+    background-color: #2A2F32;
+    display: flex;
+    justify-content:space-around;
+    align-items: center;
+}
+.header_friends_info{
+    width: 80%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.header_friends_info > img{
+    max-height: 80%;
+}
+.user_to_chat_with_username{
+    font-size: large;
+    font-weight: 600;
+    color: white;
+}
+.chat_body{
+    width: 100%;
+    height: 80%;
+    background-color: #0D1418;
+    color: white;
+    padding: 10px;
+    font-weight: 600;
+    font-size: medium;
+    overflow-y: scroll;
+}
+.chat_footer{
+    width: 100%;
+    height: 10%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color:#2A2F32;
+}
+.user_chart_input_message{
+    width: 80%;
+    padding: 10px;
+    border-radius: 40px;
+    background-color: #131C21;
+    color: white;
+}
+.send_message_btn{
+    width: 15%;
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center ;
+    background-color: #007BFF;
+    cursor: pointer;
+}
+
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+input{
+    border: none;
+}
+input:focus{
+    border: 1px solid white;
+    box-shadow: none;
+    /* border: 1px solid white;
+    border-image: linear-gradient(to right, #F75C7C , #2670F7);
+    border-image-slice: 1;
+
+    border: 5px solid;
+    border-image-slice: 1;
+    border-image-source: linear-gradient(to left, #743ad5, #d53a9d); */
+    
+}
+
+.message_sent_add_info{
+    /* display: flex;
+    justify-content: space-between;
+    align-items: center; */
+    /* color: #2670F7; */
+    color: black;
+    font-size: x-small;
+    font-weight: bolder;
+
+}
+.message_sent_container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+.message_sent{
+    /* background: linear-gradient(45deg, #8027E0,#013CF0); */
+    background: linear-gradient(135deg,#e95950,#fccc63) ;
+    padding: 10px;
+    max-width: 70%;
+    border-radius: 10px;
+    margin: 5px 0;
+    float: right;
+}
+
+.message_sent_time{
+    float: right;
+}
+.message_received_container{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.message_received{
+    /* background: linear-gradient(135deg,#F015B3,#CE17F5) ; */
+    background: linear-gradient(135deg,#F75C7C,#2670F7) ;
+    padding: 10px;
+    max-width: 70%;
+    border-radius: 10px;
+    margin: 5px 0;
+    right: 0;
+    float: left;
+}
+.message_received_add_info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* color: #2670F7; */
+    color: black;
+    font-size: x-small;
+    font-weight: bolder;
+
+}
+.user_chat_container_close_btn{
+    cursor: pointer;
+}
+
+@media only screen and (max-width: 1100px)  {
+    .user_chat_float_container{
+        width: 75vw;
+        height: 75vh;
+    }
+    .user_chat_toggle_btn{
+        width: 10vw;
+        height: 10vw;
+    }
+    .user_chart_input_message{
+        padding: 20px 10px;
+    }
+}
+@media only screen and (max-width: 760px){
+    .user_chat_float_container{
+        width: 90vw;
+        height: 75vh;
+        right: 7vw;
+        bottom: 15vh;  
+    }
+    .user_chat_toggle_btn{
+        bottom: 5vh;
+        right: 7vw;
+    }
+    .user_chart_input_message{
+        padding: 10px;
+    }
+}
