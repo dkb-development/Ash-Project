@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { io } from "socket.io-client";
+import { environment } from '../../../../environments/environment';
 
 
 import { AuthService } from '../../../services/user_services/auth.service';
@@ -17,7 +18,7 @@ import { GetUserProfilePicService } from '../../../services/user_services/get-us
 export class ClientMessagingComponent implements OnInit,OnDestroy {
   
   socket: any;
-  backend_chat_url = "ws://localhost:8900/";
+  backend_chat_url = environment.chatSocketUrl;
 
   // Scroll TO bottom Feature
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;

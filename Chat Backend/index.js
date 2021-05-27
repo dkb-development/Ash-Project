@@ -1,8 +1,16 @@
-const io = require("socket.io")(8900, {
+const app = require('express')();
+const http = require('http').createServer(app);
+http.listen(8900,()=>{console.log("Socket listening on port 8900")});
+const io = require('socket.io')(http, {
   cors: {
-    origin: "http://localhost:4200",
-  },
+      origins: ['*']
+  }
 });
+// const io = require("socket.io")(8900, {
+//   cors: {
+//     origin: "http://localhost:4200",
+//   },
+// });
 
 let users = [];
 
