@@ -45,6 +45,9 @@ import { ChatSidebarUserCardComponent } from './components/message/chat-sidebar-
 import { MyDateAgoPipePipe } from './pipes/my-date-ago-pipe.pipe';
 import { ChatSidebarSearchPipe } from './pipes/chat-sidebar-search.pipe';
 import { UserChatComponent } from './components/message/user-chat/user-chat.component';
+import { PostTypePipe } from './pipes/post-type.pipe';
+import { ShortNumberPipe } from './pipes/short-number.pipe';
+import { ClientFanDetailsService } from './services/State Services/client-fan-details.service';
 
 
 
@@ -71,6 +74,8 @@ import { UserChatComponent } from './components/message/user-chat/user-chat.comp
     MyDateAgoPipePipe,
     ChatSidebarSearchPipe,
     UserChatComponent,
+    PostTypePipe,
+    ShortNumberPipe,
     // TimeAgoPipe
   ],
   imports: [
@@ -93,6 +98,7 @@ import { UserChatComponent } from './components/message/user-chat/user-chat.comp
               GetUserInfoService,
               MessageService,
               ChatStateService,
+              ClientFanDetailsService,
               {
                 provide: 'SocialAuthServiceConfig',
                 useValue: {

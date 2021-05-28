@@ -51,7 +51,9 @@ export class PostComponent implements OnInit {
     this.UserPostService.like_or_dislike_post(pd).subscribe(
       (res: any)=>{
         this.post_details.is_liked = res.is_liked
-        
+        if(res.is_liked){
+          
+        }
         console.log(res);
       },
       (err: any)=>{

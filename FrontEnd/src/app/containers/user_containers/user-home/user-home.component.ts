@@ -254,7 +254,10 @@ export class UserHomeComponent implements OnInit {
     
   }
 
-
+  post_media_type = "";
+  show_posts_of_type(media_type: any){
+    this.post_media_type = media_type;
+  }
 
 
   // loginAjax(){

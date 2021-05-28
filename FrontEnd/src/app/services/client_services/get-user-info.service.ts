@@ -29,4 +29,44 @@ export class GetUserInfoService {
       return error;
     }
   }
+
+  restrictUser(user_info: any){
+    try {
+      return this.http.post(environment.apiBaseUrl + 'client/restrict_user', user_info, this.authHeaders);
+    } 
+    catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  removeRestrictUser(user_info: any){
+    try {
+      return this.http.post(environment.apiBaseUrl + 'client/remove_restrict_user', user_info, this.authHeaders);
+    } 
+    catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  blockUser(user_info: any){
+    try {
+      return this.http.post(environment.apiBaseUrl + 'client/block_user', user_info, this.authHeaders);
+    } 
+    catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  unblockUser(user_info: any){
+    try {
+      return this.http.post(environment.apiBaseUrl + 'client/unblock_user', user_info, this.authHeaders);
+    } 
+    catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
 }

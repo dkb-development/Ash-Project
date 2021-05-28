@@ -15,6 +15,7 @@ const { json } = require('express');
 //     .post()
 
 const db_controller = require('../../models/DB_controllers/controller');
+const Tip = require('../../models/Tip');
 router.post('/create_post',user_auth.verifyJwtToken,(req,res)=>{
     var token = user_auth.getTokenFromReq(req);
     var client_id = user_auth.getUserFromToken(token);
@@ -59,22 +60,30 @@ router.get('/get_users',user_auth.verifyJwtToken,async (req,res)=>{
 
     var client = await User.findById(client_id);
     if(client._id == client_id){
-        var users = User.find({
+        var users = await User.find({
             _id: { $ne: client_id }
-        },(err,usrs)=>{
-            if(err){
-                return res.status(500).json({
-                    "success": false,
-                    "Error": err
-                });
-            }
-            else{
-                usrs.forEach((usr)=>{
-                    usr.password = null
-                })
-                return res.status(200).json(usrs);
-            }
         });
+
+        res_to_be_sent = [];
+        for(let usr of users){
+            usr.password = null;
+            var user_with_tip_details = {};
+            var tip_details = await Tip.find({
+                tip_by: usr._id
+            })
+            var total_tip = 0;
+            for(var tip_detail of tip_details){
+                total_tip += tip_detail.tip_amount
+            }
+            user_with_tip_details = {
+                "user": usr,
+                "total_tip": total_tip
+            };
+            
+            res_to_be_sent.push(user_with_tip_details)
+        }
+        
+        return res.status(200).json(res_to_be_sent);
 
     }
     else{
@@ -151,6 +160,150 @@ router.get('/get_user_from_id/:id',user_auth.verifyJwtToken,async (req,res)=>{
         )
     }
 })
+
+router.post('/restrict_user',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        var user = await User.findById(req.body._id);
+
+        if(!user.is_client){
+            user.is_restricted = true;
+        }
+
+        await user.save((err,success)=>{
+            if(err){
+                return err;
+            }
+            else{
+                return res.status(200).json({
+                    "success": true,
+                    "is_restricted": true
+                })
+            }
+        })
+        
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
+
+router.post('/remove_restrict_user',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        var user = await User.findById(req.body._id);
+
+        if(!user.is_client){
+            user.is_restricted = false;
+        }
+
+        await user.save((err,success)=>{
+            if(err){
+                return err;
+            }
+            else{
+                return res.status(200).json({
+                    "success": true,
+                    "is_restricted": false
+                })
+            }
+        })
+        
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
+
+
+router.post('/block_user',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        var user = await User.findById(req.body._id);
+
+        if(!user.is_client){
+            user.is_blocked = true;
+        }
+
+        await user.save((err,success)=>{
+            if(err){
+                return err;
+            }
+            else{
+                return res.status(200).json({
+                    "success": true,
+                    "is_blocked": true
+                })
+            }
+        })
+        
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
+
+router.post('/unblock_user',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        var user = await User.findById(req.body._id);
+
+        if(!user.is_client){
+            user.is_blocked = false;
+        }
+
+        await user.save((err,success)=>{
+            if(err){
+                return err;
+            }
+            else{
+                return res.status(200).json({
+                    "success": true,
+                    "is_blocked": false
+                })
+            }
+        })
+        
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
+
+
+
 // getUserFromToken = (token)=>{
 //     return jwt.decode(token)['_id'];
 

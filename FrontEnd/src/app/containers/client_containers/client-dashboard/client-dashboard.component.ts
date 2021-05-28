@@ -30,6 +30,8 @@ export class ClientDashboardComponent implements OnInit {
       console.log(window.location.origin);
       window.open(window.location.origin,"_self");
     }
+
+    
   }
   set_active(index: number){
     this.selected = index;
@@ -41,6 +43,25 @@ export class ClientDashboardComponent implements OnInit {
       window.location.reload();
     }
     
+  }
+
+  toggle_side_nav(){
+    // About to expand
+    if($('body').hasClass('sidebar-collapse')){
+      console.log("Sidebar will expand");
+      $('.sidenav_profile_stars').css({
+        "display":"flex"
+      })
+    }
+    // About to collapse
+    else{
+      console.log("Sidebar will collapse");
+      $('.sidenav_profile_stars').css({
+        "display":"none"
+      })
+    }
+    // sidenav_profile_stars
+    // 
   }
 
 }

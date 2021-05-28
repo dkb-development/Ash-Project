@@ -4,26 +4,35 @@ var cors = require('cors');
 app.use(cors());
 
 
+
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 const server = app.listen(8900);
 const io = require('socket.io')(server,{
   cors: 
     {
         origin: "*",
-        methods: ["GET", "POST"],
+        methods: ["GET", "POST", "OPTIONS"],
         allowedHeaders: ["my-custom-header"],
-        credentials: true
+        credentials: true,
+        handlePreflightRequest: (req, res) => {
+          const headers = {
+              "Access-Control-Allow-Headers": "Content-Type, Authorization",
+              "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
+              "Access-Control-Allow-Origin": "*", //or the specific origin you want to give access to,
+              "Access-Control-Allow-Credentials": true
+          };
+          res.writeHead(200, headers);
+          res.end();
+      }
     },
-  }, {
-  handlePreflightRequest: (req, res) => {
-      const headers = {
-          "Access-Control-Allow-Headers": "Content-Type, Authorization",
-          "Access-Control-Allow-Origin": "*", //or the specific origin you want to give access to,
-          "Access-Control-Allow-Credentials": true
-      };
-      res.writeHead(200, headers);
-      res.end();
-  }
-});
+  });
 // const io = require('socket.io')(server, 
 //   {
 //     cors: 

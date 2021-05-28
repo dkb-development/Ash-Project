@@ -1,6 +1,10 @@
-<p>client-fans-tab works!</p>
-<div class="user_list_container">
-    <div *ngFor="let fan of fans" class="user_list_item">
+<div *ngIf="client_fans_loader_spinner" style="width: 100%;height: 100vh;display: flex;justify-content: center;align-items: center;">
+    <div class="spinner-border" role="status">
+        <span class="sr-only">Loading...</span>
+      </div>
+</div>
+<div class="user_list_container pt-1">
+    <div *ngFor="let fan of ClientFanDetailsService.fan_list$ | async" class="user_list_item">
         <div class="user_list_info">
             <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
             <img src={{fan.avatar}} class="rounded-circle">
@@ -22,7 +26,7 @@
             <div class="user_tips_container">
                 <img src="../../../../assets/icons/tip_2.svg">
                 <div class="tip_info">
-                    <div class="tip_amount">$56</div>
+                    <div class="tip_amount">${{fan.total_tip | shortNumber}}</div>
                     <div>Tips</div>
                 </div>
             </div>
@@ -32,13 +36,13 @@
                 <div (click)="message_with_fan(fan)">Message</div>
             </div>
             <div class="user_action_container">
-                <div *ngIf="fan.is_restricted;else remove_restriction" class="btn btn_remove_restriction">Remove Restriction</div>
+                <div *ngIf="fan.is_restricted;else remove_restriction" class="btn btn_remove_restriction" (click)="remove_restric_user(fan)">Remove Restriction</div>
                 <ng-template #remove_restriction>
-                    <div class="btn btn_restrict">Restrict</div>
+                    <div class="btn btn_restrict" (click)="restrict_user(fan)">Restrict</div>
                 </ng-template>  
-                <div *ngIf="fan.is_blocked;else unblock" class="btn btn_unblock">Unblock</div>
+                <div *ngIf="fan.is_blocked;else unblock" class="btn btn_unblock" (click)="unblock_user(fan)">Unblock</div>
                 <ng-template #unblock>
-                    <div class="btn btn_block">Block</div>
+                    <div class="btn btn_block" (click)="block_user(fan)">Block</div>
                 </ng-template>
                 
             </div>

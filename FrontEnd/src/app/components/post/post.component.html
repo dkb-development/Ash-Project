@@ -18,7 +18,7 @@
             <div *ngIf="!is_logged_in;else logedInNav" class="post_media">
                 <div class="no_access_media">
                     <img src="../../../../assets/icons/lock.svg">
-                    <div class="btn btn-danger">LogIn/SignUp</div>
+                    <div class="btn btn-danger" data-toggle="modal" data-target="#loginModal">LogIn/SignUp</div>
                 </div>
                 <img src="../../../../assets/images/post_2.jpg">
             </div>
@@ -59,10 +59,12 @@
                     <div class="post_publish_date">{{dt}}</div>
                 </div>
             </div>
-            <div class="post_views_container">
+            <!-- Views -->
+            <!-- <div class="post_views_container">
                 <img src="../../../../assets/icons/view.svg">
                 <div class="post_views_count">67k Views</div>
-            </div>
+            </div> -->
+            
             <!-- <div *ngIf="expression" class="post_likes_container" (click)="likeOrDislikePost(post_details)">
                 <img src="../../../../assets/icons/heart_blank.svg">
                 <div class="post_likes_count">67k Likes</div>
@@ -78,7 +80,8 @@
                     <div class="post_likes_container" (click)="likeOrDislikePost(post_details)">
                         <img *ngIf="post_details.is_liked" src="../../../../assets/icons/heart.svg">
                         <img *ngIf="!post_details.is_liked" src="../../../../assets/icons/heart_blank.svg">
-                        <div class="post_likes_count">{{post_details.post_info.no_of_likes}} Likes</div>
+                        <div class="post_likes_count">{{post_details.post_info.no_of_likes}}
+                             Likes</div>
                     </div>
                 </div>
                 <ng-template #logged_in_unaccessible_like_container>

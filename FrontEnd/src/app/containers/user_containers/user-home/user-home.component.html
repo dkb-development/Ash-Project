@@ -163,93 +163,7 @@
    
 
 
-  <div style="position: absolute;" class="modal fade login" id="loginModal" tabindex="-1">
-        <div class="modal-dialog login animated">
-            <div class="modal-content">
-              <div class="modal-header">
-                  <h4 class="modal-title">Login with</h4>
-                  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                  
-              </div>
-              <div class="modal-body">
-                  <div class="box">
-                      <div class="content">
-                          <div class="social">
-                              <a class="circle github" href="#">
-                                  <i class="fa fa-github fa-fw"></i>
-                              </a>
-                              <a id="google_login" class="circle google" href="#">
-                                  <i class="fa fa-google-plus fa-fw"></i>
-                              </a>
-                              <a id="facebook_login" class="circle facebook" href="#">
-                                  <i class="fa fa-facebook fa-fw"></i>
-                              </a>
-                          </div>
-                          <div class="division">
-                              <div class="line l"></div>
-                                <span>or</span>
-                              <div class="line r"></div>
-                          </div>
-                          <div class="error"></div>
-                          <div style="color: red;margin: 0;" class="alert" *ngIf="serverErrorMessages">
-                              {{serverErrorMessages}}
-                            </div>
-                          <div class="form loginBox">
-                              <form [formGroup]="logInForm" (ngSubmit)="logInForm.valid && onSubmitLogIn(logInForm)" method="" action="" accept-charset="UTF-8">
-                                  <small style="color: red;" *ngIf="logInForm.get('email').invalid && (logInForm.get('email').dirty || logInForm.get('email').touched)">
-                                      Please provide a valid email address.
-                                  </small>
-                                  <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
-                                  <small style="color: red;" *ngIf="logInForm.get('password').invalid && (logInForm.get('password').dirty || logInForm.get('password').touched)">
-                                      Password is Required.
-                                  </small>
-                                  <input id="password" class="form-control" type="password" placeholder="Password" name="password" formControlName="password">
-                                  <input class="btn btn-default btn-login" type="submit" value="Log In" [disabled]="logInForm.invalid"> 
-                                  <!-- <input class="btn btn-default btn-login" type="submit" value="Log In" (click)="loginAjax()"> -->
-                              </form>
-                          </div>
-                      </div> 
-                  </div>
-                  <div class="box">
-                      <div class="content registerBox" style="display:none;">
-                      <div class="form">
-                          <form [formGroup]="signUpForm" (ngSubmit)="signUpForm.valid && onSubmitSignUp(signUpForm)" method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
-                              <small style="color: red;" *ngIf="signUpForm.get('username').invalid && (signUpForm.get('username').dirty || signUpForm.get('username').touched)">
-                                  Please provide a valid Username.
-                              </small>
-                              <input id="username" class="form-control" type="text" placeholder="Username" formControlName="username">
-                              <small style="color: red;" *ngIf="signUpForm.get('email').invalid && (signUpForm.get('email').dirty || signUpForm.get('email').touched)">
-                                  Please provide a valid email address.
-                              </small>
-                              <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
-                              <small style="color: red;" *ngIf="signUpForm.get('password').invalid && (signUpForm.get('password').dirty || signUpForm.get('password').touched)">
-                                  Password is Required.
-                              </small>
-                              <input id="password" class="form-control" type="password" placeholder="Password" formControlName="password">
-                              <small style="color: red;" *ngIf="(signUpForm.get('password_confirmation').value != signUpForm.get('password').value) && (signUpForm.get('password_confirmation').dirty || signUpForm.get('password_confirmation').touched)">
-                                  Password doesn't match.
-                              </small>
-                              <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" formControlName="password_confirmation">
-                              <input class="btn btn-default btn-register" type="submit" value="Sign Up" name="commit" [disabled]="signUpForm.invalid || (signUpForm.get('password_confirmation').value != signUpForm.get('password').value)">
-                          </form>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              <div class="modal-footer">
-                  <div class="forgot login-footer">
-                      <span>Looking to
-                          <span style="color: aqua;cursor: pointer;" (click)="showRegisterForm()">create an account</span>
-                      ?</span>
-                  </div>
-                  <div class="forgot register-footer" style="display:none">
-                      <span>Already have an account?</span>
-                      <span style="color: aqua;cursor: pointer;" (click)="showLoginForm()">Login</span>
-                  </div>
-              </div>
-            </div>
-        </div>
-  </div>
+  
    <!-- /.navbar -->
  
    <!-- Main Sidebar Container -->
@@ -274,25 +188,25 @@
          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
            <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
-               <li class="nav-item">
+               <li class="nav-item" (click)="show_posts_of_type('')">
                  <a [class.active]="selected===1" (click)="[set_active(1),set_filter_type('')]"  class="nav-link">
                    <img src="../../../../assets/icons/blog.svg">
                    <div>All Posts</div>
                  </a>
                </li>
-               <li class="nav-item">
+               <li class="nav-item" (click)="show_posts_of_type('image')">
                  <a [class.active]="selected===3" (click)="[set_active(3),set_filter_type('image')]" class="nav-link" >
                    <img src="../../../../assets/icons/image-gallery.svg">
                    <div>Images</div>
                  </a>
                </li>
-               <li class="nav-item">
+               <li class="nav-item" (click)="show_posts_of_type('video')">
                  <a [class.active]="selected===2" (click)="[set_active(2),set_filter_type('video')]" class="nav-link" >
                    <img src="../../../../assets/icons/video-camera.svg">
                    <div>Video</div>
                  </a>
                </li>
-               <li class="nav-item">
+               <li class="nav-item" (click)="show_posts_of_type('audio')">
                  <a [class.active]="selected===4" (click)="[set_active(4),set_filter_type('audio')]" class="nav-link" >
                    <img src="../../../../assets/icons/audio.svg" fill="white">
                    <div>Audio</div>
@@ -326,8 +240,7 @@
         </div>
     </div>
     <app-user-chat></app-user-chat>
-    
-    <div *ngFor="let post of posts">
+    <div *ngFor="let post of posts | postType:post_media_type">
       <app-post [post_details]="post" (newTipPostEvent)="openTipModal($event)"></app-post>
     </div>
 
@@ -389,6 +302,95 @@
 </div>
 <!-- Modals -->
 <app-modals [tip_post_details]="tip_to_unlock_post"></app-modals>
+
+<!-- LogIn/SIgnUp Modal -->
+<div style="position: absolute;" class="modal fade login" id="loginModal" tabindex="-1">
+  <div class="modal-dialog login animated">
+      <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="modal-title">Login with</h4>
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            
+        </div>
+        <div class="modal-body">
+            <div class="box">
+                <div class="content">
+                    <div class="social">
+                        <a class="circle github" href="#">
+                            <i class="fa fa-github fa-fw"></i>
+                        </a>
+                        <a id="google_login" class="circle google" href="#">
+                            <i class="fa fa-google-plus fa-fw"></i>
+                        </a>
+                        <a id="facebook_login" class="circle facebook" href="#">
+                            <i class="fa fa-facebook fa-fw"></i>
+                        </a>
+                    </div>
+                    <div class="division">
+                        <div class="line l"></div>
+                          <span>or</span>
+                        <div class="line r"></div>
+                    </div>
+                    <div class="error"></div>
+                    <div style="color: red;margin: 0;" class="alert" *ngIf="serverErrorMessages">
+                        {{serverErrorMessages}}
+                      </div>
+                    <div class="form loginBox">
+                        <form [formGroup]="logInForm" (ngSubmit)="logInForm.valid && onSubmitLogIn(logInForm)" method="" action="" accept-charset="UTF-8">
+                            <small style="color: red;" *ngIf="logInForm.get('email').invalid && (logInForm.get('email').dirty || logInForm.get('email').touched)">
+                                Please provide a valid email address.
+                            </small>
+                            <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
+                            <small style="color: red;" *ngIf="logInForm.get('password').invalid && (logInForm.get('password').dirty || logInForm.get('password').touched)">
+                                Password is Required.
+                            </small>
+                            <input id="password" class="form-control" type="password" placeholder="Password" name="password" formControlName="password">
+                            <input class="btn btn-default btn-login" type="submit" value="Log In" [disabled]="logInForm.invalid"> 
+                            <!-- <input class="btn btn-default btn-login" type="submit" value="Log In" (click)="loginAjax()"> -->
+                        </form>
+                    </div>
+                </div> 
+            </div>
+            <div class="box">
+                <div class="content registerBox" style="display:none;">
+                <div class="form">
+                    <form [formGroup]="signUpForm" (ngSubmit)="signUpForm.valid && onSubmitSignUp(signUpForm)" method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
+                        <small style="color: red;" *ngIf="signUpForm.get('username').invalid && (signUpForm.get('username').dirty || signUpForm.get('username').touched)">
+                            Please provide a valid Username.
+                        </small>
+                        <input id="username" class="form-control" type="text" placeholder="Username" formControlName="username">
+                        <small style="color: red;" *ngIf="signUpForm.get('email').invalid && (signUpForm.get('email').dirty || signUpForm.get('email').touched)">
+                            Please provide a valid email address.
+                        </small>
+                        <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
+                        <small style="color: red;" *ngIf="signUpForm.get('password').invalid && (signUpForm.get('password').dirty || signUpForm.get('password').touched)">
+                            Password is Required.
+                        </small>
+                        <input id="password" class="form-control" type="password" placeholder="Password" formControlName="password">
+                        <small style="color: red;" *ngIf="(signUpForm.get('password_confirmation').value != signUpForm.get('password').value) && (signUpForm.get('password_confirmation').dirty || signUpForm.get('password_confirmation').touched)">
+                            Password doesn't match.
+                        </small>
+                        <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" formControlName="password_confirmation">
+                        <input class="btn btn-default btn-register" type="submit" value="Sign Up" name="commit" [disabled]="signUpForm.invalid || (signUpForm.get('password_confirmation').value != signUpForm.get('password').value)">
+                    </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="forgot login-footer">
+                <span>Looking to
+                    <span style="color: aqua;cursor: pointer;" (click)="showRegisterForm()">create an account</span>
+                ?</span>
+            </div>
+            <div class="forgot register-footer" style="display:none">
+                <span>Already have an account?</span>
+                <span style="color: aqua;cursor: pointer;" (click)="showLoginForm()">Login</span>
+            </div>
+        </div>
+      </div>
+  </div>
+</div>
 
 <!-- Subscribe Modal -->
 <app-subscribe-modal></app-subscribe-modal>
