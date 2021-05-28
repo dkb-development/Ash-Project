@@ -1,11 +1,19 @@
 const app = require('express')();
+// Cors
+var cors = require('cors');
+app.use(cors());
+
+
 const http = require('http').createServer(app);
 http.listen(8900,()=>{console.log("Socket listening on port 8900")});
-const io = require('socket.io')(http, {
-  cors: {
-      origins: ['*']
+const io = require('socket.io')(http, 
+  {
+    cors: 
+    {
+        origin: "*",
+    },
   }
-});
+);
 // const io = require("socket.io")(8900, {
 //   cors: {
 //     origin: "http://localhost:4200",
