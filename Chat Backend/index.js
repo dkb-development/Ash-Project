@@ -4,13 +4,15 @@ var cors = require('cors');
 app.use(cors());
 
 
-const http = require('http').createServer(app);
-http.listen(8900,()=>{console.log("Socket listening on port 8900")});
-const io = require('socket.io')(http, 
+const server = app.listen(8900);
+const io = require('socket.io')(server, 
   {
     cors: 
     {
         origin: "*",
+        methods: ["GET", "POST"],
+        allowedHeaders: ["my-custom-header"],
+        credentials: true
     },
   }
 );
