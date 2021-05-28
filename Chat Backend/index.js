@@ -5,17 +5,36 @@ app.use(cors());
 
 
 const server = app.listen(8900);
-const io = require('socket.io')(server, 
-  {
-    cors: 
+const io = require('socket.io')(server,{
+  cors: 
     {
         origin: "*",
         methods: ["GET", "POST"],
         allowedHeaders: ["my-custom-header"],
         credentials: true
     },
+  }, {
+  handlePreflightRequest: (req, res) => {
+      const headers = {
+          "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          "Access-Control-Allow-Origin": "*", //or the specific origin you want to give access to,
+          "Access-Control-Allow-Credentials": true
+      };
+      res.writeHead(200, headers);
+      res.end();
   }
-);
+});
+// const io = require('socket.io')(server, 
+//   {
+//     cors: 
+//     {
+//         origin: "*",
+//         methods: ["GET", "POST"],
+//         allowedHeaders: ["my-custom-header"],
+//         credentials: true
+//     },
+//   }
+// );
 // const io = require("socket.io")(8900, {
 //   cors: {
 //     origin: "http://localhost:4200",
