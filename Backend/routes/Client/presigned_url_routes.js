@@ -33,7 +33,7 @@ router.route('/generatepresignedurl')
             }
             else {
                 fileurls[0] = url;
-                res.json({ success: true, message: 'AWS SDK S3 Pre- signed urls generated successfully', urls: fileurls });
+                res.json({ success: true, message: 'AWS SDK S3 Pre-signed urls generated successfully', urls: fileurls });
             }
         });
     })

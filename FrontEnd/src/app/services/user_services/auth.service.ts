@@ -2,12 +2,17 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 
+import { CurrentUserStateService } from '../State Services/current-user-state.service';
+
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   public user: User = new User();
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient,
+    private CurrentUserStateService: CurrentUserStateService
+    ) { }
 
   setUser(){
     if(this.getToken()){
@@ -118,6 +123,24 @@ export class AuthService {
     var res = this.http.get(url,this.authHeaders);
     
     return res; 
+  }
+
+  changeUsername(new_username: any){
+    var current_user = this.CurrentUserStateService.getCurrentUser();
+    var updated_user = {
+      ...current_user,
+      "new_username": new_username
+    }
+    return this.http.post(environment.apiBaseUrl+'user/change_username',updated_user,this.authHeaders);
+  }
+
+  updateProfilePicture(profile_picture_url: any){
+    var current_user = this.CurrentUserStateService.getCurrentUser();
+    var updated_user = {
+      ...current_user,
+      "new_profile_picture": profile_picture_url
+    }
+    return this.http.post(environment.apiBaseUrl+'user/update_profile_picture',updated_user,this.authHeaders);
   }
 }
 interface Response {

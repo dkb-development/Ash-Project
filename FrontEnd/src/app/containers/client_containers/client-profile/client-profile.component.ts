@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 
+// Services
+import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service'
+
 @Component({
   selector: 'app-client-profile',
   templateUrl: './client-profile.component.html',
@@ -7,7 +10,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ClientProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    public CurrentUserStateService: CurrentUserStateService
+  ) { }
 
   ngOnInit(): void {
   }

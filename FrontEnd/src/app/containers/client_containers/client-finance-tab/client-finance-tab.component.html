@@ -1,1 +1,133 @@
-<p>client-finance-tab works!</p>
+<div class="finance_tab_container">
+    <div class="client_earning_card_container">
+        <div class="client_earning_card">
+                <div class="available_balance_container">
+                    <div>Available Balance : </div>
+                    <div>$24.67</div>
+                </div>
+                <div class="withdraw_btn btn mt-4">
+                    <img src="../../../../assets/icons/withdraw.svg">
+                    Withdraw
+                </div>
+        </div>
+    </div>
+    <div class="client_transcation_history_table_container">
+        <div class="client_transaction_card">
+            <div class="table_heading">Transaction History</div>
+            <div class="client_transaction_history_table">
+                <table class="table table-striped table-dark">
+                    <thead>
+                      <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Remark</th>
+                        <th scope="col">Amount</th>
+                        <th scope="col" style="font-size: small;">Balance Before Transaction</th>
+                        <th scope="col" style="font-size: small;">Balance After Transaction</th>
+                        <th scope="col">Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">1</th>
+                        <td class="date_of_transaction">12 Apr 2021
+                            18:31</td>
+                        <td class="transaction_remark">April’s First Withdrawal</td>
+                        <td>$100</td>
+                        <td>$568.9</td>
+                        <td>$468.9</td>
+                        <td class="transaction_status_success">Success</td>
+                        
+                      </tr>
+                      <tr>
+                        <th scope="row">2</th>
+                        <td class="date_of_transaction">12 Apr 2021
+                            18:31</td>
+                        <td class="transaction_remark">April’s First Withdrawal</td>
+                        <td>$100</td>
+                        <td>$568.9</td>
+                        <td>$468.9</td>
+                        <td class="transaction_status_success">Success</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">3</th>
+                        <td class="date_of_transaction">12 Apr 2021
+                            18:31</td>
+                        <td class="transaction_remark">April’s First Withdrawal</td>
+                        <td>$100</td>
+                        <td>$568.9</td>
+                        <td>$568.9</td>
+                        <td class="transaction_status_Failure">Failed</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">4</th>
+                        <td class="date_of_transaction">12 Apr 2021
+                            18:31</td>
+                        <td class="transaction_remark">April’s First Withdrawal</td>
+                        <td>$100</td>
+                        <td>$568.9</td>
+                        <td>$468.9</td>
+                        <td class="transaction_status_success">Success</td>
+                        
+                      </tr>
+                      <tr>
+                        <th scope="row">5</th>
+                        <td class="date_of_transaction">12 Apr 2021
+                            18:31</td>
+                        <td class="transaction_remark">April’s First Withdrawal</td>
+                        <td>$100</td>
+                        <td>$568.9</td>
+                        <td>$568.9</td>
+                        <td class="transaction_status_Failure">Failed</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">6</th>
+                        <td class="date_of_transaction">12 Apr 2021
+                            18:31</td>
+                        <td class="transaction_remark">April’s First Withdrawal</td>
+                        <td>$100</td>
+                        <td>$568.9</td>
+                        <td>$468.9</td>
+                        <td class="transaction_status_success">Success</td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div #containerRef class="client_earning_graph_analysis">
+        <nav>
+            <ul id="time_line_menu">
+                <li class="active_timeline_btn" (click)="setTimeLineAllTime()">
+                    <div class="btn">All Time</div>
+                </li>
+                <li (click)="setTimeLineThisYear()">
+                    <div class="btn">This Year</div>
+                </li>
+                <li (click)="setTimeLineThisMonth()">
+                    <div class="btn">This month</div>
+                </li>
+                <li (click)="setTimeLineToday()">
+                    <div class="btn">Today</div>
+                </li>
+            </ul>
+        </nav>
+        <ngx-charts-area-chart-stacked style="max-width: 100%;"
+            [view]="[containerRef.offsetWidth, 300]"
+            [scheme]="colorScheme"
+            [legend]="legend"
+            [gradient]="gradients"
+            [showXAxisLabel]="showXAxisLabel"
+            [showYAxisLabel]="showYAxisLabel"
+            [xAxis]="xAxis"
+            [yAxis]="yAxis"
+            [xAxisLabel]="xAxisLabel"
+            [yAxisLabel]="yAxisLabel"
+            [timeline]="timeline"
+            [results]="multi"
+            (select)="onSelect($event)">
+        </ngx-charts-area-chart-stacked>
+    </div>
+</div>
+
+

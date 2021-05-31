@@ -12,6 +12,9 @@ router.post('/signup', user_auth.register); // "/user/signup"
 router.post('/login', user_auth.authenticate); // "/user/login"
 router.get('/userProfile',user_auth.verifyJwtToken, user_auth.userProfile);
 
+router.post('/change_username',user_auth.verifyJwtToken,user_auth.change_username)
+router.post('/update_profile_picture',user_auth.verifyJwtToken,user_auth.change_profile_picture)
+
 // router.get("/",(req,res)=>{
 //     console.log(req.headers);
 //     res.send("Hello World from backend");

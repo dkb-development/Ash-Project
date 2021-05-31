@@ -3,6 +3,9 @@ import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/t
 import { AuthService } from '../../../services/user_services/auth.service';
 import { Router } from "@angular/router";
 
+// Services
+import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service';
+
 @Component({
   selector: 'app-client-dashboard',
   templateUrl: './client-dashboard.component.html',
@@ -13,6 +16,7 @@ export class ClientDashboardComponent implements OnInit {
   constructor(
     private AuthService: AuthService,
     private Router: Router,
+    public CurrentUserStateService: CurrentUserStateService,
   ) { }
   selected:number = 1;
   is_logged_in = false;
@@ -23,6 +27,15 @@ export class ClientDashboardComponent implements OnInit {
       this.user.username = this.AuthService.getUser().username;
       this.Router.navigateByUrl('/client');
       this.user.username = this.AuthService.get_username();
+      var client = this.AuthService.getUserFromId(this.AuthService.getUser()._id).subscribe(
+        (user: any)=>{
+          this.CurrentUserStateService.setCurrentUser(user);
+          console.log(user);
+        },
+        (err: any)=>{
+          console.log(err)
+        }
+      )
     }
     else{
       // this.Router.navigateByUrl('../');

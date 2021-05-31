@@ -1,0 +1,125 @@
+.finance_tab_container{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+.client_earning_card_container{
+    width: 50%;
+    margin-top: 10px;
+}
+.client_transcation_history_table_container{
+    width: 50%;
+    margin-top: 10px;
+}
+.client_earning_card{
+    
+    width: 95%;
+    margin: auto;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #EF233C;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+}
+.available_balance_container{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: xx-large;
+    font-weight: 500;
+}
+.withdraw_btn{
+    background-color: #A8DADC;
+    color: #14213D;
+    font-weight: 600;
+}
+.withdraw_btn > img{
+    max-width: 2rem;
+}
+
+
+.btn{
+    box-shadow: 2px 4px 5px gray;
+    font-weight: 600;
+}
+.btn:hover{
+    box-shadow: 4px 8px 5px gray;
+    transform: translate(-1px,-1px);
+}
+
+.client_transaction_card{
+    width: 95%;
+    max-height: 50vh;
+    margin: auto;
+    border-radius: 10px;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+.table_heading{
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    background-color: #457B9D;
+    color: #F1FAEE;
+    font-weight: 600;
+    font-size: x-large;
+}
+.client_transaction_history_table{
+    max-height: 90%;
+}
+.date_of_transaction{
+    font-size: small;
+}
+.transaction_remark{
+    font-size: small;
+}
+.transaction_status_success{
+    color: #32CD32;
+    font-weight: 600;
+}
+.transaction_status_Failure{
+    color: red;
+    font-weight: 600;
+}
+
+.client_earning_graph_analysis{
+    width: 50%;
+    margin-top: 0;
+}
+ul,li{
+    list-style: none;
+}
+ul{
+    display: flex;
+    justify-content: space-around;
+}
+#time_line_menu li .btn{
+    color: inherit;
+}
+.active_timeline_btn{
+    background-color: #007BFF;
+    color: white;
+}
+@media only screen and (max-width: 760px){
+    .finance_tab_container{
+        flex-direction: column;
+    }
+    .client_earning_card_container{
+        width: 95%;
+    }
+    .client_transcation_history_table_container{
+        width: 95%;
+    }
+    .client_earning_graph_analysis{
+        width: 95%;
+        margin-top: 20px;
+    }
+}

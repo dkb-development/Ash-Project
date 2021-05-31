@@ -187,15 +187,16 @@
       <li *ngIf="is_logged_in" class="nav-item dropdown">
         <a class="nav-link navbar_profile" data-toggle="dropdown" href="#">
           <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
-          <i *ngIf="!user.image" class="fas fa-user-circle fa-2x"></i>
-          <div>{{user.username}}</div>
+          <i *ngIf="!(CurrentUserStateService.current_user$ | async).profile_picture" class="fas fa-user-circle fa-2x"></i>
+          <img class="rounded-circle" *ngIf="(CurrentUserStateService.current_user$ | async).profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}}>
+          <div>{{(CurrentUserStateService.current_user$ | async).username}}</div>
           <!-- <i class="far fa-bell"></i> -->
           <!-- <span class="badge badge-warning navbar-badge">15</span> -->
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Full Name</span>
+          <span class="dropdown-item dropdown-header">{{(CurrentUserStateService.current_user$ | async).username}}</span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item navbar_profile_dropdown">
+          <a [routerLink]="[ '/client/profile' ]" href="#" class="dropdown-item navbar_profile_dropdown">
             <!-- <i class="fas fa-envelope mr-2"></i> 4 new messages
             <span class="float-right text-muted text-sm">3 mins</span> -->
             <i class="fas fa-users-cog"></i>

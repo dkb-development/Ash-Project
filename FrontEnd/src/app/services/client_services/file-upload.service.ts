@@ -20,6 +20,11 @@ export class FileUploadService {
     return this.http.get<any>(environment.apiBaseUrl + 'generatepresignedurl', { params: params, headers: getheaders });
   }
 
+  getPresignedUrlClientProfilePicture(logNamespace: any){
+    let getheaders = new HttpHeaders().set('Accept', 'application/json');
+    let params = new HttpParams().set('fileName', "Client Profile/"+logNamespace).set('fileType', 'image');
+    return this.http.get<any>(environment.apiBaseUrl + 'generatepresignedurl', { params: params, headers: getheaders });
+  }
   uploadfileAWSS3(fileuploadurl: any, contenttype: any, file: any) { 
  
     const headers = new HttpHeaders({ 'Content-Type': contenttype });
@@ -46,4 +51,6 @@ export class FileUploadService {
     }
     
   }
+
+  
 }

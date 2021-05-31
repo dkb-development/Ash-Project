@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from "@angular/forms";
 import { ReactiveFormsModule } from '@angular/forms';
 import { AppRoutingModule } from './app-routing.module';
@@ -15,6 +16,7 @@ import { FilterPostsPipe } from './containers/user_containers/user-home/filter_p
 
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider } from 'angularx-social-login';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import {TimeAgoPipe} from 'time-ago-pipe';
 
@@ -48,6 +50,10 @@ import { UserChatComponent } from './components/message/user-chat/user-chat.comp
 import { PostTypePipe } from './pipes/post-type.pipe';
 import { ShortNumberPipe } from './pipes/short-number.pipe';
 import { ClientFanDetailsService } from './services/State Services/client-fan-details.service';
+import { PostsStateService } from './services/State Services/posts-state.service';
+import { ClientChangeProfilePictureModalComponent } from './components/modals/client-change-profile-picture-modal/client-change-profile-picture-modal.component';
+import { ClientChangeUsernameModalComponent } from './components/modals/client-change-username-modal/client-change-username-modal.component';
+import { CurrentUserStateService } from './services/State Services/current-user-state.service';
 
 
 
@@ -76,6 +82,8 @@ import { ClientFanDetailsService } from './services/State Services/client-fan-de
     UserChatComponent,
     PostTypePipe,
     ShortNumberPipe,
+    ClientChangeProfilePictureModalComponent,
+    ClientChangeUsernameModalComponent,
     // TimeAgoPipe
   ],
   imports: [
@@ -87,6 +95,8 @@ import { ClientFanDetailsService } from './services/State Services/client-fan-de
     NgxDropzoneModule,
     SocialLoginModule,
     RouterModule,
+    NgxChartsModule,
+    BrowserAnimationsModule,
     // RouterModule.forRoot(appRoutes),
     // SocketIoModule.forRoot(socket_io_config)
   ],
@@ -99,6 +109,8 @@ import { ClientFanDetailsService } from './services/State Services/client-fan-de
               MessageService,
               ChatStateService,
               ClientFanDetailsService,
+              PostsStateService,
+              CurrentUserStateService,
               {
                 provide: 'SocialAuthServiceConfig',
                 useValue: {

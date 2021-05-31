@@ -28,7 +28,7 @@ export class UserChatComponent implements OnInit {
   socket: any;
   backend_chat_url = environment.chatSocketUrl;
   constructor(
-    private AuthService: AuthService,
+    public AuthService: AuthService,
     public ChatStateService: ChatStateService,
     private MessageService: MessageService
   ) {   }

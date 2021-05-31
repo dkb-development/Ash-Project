@@ -5,6 +5,9 @@ import { UserPostService } from '../../services/user_services/user-post.service'
 import Swal from 'sweetalert2';
 import { UserPaymentService } from '../../services/user_services/user-payment.service';
 
+// Services
+import { PostsStateService } from '../../services/State Services/posts-state.service';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -20,7 +23,8 @@ export class PostComponent implements OnInit {
   constructor(
     private AuthService: AuthService,
     private UserPostService: UserPostService,
-    private UserPaymentService: UserPaymentService
+    private UserPaymentService: UserPaymentService,
+    private PostsStateService: PostsStateService 
   ) { }
 
   dt:any;
@@ -52,9 +56,15 @@ export class PostComponent implements OnInit {
       (res: any)=>{
         this.post_details.is_liked = res.is_liked
         if(res.is_liked){
-          
+          this.post_details.post_info.no_of_likes += 1;
         }
-        console.log(res);
+        else{
+          this.post_details.post_info.no_of_likes -= 1;
+        }
+
+        // Update Post State
+        this.PostsStateService.updatePost(this.post_details);
+        console.log(this.post_details);
       },
       (err: any)=>{
         console.log(err);

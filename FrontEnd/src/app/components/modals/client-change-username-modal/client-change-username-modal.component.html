@@ -1,0 +1,56 @@
+<!-- Client Change Username Modal -->
+<div class="modal fade" id="clientChangeUsernameModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Change Username</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="CurrentUserStateService.current_user$ | async">
+          <div class="form-group row">
+            <label for="inputPassword3" class="col-sm-4 col-form-label">Old Username : </label>
+            <div class="col-sm-8 d-flex justify-content-start align-items-center">
+              <div class="old_username_value">{{(CurrentUserStateService.current_user$ | async).username}}</div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="client_new_username" class="col-sm-4 col-form-label">New Username : </label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [class.is-invalid]="new_username.value == (CurrentUserStateService.current_user$ | async).username || server_error" id="client_new_username" placeholder="New Username" #new_username = "ngModel" name="new_username" ngModel>
+              <div class="invalid-feedback" *ngIf="new_username.value == (CurrentUserStateService.current_user$ | async).username">
+                New Username must be different from Old Username
+              </div>
+              <div class="small" class="invalid-feedback" *ngIf="server_error">{{server_error}}</div>
+            </div>
+          </div>
+
+          <div class="form-group row">
+            <label for="confirm_client_new_username" class="col-sm-4 col-form-label">Confirm New Username : </label>
+            <div class="col-sm-8">
+              <input type="text" class="form-control" [class.is-invalid]="confirm_new_username.value != new_username.value && (confirm_new_username.dirty || confirm_new_username.touched)" id="confirm_client_new_username" placeholder="Confirm New Username"  #confirm_new_username = "ngModel" name="confirm_new_username" ngModel>
+              <div class="invalid-feedback" *ngIf="confirm_new_username.value != new_username.value">
+                Confirm Username Doesn't match with New Username
+              </div>
+            </div>
+          </div>
+
+          
+
+          <div class="update_username_btn btn" (click)="changeUsername(confirm_new_username.value)" [class.d-none]="confirm_new_username.value=='' || confirm_new_username.value != new_username.value || new_username.value == (CurrentUserStateService.current_user$ | async).username || !(new_username.touched || new_username.dirty) || !(confirm_new_username.touched || confirm_new_username.dirty)">
+            <span *ngIf="update_username_spinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span *ngIf="update_username_spinner">Updating Username ...</span>
+            <span *ngIf="!update_username_spinner">Update Username</span>
+          </div>
+
+          
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+</div>

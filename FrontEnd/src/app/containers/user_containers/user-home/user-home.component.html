@@ -240,7 +240,7 @@
         </div>
     </div>
     <app-user-chat></app-user-chat>
-    <div *ngFor="let post of posts | postType:post_media_type">
+    <div *ngFor="let post of PostsStateService.posts_list$ | async | postType:post_media_type">
       <app-post [post_details]="post" (newTipPostEvent)="openTipModal($event)"></app-post>
     </div>
 

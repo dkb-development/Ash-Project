@@ -1,0 +1,13 @@
+.old_username_value{
+    font-size: large;
+    font-weight: 600;
+}
+.update_username_btn{
+    background-color: #007BFF;
+    font-size: large;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

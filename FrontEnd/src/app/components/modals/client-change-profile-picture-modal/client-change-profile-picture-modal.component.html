@@ -1,0 +1,31 @@
+<!-- Client Change Profile Picture Modal -->
+<div class="modal fade" id="clientChangeProfilePictureModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Change Profile Picture</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="custom-file" >
+          <input type="file" class="custom-file-input" id="inputGroupFile02" accept="image/png, image/gif, image/jpeg" #new_profile_picture='ngModel' ngModel (change)="addFile($event)"/>
+          <label class="custom-file-label" for="inputGroupFile02" style="cursor: pointer;">Choose file</label>
+      </div>
+      <div class="input-group-append mt-2">
+          <button class="btn btn-primary" (click)="uploadNewProfilePicture(new_profile_picture.value)">
+            <span *ngIf="update_profile_picture_spinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+            <span *ngIf="update_profile_picture_spinner">Uploading ...</span>
+            <span *ngIf="!update_profile_picture_spinner">Upload</span>
+            
+          </button>
+      </div>
+      </div>
+
+      <div class="modal-footer justify-content-between">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

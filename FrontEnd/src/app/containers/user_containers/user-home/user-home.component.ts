@@ -1,8 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { AuthService } from '../../../services/user_services/auth.service';
 import { Router } from "@angular/router";
+
+// Services
 import { FetchPostsService } from '../../../services/user_services/fetch-posts.service';
+import { AuthService } from '../../../services/user_services/auth.service';
+import { PostsStateService } from '../../../services/State Services/posts-state.service'
 
 @Component({
   selector: 'app-user-home',
@@ -15,7 +18,8 @@ export class UserHomeComponent implements OnInit {
     private AuthService: AuthService,
     private fb: FormBuilder,
     private Router: Router,
-    private FetchPostsService: FetchPostsService
+    private FetchPostsService: FetchPostsService,
+    public PostsStateService: PostsStateService
     ) { }
 
   selected:number = 1;
@@ -60,6 +64,10 @@ export class UserHomeComponent implements OnInit {
             }
             this.posts.push(post_details);
           })
+
+          // Set Posts State
+          this.PostsStateService.setPostsList(this.posts);
+
           // this.posts.forEach((post:any)=>{
           //   console.log("Post media Url : " ,post.media);
           // })
@@ -83,6 +91,10 @@ export class UserHomeComponent implements OnInit {
             this.posts.push(post);
           })
           console.log(this.posts);
+
+          // Set Posts State
+          this.PostsStateService.setPostsList(this.posts);
+          
           // this.posts.forEach((post:any)=>{
           //   console.log("Post media Url : " ,post.media);
           // })

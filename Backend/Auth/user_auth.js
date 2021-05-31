@@ -78,7 +78,115 @@ module.exports.userProfile = (req, res, next) =>{
     // );
 }
 
+module.exports.change_username = async (req,res)=>{
+    var token = this.getTokenFromReq(req);
+    var user_id = this.getUserFromToken(token);
+    if(user_id == req.body._id){
+        var existing_user = await User.findOne({
+            _id: req.body._id
+        },(err,usr)=>{
+            if(err){
+                return res.status(500).json({
+                    "success": false,
+                    "Error": err
+                });
+            }
+            // else{
+            //     console.log(usr);
+            //     usr.password = null
+            //     return res.status(200).json(usr);
+            // }
+        });
+        if(existing_user){
+            existing_user.username = req.body.new_username;
+            try{
+                var updated_user = await  existing_user.save();
+                return res.status(200).json(updated_user);
+            }   
+            catch(err){
+                if(err.code == 11000){
+                    return res.status(422).json({
+                        "success": false,
+                        "err": "Username already selected. Choose another username"
+                    });
+                }else{
+                    return res.status(500).json(err);
+                }
+                
+            }
+            
+            
+        }
+        else{
+            return res.status(500).json({
+                "success": false,
+                "msg": "No user Found"
+            });
+        }
+        
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Authentication failed. Token doesn't match with the req.body"
+            }
+        )
+    }
+}
 
+module.exports.change_profile_picture = async (req,res)=>{
+    var token = this.getTokenFromReq(req);
+    var user_id = this.getUserFromToken(token);
+    if(user_id == req.body._id){
+        var existing_user = await User.findOne({
+            _id: req.body._id
+        },(err,usr)=>{
+            if(err){
+                return res.status(500).json({
+                    "success": false,
+                    "Error": err
+                });
+            }
+            // else{
+            //     console.log(usr);
+            //     usr.password = null
+            //     return res.status(200).json(usr);
+            // }
+        });
+        if(existing_user){
+            existing_user.profile_picture = req.body.new_profile_picture;
+            try{
+                var updated_user = await  existing_user.save();
+                return res.status(200).json(updated_user);
+            }   
+            catch(err){
+                return res.status(500).json({
+                    "success": false,
+                    "error": err
+                });
+                
+            }
+            
+            
+        }
+        else{
+            return res.status(500).json({
+                "success": false,
+                "msg": "No user Found"
+            });
+        }
+        
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Authentication failed. Token doesn't match with the req.body"
+            }
+        )
+    }
+}
 //Verify JWT 
 const jwt = require('jsonwebtoken');
 module.exports.verifyJwtToken = (req, res, next) => {
