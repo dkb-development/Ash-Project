@@ -96,22 +96,20 @@
         </div>
     </div>
     <div #containerRef class="client_earning_graph_analysis">
-        <nav>
-            <ul id="time_line_menu">
-                <li class="active_timeline_btn" (click)="setTimeLineAllTime()">
-                    <div class="btn">All Time</div>
-                </li>
-                <li (click)="setTimeLineThisYear()">
-                    <div class="btn">This Year</div>
-                </li>
-                <li (click)="setTimeLineThisMonth()">
-                    <div class="btn">This month</div>
-                </li>
-                <li (click)="setTimeLineToday()">
-                    <div class="btn">Today</div>
-                </li>
-            </ul>
-        </nav>
+        <ul id="time_line_menu">
+            <li class="active_timeline_btn" (click)="setTimeLineAllTime()">
+                <div class="btn">All Time</div>
+            </li>
+            <li (click)="setTimeLineThisYear()">
+                <div class="btn">This Year</div>
+            </li>
+            <li (click)="setTimeLineThisMonth()">
+                <div class="btn">This month</div>
+            </li>
+            <li (click)="setTimeLineToday()">
+                <div class="btn">Today</div>
+            </li>
+        </ul>
         <ngx-charts-area-chart-stacked style="max-width: 100%;"
             [view]="[containerRef.offsetWidth, 300]"
             [scheme]="colorScheme"

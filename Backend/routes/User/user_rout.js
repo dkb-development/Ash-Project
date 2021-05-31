@@ -12,8 +12,23 @@ router.post('/signup', user_auth.register); // "/user/signup"
 router.post('/login', user_auth.authenticate); // "/user/login"
 router.get('/userProfile',user_auth.verifyJwtToken, user_auth.userProfile);
 
-router.post('/change_username',user_auth.verifyJwtToken,user_auth.change_username)
-router.post('/update_profile_picture',user_auth.verifyJwtToken,user_auth.change_profile_picture)
+router.post('/change_username',user_auth.verifyJwtToken,user_auth.change_username);
+router.post('/update_profile_picture',user_auth.verifyJwtToken,user_auth.change_profile_picture);
+
+router.get('/get_client',async (req,res)=>{
+    try{
+        var client = await User.findOne({
+            "is_client": true
+        })
+        client.password = null;
+        return res.status(200).json(client);
+    }
+    catch(err){
+        return res.status(500).json(err);
+    }
+
+    
+})
 
 // router.get("/",(req,res)=>{
 //     console.log(req.headers);

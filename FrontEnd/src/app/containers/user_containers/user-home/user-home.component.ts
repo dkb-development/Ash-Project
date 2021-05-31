@@ -5,7 +5,8 @@ import { Router } from "@angular/router";
 // Services
 import { FetchPostsService } from '../../../services/user_services/fetch-posts.service';
 import { AuthService } from '../../../services/user_services/auth.service';
-import { PostsStateService } from '../../../services/State Services/posts-state.service'
+import { PostsStateService } from '../../../services/State Services/posts-state.service';
+import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service';
 
 @Component({
   selector: 'app-user-home',
@@ -19,7 +20,9 @@ export class UserHomeComponent implements OnInit {
     private fb: FormBuilder,
     private Router: Router,
     private FetchPostsService: FetchPostsService,
-    public PostsStateService: PostsStateService
+    public PostsStateService: PostsStateService,
+    public CurrentUserStateService: CurrentUserStateService,
+    
     ) { }
 
   selected:number = 1;
@@ -32,6 +35,17 @@ export class UserHomeComponent implements OnInit {
   post_container_spinner = true;
   tip_to_unlock_post: any = null;
   ngOnInit(): void {
+
+    // Get Client Info
+    this.AuthService.getClient().subscribe(
+      (res: any)=>{
+        this.CurrentUserStateService.setClient(res);
+        console.log(this.CurrentUserStateService.getClient());
+      },
+      (err: any)=>{
+        console.log(err);
+      }
+    )
     this.is_logged_in = this.AuthService.isLoggedIn();
     if(this.is_logged_in){
       // Get Username
@@ -40,6 +54,9 @@ export class UserHomeComponent implements OnInit {
       // Get Userprofile for routing
       this.AuthService.getUserProfile().subscribe(
         (res:Response)=>{
+          console.log(res);
+          var user = res.user_info;
+          this.CurrentUserStateService.setCurrentUser(user);
           if(res.user_info.is_client){
             this.Router.navigateByUrl('/client');
           }
@@ -122,9 +139,23 @@ export class UserHomeComponent implements OnInit {
       password_confirmation: ['', Validators.required],
     },
     );
+
+
+
+    // Height adjustment of parent element
+    
+    // var chile_height = $('.client_cover_image_container').height()
+    // console.log(chile_height)
+    // $('.client_cover_container').height(chile_height);
+    // console.log($('.client_cover_container').height())
+  }
+  openChat(){
+    console.log("Clicked")
+    $('.user_chat_float_container').toggleClass("user_chat_float_container_close")
   }
   openTipModal(event: any){
     // console.log(event);
+    
     this.tip_to_unlock_post = event;
   }
   // posts = [
@@ -158,7 +189,8 @@ export class UserHomeComponent implements OnInit {
     if(!form.valid){
       this.shakeModal();
     }
-    
+    form.value.email = form.value.email.toLowerCase();
+    console.log(form.value);
     this.AuthService.login(form.value).subscribe(
       (res: Response)=>{
         this.AuthService.setToken(res['token']);

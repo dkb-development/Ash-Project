@@ -1,0 +1,35 @@
+<!-- Tip To client Modal -->
+<div class="modal fade" id="tipClientModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Tip Me</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Your every Tip means a lot to me&hellip;</p>
+
+          <form #tipPostForm="ngForm" class="form-inline" style="display: flex;flex-direction: row;justify-content: space-around;align-items: center;">
+            <div class="form-group mb-2">
+              <h6 style="font-weight: 600;">Tip Amount : </h6>
+            </div>
+            <div class="form-group mx-sm-3 mb-2">
+              <label for="tip_amount" class="sr-only">$</label>
+              <input #tipPostAmount="ngModel" type="number" class="form-control" id="tip_amount" name="tip_amount" placeholder="Tip Amount" ngModel>
+              
+            </div>
+            <button type="submit" class="btn btn-primary mb-2" (click)="tipClient(tipPostAmount)" [class.disabled]="tipPostForm.value.tip_amount <= 0">Pay Tip</button>
+          </form>
+          <div *ngIf="tipPostForm.value.tip_amount <= 0 && tipPostAmount.touched">
+            <small style="color: red;">Enter a valid Postitive amount</small>
+        </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        </div>
+      </div>
+    </div>
+</div>

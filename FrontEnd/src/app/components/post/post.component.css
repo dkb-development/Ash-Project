@@ -58,16 +58,12 @@
 }
 .post_footer{
     width: 100%;
-    /* height: 10vh; */
     display: flex;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
-    padding: 10px 5px;
+    padding: 10px 10px;
 }
-.post_footer > div{
-    width: 20%;
-    /* padding: 0 10px; */
-}
+
 .post_date_container{
     display: flex;
     justify-content: flex-start;
@@ -76,14 +72,16 @@
     font-size: 0.5rem;
     font-weight: 600;
     color: #8D99AE;
+    padding: 5px 10px;
+    font-size: 1rem;
+    line-height: 100%;
 }
 .post_date_container img{
-    max-width: 1rem;
+    max-width: 1.5rem;
     margin-right: 5px;
 }
 .post_publish_date{
     color: black;
-    font-size: 0.6rem;
     font-weight: 600;
 }
 
@@ -93,9 +91,22 @@
     align-items: center;
     font-weight: 600;
     color: #8D99AE;
+    padding: 5px 10px;
 }
 .post_views_container img{
     max-width: 1rem;
+    margin-right: 5px;
+}
+.post_comments_container{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    font-weight: 600;
+    color: #8D99AE;
+    padding: 5px 10px;
+}
+.post_comments_container img{
+    max-width: 2rem;
     margin-right: 5px;
 }
 .post_likes_container{
@@ -105,9 +116,10 @@
     font-weight: 600;
     color: #8D99AE;
     cursor: pointer;
+    padding: 5px 10px;
 }
 .post_likes_container img{
-    max-width: 1rem;
+    max-width: 2rem;
     margin-right: 5px;
 }
 .post_tips_container{
@@ -116,9 +128,10 @@
     align-items: center;
     font-weight: 600;
     color: #8D99AE;
+    padding: 5px 10px;
 }
 .post_tips_container img{
-    max-width: 1rem;
+    max-width: 2rem;
     margin-right: 5px;
 }
 .tip_me_container{
@@ -143,10 +156,10 @@
     
 }
 .tip_btn div{
-    color: black;
+    color: #EDF2F4;
 }
 .tip_btn img{
-    max-width: 1rem;
+    max-width: 1.5rem;
     margin-right: 5px;
 }
 
@@ -185,14 +198,17 @@
     .post_date_container{
         line-height: 0.5rem;
     }
+    .post_footer{
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-wrap: wrap;
+    }
 }
 @media screen and (max-width: 1200px){
-    .post_footer > div{
-        width: 30%;
-        margin: 5px auto;
-        /* padding: 0 10px; */
-    }
-    .post_footer{
-        flex-wrap: wrap;
+    
+    .post_date_container{
+        font-size: 0.8rem;
+        line-height: 1rem;
     }
 }   

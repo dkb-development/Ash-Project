@@ -62,6 +62,7 @@ module.exports.userProfile = (req, res, next) =>{
             return res.status(404).json({ status: false, message: 'User record not found.',error: err });
         }
         else{
+            usr.password = null;
             return res.status(200).json({ status: true, user_info : usr });
         }
     

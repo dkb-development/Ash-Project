@@ -60,6 +60,8 @@
     border-radius: 10px;
     overflow: hidden;
     overflow-y: scroll;
+    overflow-x: scroll;
+    background-color: #457B9D;
 }
 .table_heading{
     text-align: center;
@@ -97,9 +99,25 @@
 ul,li{
     list-style: none;
 }
-ul{
+
+.client_earning_graph_analysis > nav{
+    width: 100%;
+    padding-left: 0;
+    border: 1px solid green;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+}
+.client_earning_graph_analysis ul{
+    width: 100%;
+    padding: 0;
+}
+#time_line_menu {
     display: flex;
     justify-content: space-around;
+    align-items: center;
+    margin-left: 0;
 }
 #time_line_menu li .btn{
     color: inherit;
@@ -121,5 +139,6 @@ ul{
     .client_earning_graph_analysis{
         width: 95%;
         margin-top: 20px;
+        margin: 20px auto;
     }
 }

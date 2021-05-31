@@ -142,6 +142,10 @@ export class AuthService {
     }
     return this.http.post(environment.apiBaseUrl+'user/update_profile_picture',updated_user,this.authHeaders);
   }
+
+  getClient(){
+    return this.http.get(environment.apiBaseUrl+'user/get_client',this.noAuthHeader)
+  }
 }
 interface Response {
   [key: string]: any;

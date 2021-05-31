@@ -35,9 +35,9 @@ export class PostComponent implements OnInit {
   ngOnInit(): void {
     // console.log(this.post_details);
     this.is_logged_in = this.AuthService.isLoggedIn();
-    var dt = moment(this.post_details.date_created);
-    this.dt = dt.format('YYYY-MM-DD');
-    this.tm = dt.format('LT');
+    var datetime = moment(this.post_details.post_info.date_created);
+    this.dt = datetime.format('YYYY-MM-DD');
+    this.tm = datetime.format('LT');
 
 
     $('#tipToUnlockModal').on('hide.bs.modal', (e)=> {

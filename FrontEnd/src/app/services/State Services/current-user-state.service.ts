@@ -7,6 +7,10 @@ import { BehaviorSubject } from 'rxjs';
 export class CurrentUserStateService {
   private readonly _current_user = new BehaviorSubject<any>([]);
   public current_user$ = this._current_user.asObservable();
+
+  private readonly _client = new BehaviorSubject<any>([]);
+  public client$ = this._client.asObservable();
+
   constructor() { }
 
   setCurrentUser(user_details: any){
@@ -23,5 +27,15 @@ export class CurrentUserStateService {
       new_user_info.profile_picture = new_user_info.profile_picture.split('?')[0];
     }
     this._current_user.next(new_user_info);
+  }
+
+  setClient(client_info: any){
+    if(client_info.profile_picture){
+      client_info.profile_picture = client_info.profile_picture.split('?')[0];
+    }
+    this._client.next(client_info);
+  }
+  getClient(){
+    return this._client.getValue();
   }
 }

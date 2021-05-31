@@ -431,6 +431,36 @@ router.post('/pay_tip_to_post',user_auth.verifyJwtToken,(req,res
 
     // return res.status(200).json("Success");
 });
+router.post('/pay_tip_to_client',user_auth.verifyJwtToken,(req,res
+    )=>{
+    var token = user_auth.getTokenFromReq(req);
+    var user_id = user_auth.getUserFromToken(token);
+
+    var new_tip = new Tip({
+        tip_post_id : "null",
+        tip_content_creator : req.body.client_id,
+        tip_by : req.body.user_id,
+        tip_amount : req.body.tip_amount
+    })
+
+    new_tip.save((err,success)=>{
+        if(err){
+            return res.status(400).json({
+                "error": err,
+                "success": false
+            })
+        }
+        else{
+            return res.status(200).json({
+                "success": true,
+                "msg": "Payment Successfully Done Thank You for the Tip"
+            })
+        }
+    })
+    
+
+    // return res.status(200).json("Success");
+});
 router.post('/like_or_dislike_post',user_auth.verifyJwtToken,async (req,res)=>{
     var token = user_auth.getTokenFromReq(req);
     var user_id = user_auth.getUserFromToken(token);

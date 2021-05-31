@@ -52,23 +52,7 @@
             
         </div>
         <div class="post_footer">
-            <div class="post_date_container">
-                <img src="../../../../assets/icons/calendar.svg">
-                <div>
-                    <div>{{tm}}</div>
-                    <div class="post_publish_date">{{dt}}</div>
-                </div>
-            </div>
-            <!-- Views -->
-            <!-- <div class="post_views_container">
-                <img src="../../../../assets/icons/view.svg">
-                <div class="post_views_count">67k Views</div>
-            </div> -->
-            
-            <!-- <div *ngIf="expression" class="post_likes_container" (click)="likeOrDislikePost(post_details)">
-                <img src="../../../../assets/icons/heart_blank.svg">
-                <div class="post_likes_count">67k Likes</div>
-            </div> -->
+            <!-- Like Container -->
             <div *ngIf="!is_logged_in;else logged_in_like_container">
                 <div class="post_likes_container">
                     <img src="../../../../assets/icons/heart_blank.svg">
@@ -107,15 +91,16 @@
                 </ng-template>
                 
             </ng-template>
-            
-            
-            
-            
-            <!-- <div class="post_tips_container">
-                <img src="../../../../assets/icons/tip_4.svg">
-                <div class="post_tips_count">$67k Tips</div>
-            </div> -->
-            <div class="tip_me_container">
+
+            <!-- Comment Container -->
+            <div class="post_comments_container">
+                <img src="../../../../assets/icons/comment.svg">
+                <div class="post_comments_count">67k <br>Comments</div>
+            </div>
+
+
+            <!-- Tip Me Container -->
+            <div class="post_tips_container">
                 <a id="pay_to_unlock_post_btn" *ngIf="post_details.hasOwnProperty('isTipEnough') && !post_details.isTipEnough;else non_tip_post" class="btn tip_btn" (click)="openTipToUnlockModal(post_details)" data-toggle="modal" data-target="#tipToUnlockModal">
                     <img src="../../../../assets/icons/tip_2.svg">
                     <div>Tip Me</div>
@@ -130,6 +115,37 @@
                 
                 
             </div>
+
+            
+
+            <!-- Date Container -->
+            <div class="post_date_container">
+                <img src="../../../../assets/icons/calendar.svg">
+                <div>
+                    <div>{{tm}}</div>
+                    <div class="post_publish_date">{{dt}}</div>
+                </div>
+            </div>
+            <!-- Views -->
+            <!-- <div class="post_views_container">
+                <img src="../../../../assets/icons/view.svg">
+                <div class="post_views_count">67k Views</div>
+            </div> -->
+            
+            <!-- <div *ngIf="expression" class="post_likes_container" (click)="likeOrDislikePost(post_details)">
+                <img src="../../../../assets/icons/heart_blank.svg">
+                <div class="post_likes_count">67k Likes</div>
+            </div> -->
+            
+            
+            
+            
+            
+            <!-- <div class="post_tips_container">
+                <img src="../../../../assets/icons/tip_4.svg">
+                <div class="post_tips_count">$67k Tips</div>
+            </div> -->
+            
         </div>
     </div>
     <!-- <div class="post_card_1">

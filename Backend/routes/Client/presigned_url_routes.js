@@ -18,7 +18,7 @@ router.route('/generatepresignedurl')
         var fileurls = [];
 
         const params = {
-            Bucket: 'personals3bucket-dkb.01.development',
+            Bucket: 'personals3bucket-dkb.01.development',  
             Key: req.query.fileName,
             Expires: 40 * 60, // Time untill presigned URL is valid
             ACL: 'public-read',
@@ -33,7 +33,7 @@ router.route('/generatepresignedurl')
             }
             else {
                 fileurls[0] = url;
-                res.json({ success: true, message: 'AWS SDK S3 Pre-signed urls generated successfully', urls: fileurls });
+                res.json({ success: true, message: 'AWS SDK S3 Pre-qdsigned urls generated successfully', urls: fileurls });
             }
         });
     })

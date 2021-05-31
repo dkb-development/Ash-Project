@@ -14,6 +14,135 @@ footer{
 } */
 
 
+.client_cover_container{
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    padding-bottom: 10px;
+}
+.client_cover_image_container{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.client_cover_image_container > img{
+    max-height: 100%;
+    width: 100%;
+    margin: auto;
+}
+.client_cover_info{
+    position: relative;
+    width: 50%;
+    height: 50%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.client_name{
+    width: 100%;
+    text-align: center;
+    font-size: 8vw;
+    color: white;
+    font-weight: 600;
+}
+.client_login_signup_container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.logIn_btn{
+    width: 45%;
+    position: cursor;
+    text-align: center;
+    padding: 10px;
+    background-color: #E63946;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+.signUp_btn{
+    width: 45%;
+    position: cursor;
+    text-align: center;
+    padding: 10px;
+    background-color: #E63946;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+.subscribe_btn{
+    width: 100%;
+    background-color: #1D3557;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+.client_message_tip_container{
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.meaasge_me_btn{
+    width: 45%;
+    position: cursor;
+    text-align: center;
+    padding: 10px;
+    background-color: #E63946;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+.tip_me_btn{
+    width: 45%;
+    position: cursor;
+    text-align: center;
+    padding: 10px;
+    background-color: #E63946;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+.client_subscribe_btn_container{
+    margin-top: 10px;
+    width: 100%;
+
+}
+.subscribe_btn{
+    width: 95%;
+    margin: auto;
+    position: cursor;
+    text-align: center;
+    padding: 10px;
+    background-color: #1D3557;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: large;
+    color: white;
+}
+
+@media screen and (max-width: 760px){
+    .client_cover_info{
+        width: 95%;
+    }
+    .client_name{
+        font-size: 4rem;
+    }
+}
+
+
+.posts_container{
+    width: 100%;
+    min-height: 70vh;
+}
 
 .side_nav_profile{
    margin-top: 10vh;

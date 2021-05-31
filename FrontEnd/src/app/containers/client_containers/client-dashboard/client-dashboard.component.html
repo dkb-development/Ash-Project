@@ -239,13 +239,15 @@
       <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a> -->
     <div class="side_nav_profile">
-      <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle">
-      <div class="side_nav_profile_username">Username</div>
+      <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
+      <i  class="fas fa-user-circle fa-9x" *ngIf="!(CurrentUserStateService.current_user$ | async).profile_picture"></i>
+      <img class="rounded-circle" *ngIf="(CurrentUserStateService.current_user$ | async).profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}}>
+      <div class="side_nav_profile_username">{{(CurrentUserStateService.current_user$ | async).username}}</div>
       <div class="sidenav_profile_stars">
         <div class="start_container">
           <img src="../../../../assets/icons/followers.svg">
           <div>89k</div>
-          <div class="star_type">Followers</div>
+          <div class="star_type">Subscribers</div>
         </div>
         <div class="vertical_line"></div>
         <div class="start_container">

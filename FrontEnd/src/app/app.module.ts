@@ -54,6 +54,7 @@ import { PostsStateService } from './services/State Services/posts-state.service
 import { ClientChangeProfilePictureModalComponent } from './components/modals/client-change-profile-picture-modal/client-change-profile-picture-modal.component';
 import { ClientChangeUsernameModalComponent } from './components/modals/client-change-username-modal/client-change-username-modal.component';
 import { CurrentUserStateService } from './services/State Services/current-user-state.service';
+import { TipClientModalComponent } from './components/modals/tip-client-modal/tip-client-modal.component';
 
 
 
@@ -84,6 +85,7 @@ import { CurrentUserStateService } from './services/State Services/current-user-
     ShortNumberPipe,
     ClientChangeProfilePictureModalComponent,
     ClientChangeUsernameModalComponent,
+    TipClientModalComponent,
     // TimeAgoPipe
   ],
   imports: [
