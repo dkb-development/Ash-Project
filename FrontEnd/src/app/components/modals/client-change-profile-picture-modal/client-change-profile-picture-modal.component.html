@@ -14,7 +14,7 @@
           <label class="custom-file-label" for="inputGroupFile02" style="cursor: pointer;">Choose file</label>
       </div>
       <div class="input-group-append mt-2">
-          <button class="btn btn-primary" (click)="uploadNewProfilePicture(new_profile_picture.value)">
+          <button *ngIf="selectedFileTOUpload" class="btn btn-primary" (click)="uploadNewProfilePicture(new_profile_picture.value)">
             <span *ngIf="update_profile_picture_spinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="update_profile_picture_spinner">Uploading ...</span>
             <span *ngIf="!update_profile_picture_spinner">Upload</span>

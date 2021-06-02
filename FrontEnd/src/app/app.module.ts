@@ -55,6 +55,8 @@ import { ClientChangeProfilePictureModalComponent } from './components/modals/cl
 import { ClientChangeUsernameModalComponent } from './components/modals/client-change-username-modal/client-change-username-modal.component';
 import { CurrentUserStateService } from './services/State Services/current-user-state.service';
 import { TipClientModalComponent } from './components/modals/tip-client-modal/tip-client-modal.component';
+import { CommentService } from './services/comment_services/comment.service';
+import { CommentStateService } from './services/State Services/comment-state.service';
 
 
 
@@ -113,6 +115,8 @@ import { TipClientModalComponent } from './components/modals/tip-client-modal/ti
               ClientFanDetailsService,
               PostsStateService,
               CurrentUserStateService,
+              CommentService,
+              CommentStateService,
               {
                 provide: 'SocialAuthServiceConfig',
                 useValue: {

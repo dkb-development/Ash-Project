@@ -12,6 +12,7 @@
     border: 1px solid #A8DADC;
     border-radius: 10px;
     box-shadow: 2px 4px 10px gray;
+    overflow: hidden;
 }
 
 .post_header{
@@ -97,15 +98,16 @@
     max-width: 1rem;
     margin-right: 5px;
 }
-.post_comments_container{
+.post_comment_btn_container{
     display: flex;
     justify-content: flex-start;
     align-items: center;
     font-weight: 600;
     color: #8D99AE;
     padding: 5px 10px;
+    cursor: pointer;
 }
-.post_comments_container img{
+.post_comment_btn_container img{
     max-width: 2rem;
     margin-right: 5px;
 }
@@ -212,3 +214,179 @@
         line-height: 1rem;
     }
 }   
+
+
+
+
+
+/* Comments */
+.post_comments_container{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background-color: white;
+}
+.hide_comments_container{
+    display: none;
+}
+.post_comments_header{
+    width: 100%;
+    height: 8vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px 10px;
+    font-size: x-large;
+    color: gray;
+}
+.post_comments_header > img{
+    max-height: 90%;
+}
+.post_comment_input_container{
+    width: 100%;
+    height: 10vh;
+    padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.comment_current_user_avatar_container{
+    width: 10%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.comment_input_field{
+    width: 70%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.make_comment_button{
+    width: 20%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ 
+
+
+
+.comment_current_user_avatar_container > img{
+    max-height: 7vh;
+}
+.comment_input_field > input{
+    width: 100%;
+    margin: auto;
+    padding: 15px;
+    border-radius: 10px;
+    background-color: #EDF2F4;
+    color: black;
+}
+.comment_list_container{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 10px 5px;
+}
+.previous_comment_container{
+    max-width: 90%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding: 5px;
+}
+.commented_user_avatar{
+    /* width: 10%; */
+}
+.previous_comment_body{
+    max-width: 95%;
+    color: black;
+    box-shadow: 0.2px 0.2px 1px gray;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.commented_user_avatar > img{
+    max-height: 5vh;
+}
+.commented_user_username{
+    font-size: large;
+    font-weight: 600;
+    background-color: #EDF2F4;
+    padding: 5px;
+}
+.comment_text{
+    font-size: small;
+    background-color: #EDF2F4;
+    padding: 5px;
+}
+.comment_footer{
+    height: 4vh;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 5px;
+}
+.comment_likes_container{
+    height: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+.normal_like_btn{
+    max-height: 90%;
+    cursor: pointer;
+}
+.liked_like_btn{
+    max-height: 120%;
+    cursor: pointer;
+}
+.comment_reply{
+    color: #4A90E2;
+    cursor: pointer;
+}
+.comment_view_reply{
+    color: #4A90E2;
+    cursor: pointer;
+}
+
+
+@media screen and (max-width: 760px){
+    .comment_current_user_avatar_container{
+        width: 20%;
+        
+    }
+    .comment_input_field{
+        width: 80%;
+    }
+    .post_comment_input_container{
+        justify-content: flex-end;
+        height: auto;
+    }
+    .make_comment_button{
+        width: 50%;
+        justify-content: flex-end;
+        
+    }
+} 
+
+
+
+
+
+
+
+
+input:focus, textarea:focus, select:focus{
+    outline: none;
+}
+input{
+    border: none;
+}

@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import * as moment from 'moment';
 import { AuthService } from '../../services/user_services/auth.service';
 import { UserPostService } from '../../services/user_services/user-post.service';
@@ -7,6 +7,9 @@ import { UserPaymentService } from '../../services/user_services/user-payment.se
 
 // Services
 import { PostsStateService } from '../../services/State Services/posts-state.service';
+import { CurrentUserStateService } from '../../services/State Services/current-user-state.service';
+import { CommentService } from '../../services/comment_services/comment.service';
+import { CommentStateService } from '../../services/State Services/comment-state.service';
 
 @Component({
   selector: 'app-post',
@@ -14,6 +17,7 @@ import { PostsStateService } from '../../services/State Services/posts-state.ser
   styleUrls: ['./post.component.css'],
 })
 export class PostComponent implements OnInit {
+
   @Input()
   post_details: any;
 
@@ -24,7 +28,10 @@ export class PostComponent implements OnInit {
     private AuthService: AuthService,
     private UserPostService: UserPostService,
     private UserPaymentService: UserPaymentService,
-    private PostsStateService: PostsStateService 
+    private PostsStateService: PostsStateService,
+    public CurrentUserStateService: CurrentUserStateService,
+    private CommentService: CommentService,
+    public CommentStateService: CommentStateService,
   ) { }
 
   dt:any;
@@ -194,5 +201,71 @@ export class PostComponent implements OnInit {
       }
     );
     console.log(tipPostForm.value.tip_amount);
+  }
+
+  open_comment_container = false;
+
+  // Comment Feature
+  show_hide_comment(){
+    // console.log(this.CommentStateService.getCommentsForPost(this.post_details.post_info._id));
+    this.open_comment_container = !this.open_comment_container;
+    this.CommentService.getCommnetsForPost(this.post_details.post_info).subscribe(
+      (res: any)=>{
+        if(res.length > 0){
+          this.CommentStateService.updateCommentsForPost(res)
+        } 
+        
+        console.log(res);
+      },
+      (err: any)=>{
+        console.log(err);
+      }
+    )
+  }
+  comment(comment_text: any){
+    console.log(comment_text.value);
+    if(comment_text.value == ""){
+      return
+    }
+    var comment_info = {
+      "post_id": this.post_details.post_info._id,
+      "comment_text": comment_text.value
+    }
+    console.log(comment_info);
+    this.CommentService.makeComment(comment_info).subscribe(
+      (res: any)=>{
+        this.CommentStateService.updateSingleCommentForPost(res);
+      },
+      (err: any)=>{
+        console.log(err);
+      }
+    )
+  }
+  likeDislikeComment(comment_id: any){
+    
+    this.CommentService.likeCommentForPost(comment_id).subscribe(
+      (res: any)=>{
+        if(res.success){
+          var current_post_comment = this.CommentStateService.getSingleCommentForPost(comment_id,this.post_details.post_info._id);
+          if(res.is_liked){
+            // Like the comment
+            current_post_comment.comment_likes_count += 1;
+            current_post_comment.is_liked_by_user = true;
+          }
+          else{
+            // Dislike the comment
+            if(current_post_comment.comment_likes_count>0){
+              current_post_comment.comment_likes_count -= 1;
+              current_post_comment.is_liked_by_user = false;
+            }
+          }
+          this.CommentStateService.updateSingleCommentForPost(current_post_comment);
+        }
+
+      },
+      (err: any)=>{
+        console.log(err);
+      }
+    )
   }
 }

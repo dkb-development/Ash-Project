@@ -48,14 +48,16 @@ const client_routes = require('./routes/Client/client_routes');
 const post_routes = require('./routes/User/posts');
 const conversation_routes = require('./routes/conversation');
 const message_routes = require('./routes/messages');
+const presigned_url_routes = require('./routes/Client/presigned_url_routes');
+const comment_routes = require('./routes/comment/post_comment');
 // app.use("/client",verify_token,post_routes);
 app.use("/",post_routes);
 app.use("/client",client_routes);
 app.use("/user",user_routes);
-const presigned_url_routes = require('./routes/Client/presigned_url_routes');
 app.use('/',presigned_url_routes);
 app.use("/conversations", conversation_routes);
 app.use("/messages", message_routes);
+app.use('/comment',comment_routes);
 
 
 app.listen(3000,()=>{
