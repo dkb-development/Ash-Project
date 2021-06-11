@@ -35,6 +35,13 @@ app.use(morgan_config);
 
 // Import Routes
 app.use(cors());
+app.options('*', cors());
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
 
 
 // Passport Authentication
@@ -64,9 +71,7 @@ app.listen(3000,()=>{
     console.log(`Backend Server is running at PORT No : ${PORT}`);
 })
 
-app.use((req,res)=>{
-    res.setHeader("Access-Control-Allow-Origin","http://example.com");
-})
+
 
 
 // var webSocketPort = 5000;

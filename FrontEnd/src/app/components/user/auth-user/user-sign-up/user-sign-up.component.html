@@ -1,31 +1,4 @@
-<h1>SignUp Form</h1>
-
-<!-- <div class="container" style="max-width: 550px">
-    <h2 class="text-center mb-5">Angular Login with Google</h2>
-  
-    <div *ngIf="isLoggedin === false">
-      <div>
-        <button type="button" (click)="loginWithGoogle()" class="btn btn-danger">Login with Google</button>
-      </div>
-    </div>
-  
-    <div *ngIf="isLoggedin === true">
-      <div class="form-group">
-        <label>First Name</label>
-        <input type="text" class="form-control" [value]="socialUser.firstName" id="firstname" readonly>
-      </div>
-      <div class="form-group">
-        <label>Last Name</label>
-        <input type="text" class="form-control" [value]="socialUser.lastName" id="lastname" readonly>
-      </div>
-      <div class="form-group">
-        <label>Email</label>
-        <input type="text" class="form-control" [value]="socialUser.email" id="email" readonly>
-      </div>
-  
-      <button type="button" (click)="logOut()" class="btn btn-primary">Log Out</button>
-    </div>
-</div> -->
+<!-- <h1>SignUp Form</h1>
 
 <form #user_signup_form="ngForm" class="container" (ngSubmit)="onSubmit()" novalidate>
 
@@ -56,10 +29,9 @@
         <label for="pwd">Password:</label>
         <input #CONFIRM_pwd="ngModel" required [class.is-invalid]="CONFIRM_pwd.touched && CONFIRM_pwd.invalid" name="user_confirm_pwd" type="password" class="form-control" id="confirm_pwd" ngModel>
         <div *ngIf="(CONFIRM_pwd.value!=pwd.value && CONFIRM_pwd.touched)">
-            <!-- <small class="alert alert-danger">Confirm Password is required</small> -->
             <small class="alert alert-danger">Password doesn't match</small>
         </div>
     </div>
     
     <button [disabled]="user_signup_form.invalid || CONFIRM_pwd.value!=pwd.value" type="submit" class="btn btn-primary">Submit</button>
-</form>
+</form> -->

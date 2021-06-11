@@ -2,8 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { UserSignUpService } from 'src/app/services/user_services/user-sign-up.service';
 import { User } from '../../../../models/user';
 
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { SocialAuthService, GoogleLoginProvider, SocialUser } from 'angularx-social-login';
 
 
 @Component({

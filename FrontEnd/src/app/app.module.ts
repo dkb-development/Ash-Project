@@ -14,11 +14,9 @@ import { NgxDropzoneModule } from 'ngx-dropzone';
 import { RouterModule, Routes } from '@angular/router';
 import { FilterPostsPipe } from './containers/user_containers/user-home/filter_posts_pipe';
 
-import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import { GoogleLoginProvider } from 'angularx-social-login';
-import { NgxChartsModule } from '@swimlane/ngx-charts';
-
-import {TimeAgoPipe} from 'time-ago-pipe';
+// jQuery
+import * as $ from 'jquery';
+import * as bootstrap from "bootstrap"
 
 // Datetime picker
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -101,9 +99,8 @@ import { CommentStateService } from './services/State Services/comment-state.ser
     FormsModule,
     ReactiveFormsModule,
     NgxDropzoneModule,
-    SocialLoginModule,
     RouterModule,
-    NgxChartsModule,
+    // NgxChartsModule,
     BrowserAnimationsModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
@@ -123,20 +120,8 @@ import { CommentStateService } from './services/State Services/comment-state.ser
               CurrentUserStateService,
               CommentService,
               CommentStateService,
-              {
-                provide: 'SocialAuthServiceConfig',
-                useValue: {
-                  autoLogin: false,
-                  providers: [
-                    {
-                      id: GoogleLoginProvider.PROVIDER_ID,
-                      provider: new GoogleLoginProvider(
-                        '1010929154737-iot89lu7gtrftcpejgg2c6dhqhn3kgdp.apps.googleusercontent.com'
-                      )
-                    }
-                  ]
-                } as SocialAuthServiceConfig,
-              }  ],
+              
+              ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
