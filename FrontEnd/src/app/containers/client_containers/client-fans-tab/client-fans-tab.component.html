@@ -3,51 +3,88 @@
         <span class="sr-only">Loading...</span>
       </div>
 </div>
-<div class="user_list_container pt-1">
-    <div *ngFor="let fan of ClientFanDetailsService.fan_list$ | async" class="user_list_item">
-        <div class="user_list_info">
-            <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
-            <img src={{fan.avatar}} class="rounded-circle">
-            <div class="user_info">
-                <div class="username">{{fan.username}}</div>
-                <div class="user_badges_container">
-                    <span *ngIf="fan.is_subscribed; else not_subscribed" class="badge badge_subscribed">Subscribed</span>
-                    <ng-template #not_subscribed>
-                        <span class="badge badge_not_subscribed">Unsubscribed</span>
+<div class="user_list_header">
+
+    <div *ngIf="enable_select_all_btn" class="btn btn-primary" style="position: relative;" (click)="select_all_user()">Select All</div>
+    <div *ngIf="enable_select_all_btn" class="btn btn-danger ml-2" style="position: relative;" (click)="unselect_all_user()">Unselect All</div>
+
+    <div class="ml-4 d-flex justify-content-spacearound align-items-center"  *ngIf="enable_select_all_btn" style="display: flex;">
+      <input style="position: relative;" [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" class="form-control" placeholder="Select Date Time for schedule message..." id="schedule_date_time_input" name="schedule_date_time_input" #schedule_date_time_input="ngModel" ngModel (ngModelChange)="setScheduleDate(schedule_date_time_input)">
+      <owl-date-time #dt1 style="position: relative;"></owl-date-time>
+    </div>
+
+    <div *ngIf="schedule_date_time_for_message" class="btn btn-success ml-2" data-toggle="modal" data-target="#scheduleMessageModal">Send Schedule Message</div>
+    
+
+    
+
+    
+    <!-- <div *ngIf="enable_select_all_btn" class="btn btn-success ml-2" data-toggle="modal" data-target="#scheduleMessageModal">Send Schedule Message</div> -->
+    <!-- {{schedule_date_time_input.dirty}} -->
+    <!-- <div *ngIf="schedule_date_time_input && schedule_date_time_input.dirty">
+      dirty
+    </div> -->
+    
+    
+    
+    
+
+
+</div>
+<ul id="user_list_ul" class="user_list_container pt-1">
+    <!-- <input class="form-check-input" (change)="onChange(cat.name, $event.target.checked)"name="{{ cat.name }}" type="checkbox" id="{{cat.name}}">
+    <label class="form-check-label" for="{{cat.name}}">
+        {{cat.name}}
+    </label> -->
+    <li *ngFor="let fan of ClientFanDetailsService.fan_list$ | async" style="display: flex;justify-content: space-between;align-items: center;">
+        <div class="user_checkbox_container" >
+            <input class="form-check-input" (change)="update_user_list(fan._id, $event)" name="{{ fan._id }}" type="checkbox" id="{{fan._id}}">
+        </div>
+        <div class="user_list_item">
+            <div class="user_list_info">
+                <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
+                <img src={{fan.avatar}} class="rounded-circle">
+                <div class="user_info">
+                    <div class="username">{{fan.username}}</div>
+                    <div class="user_badges_container">
+                        <span *ngIf="fan.is_subscribed; else not_subscribed" class="badge badge_subscribed">Subscribed</span>
+                        <ng-template #not_subscribed>
+                            <span class="badge badge_not_subscribed">Unsubscribed</span>
+                        </ng-template>
+                        
+                        <span *ngIf="fan.is_subscribed" class="badge badge_active">Active</span>
+                        <span *ngIf="fan.is_blocked" class="badge badge_blocked">Blocked</span>
+                        <span *ngIf="fan.is_restricted" class="badge badge_restricted">Restricted</span>
+                    </div>
+                </div>
+            </div>
+            <div class="user_list_add_info">
+                <div class="user_tips_container">
+                    <img src="../../../../assets/icons/tip_2.svg">
+                    <div class="tip_info">
+                        <div class="tip_amount">${{fan.total_tip | shortNumber}}</div>
+                        <div>Tips</div>
+                    </div>
+                </div>
+                <div class="btn" style="background-color: #457B9D;color: #F1FAEE;" data-toggle="modal" data-target="#fanDetailsModal" (click)="showFanDetails(fan)">Details</div>
+                <div class="btn message_btn" style="background-color: #1D3557;color: #F1FAEE;">
+                    <img src="../../../../assets/icons/chatting.svg">
+                    <div (click)="message_with_fan(fan)">Message</div>
+                </div>
+                <div class="user_action_container">
+                    <div *ngIf="fan.is_restricted;else remove_restriction" class="btn btn_remove_restriction" (click)="remove_restric_user(fan)">Remove Restriction</div>
+                    <ng-template #remove_restriction>
+                        <div class="btn btn_restrict" (click)="restrict_user(fan)">Restrict</div>
+                    </ng-template>  
+                    <div *ngIf="fan.is_blocked;else unblock" class="btn btn_unblock" (click)="unblock_user(fan)">Unblock</div>
+                    <ng-template #unblock>
+                        <div class="btn btn_block" (click)="block_user(fan)">Block</div>
                     </ng-template>
                     
-                    <span *ngIf="fan.is_subscribed" class="badge badge_active">Active</span>
-                    <span *ngIf="fan.is_blocked" class="badge badge_blocked">Blocked</span>
-                    <span *ngIf="fan.is_restricted" class="badge badge_restricted">Restricted</span>
                 </div>
             </div>
         </div>
-        <div class="user_list_add_info">
-            <div class="user_tips_container">
-                <img src="../../../../assets/icons/tip_2.svg">
-                <div class="tip_info">
-                    <div class="tip_amount">${{fan.total_tip | shortNumber}}</div>
-                    <div>Tips</div>
-                </div>
-            </div>
-            <div class="btn" style="background-color: #457B9D;color: #F1FAEE;" data-toggle="modal" data-target="#fanDetailsModal" (click)="showFanDetails(fan)">Details</div>
-            <div class="btn message_btn" style="background-color: #1D3557;color: #F1FAEE;">
-                <img src="../../../../assets/icons/chatting.svg">
-                <div (click)="message_with_fan(fan)">Message</div>
-            </div>
-            <div class="user_action_container">
-                <div *ngIf="fan.is_restricted;else remove_restriction" class="btn btn_remove_restriction" (click)="remove_restric_user(fan)">Remove Restriction</div>
-                <ng-template #remove_restriction>
-                    <div class="btn btn_restrict" (click)="restrict_user(fan)">Restrict</div>
-                </ng-template>  
-                <div *ngIf="fan.is_blocked;else unblock" class="btn btn_unblock" (click)="unblock_user(fan)">Unblock</div>
-                <ng-template #unblock>
-                    <div class="btn btn_block" (click)="block_user(fan)">Block</div>
-                </ng-template>
-                
-            </div>
-        </div>
-    </div>
+    </li>
     <!-- <div class="user_list_item">
         <div class="user_list_info">
             <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle">
@@ -79,7 +116,7 @@
             </div>
         </div>
     </div>   -->
-</div>
+</ul>
 
 <div class="modal fade" id="fanDetailsModal">
     <div class="modal-dialog">
@@ -108,7 +145,7 @@
                       <tr>
                         <th scope="row">2</th>
                         <td>Email</td>
-                        <td>{{fan_details.email}}</td>
+                        <td>{{fan_details.email }}</td>
 
                       </tr>
                       
@@ -116,6 +153,27 @@
                   </table>
                 </div>
               </div>
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        </div>
+      </div>
+    </div>
+</div>
+
+<div class="modal fade" id="scheduleMessageModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Send Schedule Message</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <textarea class="form-control" aria-label="With textarea" placeholder="Type your message here ..." name="schedule_message_body" #schedule_message_body="ngModel" ngModel></textarea>
+          <div *ngIf="schedule_message_body.value" class="btn btn-primary mt-4" (click)="send_schedule_message(schedule_message_body)">Schedule Message</div>
         </div>
 
         <div class="modal-footer justify-content-between">

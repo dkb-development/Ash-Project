@@ -122,4 +122,19 @@ export class MessageService {
       "username": user.username
     })
   }
+
+  sendScheduleMessage(message_info: any){
+    try {
+      // console.log(message_info);
+      var url = environment.apiBaseUrl + 'messages/schedule_message';
+      var res = this.http.post(url,message_info, this.authHeaders);
+      return res;
+      
+    } 
+    catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
 }

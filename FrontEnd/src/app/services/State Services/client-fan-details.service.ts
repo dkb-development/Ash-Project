@@ -14,6 +14,9 @@ export class ClientFanDetailsService {
   setFanList(fan_list: any){
     this._fan_list.next(fan_list);
   }
+  getFanList(){
+    return this._fan_list.getValue();
+  }
   updateFanDetails(fan_details: any){
     var fan_list = this._fan_list.getValue();
     for(var fan of fan_list){

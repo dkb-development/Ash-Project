@@ -34,6 +34,9 @@ export class ChatStateService {
   setCurrentConversation(conversation_info: any){
     this._conversation.next(conversation_info);
   }
+  getCurrentConversation(){
+    return this._conversation.getValue();
+  }
   setMessages(message_list: any){
     this._messages.next(message_list);
   }
@@ -57,9 +60,7 @@ export class ChatStateService {
   getChattingFriend(){
     return this._chattting_friend.getValue();
   }
-  getCurrentConversation(){
-    return this._conversation.getValue();
-  }
+  
 
   setSocket(socket_info: any){
     this._socket_info.next(socket_info);

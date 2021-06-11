@@ -6,6 +6,7 @@ import { environment } from '../../../../environments/environment';
 import { AuthService } from '../../../services/user_services/auth.service';
 import { ChatStateService } from '../../../services/State Services/chat-state.service';
 import { MessageService } from '../../../services/message_services/message.service';
+import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service';
 
 @Component({
   selector: 'app-user-chat',
@@ -30,7 +31,8 @@ export class UserChatComponent implements OnInit {
   constructor(
     public AuthService: AuthService,
     public ChatStateService: ChatStateService,
-    private MessageService: MessageService
+    private MessageService: MessageService,
+    private CurrentUserStateService: CurrentUserStateService
   ) {   }
 
   user = this.AuthService.getUser();
@@ -191,8 +193,27 @@ export class UserChatComponent implements OnInit {
   }
 
   toggle_user_chat_container(){
-    console.log("Clicked")
-    $('.user_chat_float_container').toggleClass("user_chat_float_container_close")
+    $('.user_chat_float_container').toggleClass("user_chat_float_container_close");
+    if(!this.ChatStateService.getCurrentConversation()){
+      this.MessageService.getCommonConversation(this.CurrentUserStateService.getCurrentUser()._id,this.CurrentUserStateService.getClient()._id).subscribe(
+        (res: any)=>{
+          if(res.conversation == null){
+            this.MessageService.createConversation(this.CurrentUserStateService.getCurrentUser()._id,this.CurrentUserStateService.getClient()._id).subscribe(
+              (res: any)=>{
+                this.ChatStateService.setCurrentConversation(res);
+              },
+              (err: any)=>{
+                console.log(err);
+              }
+            )
+          }
+        },
+        (err: any)=>{
+          console.log(err);
+        }
+      )
+    }
+    
   }
   adjust_user_chat_for_mobile(){
 

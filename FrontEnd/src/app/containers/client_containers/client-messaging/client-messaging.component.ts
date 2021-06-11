@@ -92,7 +92,7 @@ export class ClientMessagingComponent implements OnInit,OnDestroy {
           // Check if pre existing conversation is there
           this.MessageService.getCommonConversation(this.chat_with_friend._id,this.user._id).subscribe(
             (res: any)=>{
-              if(res.conversation == null && res.conversation != undefined){
+              if(res.conversation == null || res.conversation != undefined){
                 console.log("No  Conversation is present")
                  // If no conversation is present then create an conversation
                 this.MessageService.createConversation(this.chat_with_friend._id,this.user._id).subscribe(
@@ -107,6 +107,7 @@ export class ClientMessagingComponent implements OnInit,OnDestroy {
               }
               else{
                 console.log(" Conversation is present");
+                console.log(res);
                 // Update the current conversation
                 this.ChatStateService.setCurrentConversation(res);
               }

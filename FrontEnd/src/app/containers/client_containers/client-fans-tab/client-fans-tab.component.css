@@ -6,12 +6,27 @@
     box-shadow: 4px 8px 5px gray;
     transform: translate(-1px,-1px);
 }
+.user_list_header{
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 5px;
+    align-items: center;
+
+}
 .user_list_container{
     width: 98%;
     margin: auto;
 }
+.user_checkbox_container{
+    width: 2%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .user_list_item{
-    max-width: 100%;
+    width: 98%;
     height: 10vh;
     display: flex;
     justify-content: space-between;
@@ -164,4 +179,10 @@
     .user_action_container{
         width: 100%;
     }
+}
+
+ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }

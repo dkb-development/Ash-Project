@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 // const user = require('./User');
 
 const MessageSchema = mongoose.Schema({
-    conversationId: {
+      conversationId: {
         type: String,
       },
       sender: {

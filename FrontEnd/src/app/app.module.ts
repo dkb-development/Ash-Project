@@ -20,6 +20,10 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 import {TimeAgoPipe} from 'time-ago-pipe';
 
+// Datetime picker
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
+
 // import { SocketIoModule, SocketIoConfig } from 'ngx-socket-io';
 // const socket_io_config: SocketIoConfig = { url: 'http://localhost:5000/', options: {} };
 
@@ -101,6 +105,8 @@ import { CommentStateService } from './services/State Services/comment-state.ser
     RouterModule,
     NgxChartsModule,
     BrowserAnimationsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     // RouterModule.forRoot(appRoutes),
     // SocketIoModule.forRoot(socket_io_config)
   ],

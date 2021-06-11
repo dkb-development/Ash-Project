@@ -135,7 +135,9 @@ router.get('/posts',user_auth.verifyJwtToken,async (req,res)=>{
     
     
     // Getting Client Username
-    client = await User.findById(psts[0].created_by).exec();
+    client = await User.findOne({
+        "is_client": true
+    }).exec();
 
     // Getting client Subscriber Count
     var no_of_subscribers = 0;
@@ -337,7 +339,9 @@ router.get('/posts_no_auth',async (req,res
     var psts = await Post.find({}).sort({date_created: -1}).exec();
 
     // Getting Client Username
-    client = await User.findById(psts[0].created_by).exec();
+    var client = await User.findOne({
+        "is_client": true
+    }).exec();
 
     // Getting client Subscriber Count
     var no_of_subscribers = 0;
@@ -566,4 +570,6 @@ router.post('/pay_to_subscribe',user_auth.verifyJwtToken,async (req,res)=>{
     }
     // user = User.findById(user_id)
 })
+
+
 module.exports = router;
