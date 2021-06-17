@@ -10,7 +10,7 @@ import { PostsStateService } from '../../services/State Services/posts-state.ser
 import { CurrentUserStateService } from '../../services/State Services/current-user-state.service';
 import { CommentService } from '../../services/comment_services/comment.service';
 import { CommentStateService } from '../../services/State Services/comment-state.service';
-
+import { UpdatePostService } from '../../services/client_services/update-post.service'; 
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -32,6 +32,7 @@ export class PostComponent implements OnInit {
     public CurrentUserStateService: CurrentUserStateService,
     private CommentService: CommentService,
     public CommentStateService: CommentStateService,
+    private UpdatePostService: UpdatePostService
   ) { }
 
   dt:any;
@@ -39,6 +40,7 @@ export class PostComponent implements OnInit {
   is_logged_in:boolean;
   tipToUnlockPostAmount:number = 0;
   tip_post:any = null;
+  post_to_be_deleted: any = null;
   ngOnInit(): void {
     // console.log(this.post_details);
     this.is_logged_in = this.AuthService.isLoggedIn();
@@ -52,6 +54,10 @@ export class PostComponent implements OnInit {
     })
     $('#tipModal').on('hide.bs.modal', (e)=> {
       this.tip_post = null;
+    })
+
+    $('#deletePostModal').on('hide.bs.modal',(e)=>{
+      this.post_to_be_deleted = null;
     })
     
   }
@@ -262,6 +268,42 @@ export class PostComponent implements OnInit {
           this.CommentStateService.updateSingleCommentForPost(current_post_comment);
         }
 
+      },
+      (err: any)=>{
+        console.log(err);
+      }
+    )
+  }
+
+
+  // Edit/Delete Post Feature
+  set_post_to_be_deleted(post_id: any){
+    this.PostsStateService.setPostToBeDeleted(post_id);
+  }
+  delete_post(post_details: any){
+    this.UpdatePostService.delete_post(this.PostsStateService.getPostToBeDeleted()).subscribe(
+      (res: any)=>{
+        if(res.deleted){
+          // Successfully Deleted Post
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000
+          });
+          Toast.fire({
+            icon: 'success',
+            title: 'Post Successfully Deleted'
+          })
+          setTimeout(()=>{
+            // window.location.reload();
+            console.log(window.location.origin);
+            window.open(window.location.origin+'/client/home',"_self");
+            // this.Router.navigateByUrl('../upload');
+            
+          },1000)
+        }
+        
       },
       (err: any)=>{
         console.log(err);

@@ -30,7 +30,6 @@ export class ClientFansTabComponent implements OnInit {
 
   client_fans_loader_spinner = true;
   ngOnInit(): void {
-    
     this.GetUserInfoService.getUsers().subscribe(
       (users:any)=>{
         this.fans = users.map((usr: any)=>{

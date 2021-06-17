@@ -59,6 +59,7 @@ import { CurrentUserStateService } from './services/State Services/current-user-
 import { TipClientModalComponent } from './components/modals/tip-client-modal/tip-client-modal.component';
 import { CommentService } from './services/comment_services/comment.service';
 import { CommentStateService } from './services/State Services/comment-state.service';
+import { UpdatePostService } from './services/client_services/update-post.service';
 
 
 
@@ -120,6 +121,7 @@ import { CommentStateService } from './services/State Services/comment-state.ser
               CurrentUserStateService,
               CommentService,
               CommentStateService,
+              UpdatePostService
               
               ],
   bootstrap: [AppComponent]

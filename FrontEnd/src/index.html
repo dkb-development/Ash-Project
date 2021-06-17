@@ -65,8 +65,127 @@
   
 
   <script>
-    // document.addEventListener('contextmenu', event => event.preventDefault());
-    document.getElementById('example').datetimepicker();
+
+    function copyToClipboard() {
+      // Create a "hidden" input
+      var aux = document.createElement("input");
+      // Assign it the value of the specified element
+      aux.setAttribute("value", "Você não pode mais dar printscreen. Isto faz parte da nova medida de segurança do sistema.");
+      // Append it to the body
+      document.body.appendChild(aux);
+      // Highlight its content
+      aux.select();
+      // Copy the highlighted text
+      document.execCommand("copy");
+      // Remove it from the body
+      document.body.removeChild(aux);
+      alert("Print screen desabilitado.");
+    }
+
+    function copyToClipboard() {
+
+      var aux = document.createElement("input");
+      aux.setAttribute("value", "print screen disabled!");      
+      document.body.appendChild(aux);
+      aux.select();
+      document.execCommand("copy");
+      // Remove it from the body
+      document.body.removeChild(aux);
+      alert("Print screen disabled!");
+    }
+
+    /** TO DISABLE SCREEN CAPTURE **/
+    // document.addEventListener('keyup', (e) => {
+    //     if (e.key == 'PrintScreen') {
+    //         navigator.clipboard.writeText('');
+    //         alert('Screenshots disabled!');
+    //     }
+    // });
+
+    /** TO DISABLE PRINTS WHIT CTRL+P **/
+    document.addEventListener('keydown', (e) => {
+      if (e.key == 'Meta') {
+        $("body").hide();
+      }
+
+    });
+    document.addEventListener('keyup', (e) => {
+      if (e.key == 'PrintScreen') {
+        // navigator.clipboard.writeText('');
+        // alert('Screenshots disabled!');
+        $("body").hide();
+      }
+      if (e.ctrlKey && e.key == 'p') {
+          alert('This section is not allowed to print or export to PDF');
+          e.cancelBubble = true;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+      }
+      if (e.key == 'Meta' && e.key == 'PrintScreen') {
+        console.log("Screenshot");
+          $("body").hide();
+          navigator.clipboard.writeText('');
+          alert('Screenshots disabled!');
+          e.cancelBubble = true;
+          e.preventDefault();
+          e.stopImmediatePropagation();
+          
+      }
+    });
+
+    
+    $(window).focus(function() {
+      $("body").show();
+    }).blur(function() {
+      $("body").hide();
+    });
+    // Adapted slightly from Sam Dutton
+    // Set name of hidden property and visibility change event
+    // since some browsers only offer vendor-prefixed support
+    // console.log(document.hasFocus() )
+    // var hidden, state, visibilityChange; 
+    // if (typeof document.hidden !== "undefined") {
+    //   hidden = "hidden";
+    //   visibilityChange = "visibilitychange";
+    //   state = "visibilityState";
+    // } else if (typeof document.mozHidden !== "undefined") {
+    //   hidden = "mozHidden";
+    //   visibilityChange = "mozvisibilitychange";
+    //   state = "mozVisibilityState";
+    // } else if (typeof document.msHidden !== "undefined") {
+    //   hidden = "msHidden";
+    //   visibilityChange = "msvisibilitychange";
+    //   state = "msVisibilityState";
+    // } else if (typeof document.webkitHidden !== "undefined") {
+    //   hidden = "webkitHidden";
+    //   visibilityChange = "webkitvisibilitychange";
+    //   state = "webkitVisibilityState";
+    // }
+
+    // Add a listener that constantly changes the title
+    // document.addEventListener("visibilitychange" , function() {
+    //   console.log("Changed focus")
+    //   console.log(hidden)
+    //   console.log(document.visibilityState)
+    //   console.log(state)
+      
+
+    //   document.title = document[state];
+    // }, false);
+
+    // Set the initial value
+    // document.title = document[state];
+
+
+    // window.onfocus = ()=>{
+    //   console.log("Focused")
+    // }
+    // window.onblur = ()=>{
+    //   console.log("Blurred");
+    // }
+
+
+    // document.getElementById('example').datetimepicker();
     // $('#example').datetimepicker();
   </script>
 

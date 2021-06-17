@@ -54,6 +54,37 @@ router.post('/create_post',user_auth.verifyJwtToken,(req,res)=>{
     // res.json(client_id);
 })
 
+router.post('/delete_post',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        Post.deleteOne({
+            "_id": req.body.post_id
+        },(err,success)=>{
+            if(err){
+                return res.status(500).json(err);
+            }
+            else{
+                return res.status(200).json({
+                    "success": true,
+                    "deleted": true,
+                    "message": "Post Successfully deleted"
+                })
+            }
+        })
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
+
 router.get('/get_users',user_auth.verifyJwtToken,async (req,res)=>{
     var token = user_auth.getTokenFromReq(req);
     var client_id = user_auth.getUserFromToken(token);

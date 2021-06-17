@@ -18,6 +18,9 @@
 .post_header{
     width: 100%;
     height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 .post_client_profile{
     width: 100%;
