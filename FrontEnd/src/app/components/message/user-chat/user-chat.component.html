@@ -38,7 +38,7 @@
     </div>
     <div class="chat_footer" style="height: 10%;">
         <input #message_to_be_sent_text placeholder="Write your message here" class="user_chart_input_message">
-        <div class="send_message_btn rounded-circle" (click)="send_message(message_to_be_sent_text)">
+        <div id="user_float_chat_send_btn" class="send_message_btn btn rounded-circle" (click)="send_message(message_to_be_sent_text)">
             <i class="fas fa-paper-plane fa-lg" style="color: white;"></i>
         </div>
     </div>

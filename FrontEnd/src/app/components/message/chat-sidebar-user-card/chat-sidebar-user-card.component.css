@@ -22,7 +22,10 @@
 .chat_sidebar_card_body{
     width: 65%;
     height: 100%;
-    padding: 10px 0 0 0;
+    /* padding: 10px 0 0 0; */
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
 }
 .chat_sidebar_card_body > div{
     max-width: 95%;

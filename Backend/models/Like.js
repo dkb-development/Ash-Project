@@ -22,8 +22,6 @@ const likeSchema = new Schema({
         default: Date.now
     }
 
-    
-
-})
+},{timestamps: true})
 
 module.exports = mongoose.model('Like',likeSchema);

@@ -170,6 +170,8 @@ export class UserChatComponent implements OnInit {
       "sender" : this.user._id,
       "message_text" : message_to_be_sent_text.value
     }
+    message_to_be_sent_text.value = "";
+
     this.MessageService.sendMessage(new_message).subscribe(
       (res:any)=>{
         this.ChatStateService.appendMessage(res);
@@ -183,7 +185,6 @@ export class UserChatComponent implements OnInit {
         }
         console.log(message_to_socket_server);
         this.socket.emit("sendMessage",message_to_socket_server);
-
         
       },
       (err: any)=>{

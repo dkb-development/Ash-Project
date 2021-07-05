@@ -27,6 +27,13 @@ export class UserPostService {
     return this.http.post<any>(environment.apiBaseUrl + 'like_or_dislike_post',like_or_dislike_post_details,this.authHeaders);
   }
 
+  get_liked_posts(){
+    var user = {
+      "user_id": this.CurrentUserStateService.getCurrentUser()._id,
+    }
+    console.log(user);
+    return this.http.post<any>(environment.apiBaseUrl + 'get_liked_posts',user,this.authHeaders)
+  }
 
   // Payment Services
   pay_to_unlock(post_to_unlock_details:any){

@@ -75,7 +75,9 @@
     
     <div class="chat_main_container_header">
       <i class="fas fa-bars hamberger mr-4"></i>
-      <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0" src="{{(ChatStateService.chattting_friend$ | async).avatar}}" class="rounded-circle">
+      <!-- <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0" src="{{(ChatStateService.chattting_friend$ | async).avatar}}" class="rounded-circle"> -->
+      <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0 && (ChatStateService.chattting_friend$ | async).profile_picture!=''" src="{{(ChatStateService.chattting_friend$ | async).profile_picture}}" class="rounded-circle">
+      <i *ngIf="(ChatStateService.chattting_friend$ | async).length != 0 && (ChatStateService.chattting_friend$ | async).profile_picture==null" class="fas fa-user-circle fa-3x"></i>
       <!-- <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0" src={{GetUserProfilePicService.getProfilePicUrlFromUsername((ChatStateService.chattting_friend$ | async).username)}} class="rounded-circle"> -->
       <div class="user_to_chat_with_username ml-1">{{(ChatStateService.chattting_friend$ | async).username}}</div>
     </div>

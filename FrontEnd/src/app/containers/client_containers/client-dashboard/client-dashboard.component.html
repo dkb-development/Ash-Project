@@ -3,348 +3,129 @@
 <a [routerLink]="[ '/client/upload' ]">Upload</a>
 <a [routerLink]="[ '/client/messaging' ]">Messaging</a> -->
 
-<div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item" (click)="toggle_side_nav()">
-        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-      </li>
-      <!-- <li class="nav-item d-none d-sm-inline-block">
-        <a href="index3.html" class="nav-link">Home</a>
-      </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a href="#" class="nav-link">Contact</a>
-      </li> -->
-    </ul>
-    
-
+<div id="wrapper" class="wrapper">
   
-  
-    
- 
-
-
-
-    <!-- SEARCH FORM -->
-    <!-- <form class="form-inline ml-3">
-      <div class="input-group input-group-sm">
-        <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-        <div class="input-group-append">
-          <button class="btn btn-navbar" type="submit">
-            <i class="fas fa-search"></i>
-          </button>
-        </div>
+  <div id="sidenav" class="sidenav">
+    <a href="javascript:void(0)" id="close_btn_sidenav" class="closebtn" (click)="closeNav()">&times;</a>
+    <i  class="fas fa-user-circle fa-9x" *ngIf="!(CurrentUserStateService.current_user$ | async).profile_picture"></i>
+    <img class="rounded-circle" *ngIf="(CurrentUserStateService.current_user$ | async).profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}}>
+    <div id="side_nav_profile_username" class="side_nav_profile_username">{{(CurrentUserStateService.current_user$ | async).username}}</div>
+    <div class="sidenav_profile_stars">
+      <div class="start_container">
+        <img src="../../../../assets/icons/followers.svg">
+        <div>89k</div>
+        <div class="star_type">Subscribers</div>
       </div>
-    </form> -->
-
-    <!-- Right navbar links -->
-    <ul class="navbar-nav ml-auto">
-      <!-- Navbar Search -->
-      <li class="nav-item">
-        <!-- <a class="nav-link" data-widget="navbar-search" href="#" role="button">
-          <i class="fas fa-search"></i>
-        </a>
-        <div class="navbar-search-block" style="display: none;">
-          <form class="form-inline">
-            <div class="input-group input-group-sm">
-              <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-              <div class="input-group-append">
-                <button class="btn btn-navbar" type="submit">
-                  <i class="fas fa-search"></i>
-                </button>
-                <button class="btn btn-navbar" type="button" data-widget="navbar-search">
-                  <i class="fas fa-times"></i>
-                </button>
-              </div>
-            </div>
-          </form>
-        </div> -->
-      </li>
-      <!-- Messages Dropdown Menu -->
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-comments"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <a href="#" class="dropdown-item">
-            
-            <div class="media">
-              <img src="../../../../assets/images/profile_2.jpeg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            
-            <div class="media">
-              <img src="../../../../assets/images/profile_2.jpeg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            
-            <div class="media">
-              <img src="../../../../assets/images/profile_2.jpeg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-        </div>
-      </li> -->
-      <!-- Notifications Dropdown Menu -->
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li> -->
-      <!-- Upload Button -->
-      <li class="nav-item dropdown">
-        <a [routerLink]="[ '/client/upload' ]" class="nav-link" data-toggle="dropdown" href="#">
-          <button class="btn btn-primary"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
-        </a>
-        
-      </li>
-      <!-- <li class="nav-item">
-        <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-            class="fas fa-th-large"></i></a>
-      </li> -->
-
-
-
-      <!-- Userinfo Avatar -->
-      <!-- <li class="nav-item dropdown">
-        <a class="nav-link navbar_profile" data-toggle="dropdown" href="#">
-          <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle">
-          <div>Username</div>
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Full Name</span>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item navbar_profile_dropdown">
-            <i class="fas fa-users-cog"></i>
-            <div>Profile Settings</div>
-            
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item navbar_profile_dropdown">
-            <i class="fas fa-sign-out-alt"></i>
-            <div>Log Out</div>
-          </a>
-          <div class="dropdown-divider"></div>
-        </div>
-      </li> -->
-
-      <li *ngIf="is_logged_in" class="nav-item dropdown">
-        <a class="nav-link navbar_profile" data-toggle="dropdown" href="#">
-          <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
-          <i *ngIf="!(CurrentUserStateService.current_user$ | async).profile_picture" class="fas fa-user-circle fa-2x"></i>
-          <img class="rounded-circle" *ngIf="(CurrentUserStateService.current_user$ | async).profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}}>
-          <div>{{(CurrentUserStateService.current_user$ | async).username}}</div>
-          <!-- <i class="far fa-bell"></i> -->
-          <!-- <span class="badge badge-warning navbar-badge">15</span> -->
-        </a>
-        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">{{(CurrentUserStateService.current_user$ | async).username}}</span>
-          <div class="dropdown-divider"></div>
-          <a [routerLink]="[ '/client/profile' ]" href="#" class="dropdown-item navbar_profile_dropdown">
-            <!-- <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span> -->
-            <i class="fas fa-users-cog"></i>
-            <div>Profile Settings</div>
-            
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item navbar_profile_dropdown" (click)="onLogOut()">
-            <i class="fas fa-sign-out-alt"></i>
-            <div>Log Out</div>
-          </a>
-          <div class="dropdown-divider"></div>
-          <!-- <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
-        </div>
-      </li>
-      <!-- <li *ngIf="!is_logged_in" class="nav-item">
-          <a class="btn btn-primary ml-2" (click)="openLoginModal()">Log In</a>
-          <a class="btn btn-info ml-2" (click)="openRegisterModal()">Sign Up</a>
-      </li> -->
-
-
-
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-  
-  <!-- /.modal -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <!-- <a href="index3.html" class="brand-link">
-      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a> -->
-    <div class="side_nav_profile">
-      <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
-      <i  class="fas fa-user-circle fa-9x" *ngIf="!(CurrentUserStateService.current_user$ | async).profile_picture"></i>
-      <img class="rounded-circle" *ngIf="(CurrentUserStateService.current_user$ | async).profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}}>
-      <div class="side_nav_profile_username">{{(CurrentUserStateService.current_user$ | async).username}}</div>
-      <div class="sidenav_profile_stars">
-        <div class="start_container">
-          <img src="../../../../assets/icons/followers.svg">
-          <div>89k</div>
-          <div class="star_type">Subscribers</div>
-        </div>
-        <div class="vertical_line"></div>
-        <div class="start_container">
-          <img src="../../../../assets/icons/heart.svg">
-          <div>89k</div>
-          <div class="star_type">Likes</div>
-        </div>
-        <div class="vertical_line"></div>
-        <div class="start_container">
-          <img src="../../../../assets/icons/tip_4.svg">
-          <div>89k</div>
-          <div class="star_type">Tips</div>
-        </div>
+      <div class="vertical_line"></div>
+      <div class="start_container">
+        <img src="../../../../assets/icons/heart.svg">
+        <div>89k</div>
+        <div class="star_type">Likes</div>
+      </div>
+      <div class="vertical_line"></div>
+      <div class="start_container">
+        <img src="../../../../assets/icons/tip_4.svg">
+        <div>89k</div>
+        <div class="star_type">Tips</div>
       </div>
     </div>
     
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar user panel (optional) -->
-      <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
-          <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
-        <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
-        </div>
-      </div> -->
-
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-              <li class="nav-item">
-                <a [routerLink]="[ '/client/home' ]"  [routerLinkActive]="['active']" class="nav-link">
-                  <img src="../../../../assets/icons/home.svg">
-                  <div>Home</div>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a [routerLink]="[ '/client/upload' ]" [routerLinkActive]="['active']" class="nav-link" >
-                  <img src="../../../../assets/icons/upload.svg">
-                  <div>Upload</div>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a [routerLink]="[ '/client/messaging' ]" [routerLinkActive]="['active']" class="nav-link" >
-                  <img src="../../../../assets/icons/chatting_black.svg">
-                  <div>Messaging</div>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a [routerLink]="[ '/client/fans_tab' ]" [routerLinkActive]="['active']" class="nav-link">
-                  <img src="../../../../assets/icons/fans.svg" fill="white">
-                  <div>Fans Tab</div>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a [routerLink]="[ '/client/finance' ]" [routerLinkActive]="['active']" class="nav-link" >
-                  <img src="../../../../assets/icons/finance.svg">
-                  <div>Finance</div>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a [routerLink]="[ '/client/profile' ]" [routerLinkActive]="['active']" class="nav-link" >
-                  <img src="../../../../assets/icons/Edit_Profile.svg">
-                  <div>Profile</div>
-                </a>
-              </li>
-          </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
+    <div [routerLink]="[ '/client/home']" routerLinkActive="active_sidebar_menu">
+      <img src="../../../../assets/icons/home.svg">
+      <div>Home</div>
     </div>
-    <!-- /.sidebar -->
-  </aside>
+    <div [routerLink]="[ '/client/upload']" routerLinkActive="active_sidebar_menu">
+      <img src="../../../../assets/icons/upload.svg">
+      <div>Upload</div>
+    </div>
+    <div [routerLink]="[ '/client/messaging']" routerLinkActive="active_sidebar_menu">
+      <img src="../../../../assets/icons/chatting_black.svg">
+      <div>Messaging</div>
+    </div>
+    <div [routerLink]="[ '/client/fans_tab']" routerLinkActive="active_sidebar_menu">
+      <img src="../../../../assets/icons/fans.svg" fill="white">
+      <div>Fans Tab</div>
+    </div>
+    <div [routerLink]="[ '/client/finance']" routerLinkActive="active_sidebar_menu">
+      <img src="../../../../assets/icons/finance.svg">
+      <div>Finance</div>
+    </div>
+    <div [routerLink]="[ '/client/profile']" routerLinkActive="active_sidebar_menu">
+      <img src="../../../../assets/icons/Edit_Profile.svg">
+      <div>Profile</div>
+    </div>
+  </div>
+
+  
 
   <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
-    <router-outlet style="width: 100%;"></router-outlet>
+  <div id="contentWrapper" class="contentWrapper" style="position: relative;">
+      
+    <div id="top_nav" class="top_nav">
+      <a class="nav-link mr-2" style="width: 2%;" data-widget="pushmenu" href="#" (click)="toggleNav()"><i class="fas fa-bars"></i></a>
+      <div class="top_nav_content">
+          <div class="user_nav_client_name" style="font-size: x-large;font-weight: 600;float: left;">{{CurrentUserStateService.getClient().username}}</div>
+          
+          <div class="top_nav_right_menus_container">
+            <a [routerLink]="[ '/client/upload' ]" class="nav-link" data-toggle="dropdown" href="#">
+              <button class="btn btn-primary"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
+            </a>
+            <div *ngIf="is_logged_in" class="nav-item dropdown">
+                <a class="nav-link navbar_profile" data-toggle="dropdown" href="#">
+                <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
+                <img *ngIf="CurrentUserStateService.getCurrentUser().profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}} class="rounded-circle">
+                  <i *ngIf="!CurrentUserStateService.getCurrentUser().profile_picture" class="fas fa-user-circle fa-2x"></i>
+                <div>{{CurrentUserStateService.getCurrentUser().username}}</div>
+                <!-- <i class="far fa-bell"></i> -->
+                <!-- <span class="badge badge-warning navbar-badge">15</span> -->
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                <span class="dropdown-item dropdown-header">{{CurrentUserStateService.getCurrentUser().username}}</span>
+                <div class="dropdown-divider"></div>
+                <a *ngIf="CurrentUserStateService.getCurrentUser().is_client" href="#" class="dropdown-item navbar_profile_dropdown" [routerLink]="[ '/client/profile' ]">
+                    <!-- <i class="fas fa-envelope mr-2"></i> 4 new messages
+                    <span class="float-right text-muted text-sm">3 mins</span> -->
+                    <i class="fas fa-users-cog"></i>
+                    <div>Profile Settings</div>
+                    
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item navbar_profile_dropdown" (click)="onLogOut()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <div>Log Out</div>
+                </a>
+                <div class="dropdown-divider"></div>
+                <!-- <a href="#" class="dropdown-item">
+                    <i class="fas fa-file mr-2"></i> 3 new reports
+                    <span class="float-right text-muted text-sm">2 days</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
+                </div>
+            </div>
+            <!-- <div *ngIf="!is_logged_in" class="nav-item">
+                <a class="btn btn-primary ml-2" (click)="openLoginModal()">Log In</a>
+                <a class="btn btn-info ml-2" (click)="openRegisterModal()">Sign Up</a>
+            </div> -->
+          </div>
+      </div>
+      
+    </div>
+
+
+    <div style="width: 100%;margin-top: 6vh;">
+      <router-outlet></router-outlet>
+    </div>
+      
+      
+   
+
+   
+   
   </div>
   <!-- /.content-wrapper -->
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-
-  <!-- Main Footer -->
-  <!-- <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
-    <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.0.0
-    </div>
-  </footer> -->
+  
 
 
 
@@ -469,11 +250,7 @@
     
    </footer>
 </div>
-<!-- ./wrapper -->
 
-  <!-- Content Wrapper. Contains page content -->
-  
-<!-- <router-outlet></router-outlet> -->
 
 
 

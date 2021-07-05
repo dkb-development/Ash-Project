@@ -55,6 +55,7 @@ export class ChatStateService {
   
 
   setChattingFriend(chatting_friends_info: any){
+    chatting_friends_info.profile_picture = chatting_friends_info.profile_picture?.split('?')[0];
     this._chattting_friend.next(chatting_friends_info);
   }
   getChattingFriend(){

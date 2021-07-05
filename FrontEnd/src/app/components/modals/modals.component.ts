@@ -15,9 +15,9 @@ export class ModalsComponent implements OnInit {
 
   tip_amount_chosen_by_user: number = 0;
 
-  ngOnChanges(changes: SimpleChanges) {
-    this.tip_amount_chosen_by_user = changes.tip_post_details.currentValue.post_info.tip_to_unlock;
-  }
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.tip_amount_chosen_by_user = changes.tip_post_details.currentValue.post_info.tip_to_unlock;
+  // }
 
   
   // @Input()

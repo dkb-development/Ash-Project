@@ -1,3 +1,48 @@
+
+
+.content_type_container{
+    width: 100%;
+    height: 5vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1rem;
+    background-color: gray;
+    padding: 30px;
+    z-index: 2;
+    transition: width 0.5s,position 0.1s;
+}
+.content_type{
+    width: 10%;
+    margin: 0 10px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 5px;
+}
+.active_content_type{
+    background-color: #14213D;
+    color: white; 
+}
+
+
+.content_type img{
+    max-height: 90%;
+    max-width: 30%;
+}
+.fixedTop{
+    position: fixed;
+    top: 6vh;
+    left: 0;
+}
+.fixedTopOpenSideNav{
+    width: 80%;
+    margin-left: 20%;
+}
+
+
 .post_card_container{
     width: 100%;
     margin: auto;
@@ -169,4 +214,15 @@
 .no_access_media img{
     width: 10%;
     margin: 10px;
+}
+
+@media screen and (max-width: 760px){
+    .content_type{
+        width: 20%;
+        padding: 15px 20px;
+    }
+    .content_type img{
+        max-height: 90%;
+        max-width: 50%;
+    }
 }

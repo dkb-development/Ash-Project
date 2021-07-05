@@ -23,4 +23,7 @@ export class UpdatePostService {
     console.log(post_id);
     return this.http.post(environment.apiBaseUrl + 'client/delete_post', {"post_id": post_id},this.authHeaders)
   }
+  edit_post(edit_post_details: any){
+    return this.http.post(environment.apiBaseUrl + 'client/edit_post', edit_post_details,this.authHeaders)
+  }
 }

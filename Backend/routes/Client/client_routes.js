@@ -54,6 +54,70 @@ router.post('/create_post',user_auth.verifyJwtToken,(req,res)=>{
     // res.json(client_id);
 })
 
+router.post('/edit_post',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var client_id = user_auth.getUserFromToken(token);
+
+    var client = await User.findById(client_id);
+    if(client._id == client_id){
+        try {
+            var post_tobe_edited = await Post.findById(req.body.id);
+        } catch (error) {
+            return res.status(500).json("No Post Found");
+        }
+        post_tobe_edited.caption = req.body.caption;
+        if(req.body.accessibility == 'subscribed'){
+            post_tobe_edited.accessible_by_all = false;
+            post_tobe_edited.accessibility = 'subscribed';
+            post_tobe_edited.is_tipped = false;
+            post_tobe_edited.tip_to_unlock = 0;
+        }
+        else if(req.body.accessibility == 'tipped'){
+            post_tobe_edited.accessible_by_all = false;
+            post_tobe_edited.accessibility = 'tipped';
+            post_tobe_edited.is_tipped = true;
+            post_tobe_edited.tip_to_unlock = req.body.tip_to_unlock;
+        }
+        else{
+            post_tobe_edited.accessible_by_all = true;
+            post_tobe_edited.accessibility = 'all';
+            post_tobe_edited.is_tipped = false;
+            post_tobe_edited.tip_to_unlock = 0;
+        }
+        try {
+            var saved_edited_post = await post_tobe_edited.save();
+            
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+        if(saved_edited_post){
+            return res.status(200).json(saved_edited_post);
+        }
+        // Post.deleteOne({
+        //     "_id": req.body.post_id
+        // },(err,success)=>{
+        //     if(err){
+        //         return res.status(500).json(err);
+        //     }
+        //     else{
+        //         return res.status(200).json({
+        //             "success": true,
+        //             "deleted": true,
+        //             "message": "Post Successfully deleted"
+        //         })
+        //     }
+        // })
+        return res.status(200).json("Successfull");
+    }
+    else{
+        return res.status(500).json(
+            {
+                "success": false,
+                "message": "Only accessible to client"
+            }
+        )
+    }
+})
 router.post('/delete_post',user_auth.verifyJwtToken,async (req,res)=>{
     var token = user_auth.getTokenFromReq(req);
     var client_id = user_auth.getUserFromToken(token);

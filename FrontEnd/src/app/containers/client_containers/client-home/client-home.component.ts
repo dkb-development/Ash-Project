@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FetchPostsService } from '../../../services/user_services/fetch-posts.service';
 
+// Services
+import { PostsStateService } from '../../../services/State Services/posts-state.service';
+
 @Component({
   selector: 'app-client-home',
   templateUrl: './client-home.component.html',
@@ -8,7 +11,10 @@ import { FetchPostsService } from '../../../services/user_services/fetch-posts.s
 })
 export class ClientHomeComponent implements OnInit {
 
-  constructor(private FetchPostsService: FetchPostsService) { }
+  constructor(
+    private FetchPostsService: FetchPostsService,
+    private PostsStateService: PostsStateService
+    ) { }
   posts:any = [];
   post_container_spinner = true;
   ngOnInit(): void {
@@ -27,31 +33,50 @@ export class ClientHomeComponent implements OnInit {
         // this.posts.forEach((post:any)=>{
         //   console.log("Post media Url : " ,post.media);
         // })
+        this.PostsStateService.setPostsList(this.posts);
+
       },
       (err: any)=>{
         console.log(err);
       }
     )
+
+    var wrapper = $("#wrapper");
+    $(window).scroll(function(e) {
+      // this.adjustContentTypeContainer();
+      let scrollY = window.scrollY;
+      if(scrollY > $(window).height()*0.1){
+        $(".content_type_container").addClass("fixedTop");
+        if(document.getElementById("sidenav").style.width!="0px"){
+          document.getElementById("content_type_container")?.classList.add('fixedTopOpenSideNav');
+        }
+        else{
+          document.getElementById("content_type_container")?.classList.remove('fixedTopOpenSideNav');
+
+        }
+      }
+      
+      else{
+        $(".content_type_container").removeClass("fixedTop");
+        document.getElementById("content_type_container")?.classList.remove('fixedTopOpenSideNav');
+      }
+      // console.log(this.scrollTop);
+      // if (this.scrollTop > 500) {
+      //   wrapper.addClass("fixedTop");
+      // } else {
+      //   wrapper.removeClass("fixedTop");
+      // }
+      
+    });
+
+    
     
   }
-  // posts = [
-  //   {
-  //     "name": "post 1",
-  //     "type": "image",
-  //   },
-  //   {
-  //     "name": "post 2",
-  //     "type": "video",
-  //   },
-  //   {
-  //     "name": "post 3",
-  //     "type": "audio",
-  //   },
-  //   {
-  //     "name": "post 4",
-  //     "type": "image",
-  //   },
-  // ];
+
+  post_media_type = "";
+  show_posts_of_type(media_type: any){
+    this.post_media_type = media_type;
+  }
 
   
 

@@ -1,0 +1,34 @@
+<div class="client_profile_container">
+    <div class="client_profile_image_container">
+        <div style="width: 35%;"></div>
+        <div class="client_profile_picture">
+            <i *ngIf="!(CurrentUserStateService.current_user$ | async).profile_picture" class="fas fa-user-circle fa-7x" style="color: gray;"></i>
+            <img *ngIf="(CurrentUserStateService.current_user$ | async).profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}} class="rounded-circle">
+        </div>
+        
+
+        <div style="width: 35%;display: flex;justify-content: start;align-items: center;">
+            <div class="client_change_profile_btn btn" data-toggle="modal" data-target="#clientChangeProfilePictureModal">
+                Upload Picture
+            </div>
+        </div>
+        
+    </div>
+    <div class="client_username_container">
+        <div style="width: 35%;"></div>
+        <div class="client_username">{{(CurrentUserStateService.current_user$ | async).username}}</div>
+
+        <div style="width: 35%;">
+            <div class="client_change_username_btn btn" data-toggle="modal" data-target="#clientChangeUsernameModal">
+                Change Username
+            </div>
+        </div>
+        
+    </div>
+    <div class="client_add_info">
+
+    </div>
+</div>
+
+<app-client-change-profile-picture-modal></app-client-change-profile-picture-modal>
+<app-client-change-username-modal></app-client-change-username-modal>

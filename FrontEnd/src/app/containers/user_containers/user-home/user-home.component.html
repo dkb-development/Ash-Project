@@ -1,556 +1,69 @@
-<div class="wrapper">
-   <!-- Navbar -->
-   <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-     <!-- Left navbar links -->
-     <ul class="navbar-nav">
-        <li class="nav-item">
-          <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
-        </li>
-        <li class="nav-item d-flex justify-content-center align-items-center" >
-          <div class="user_nav_client_name" style="font-size: x-large;font-weight: 600;">{{CurrentUserStateService.getClient().username}}</div>
-        </li>
-     </ul>
- 
-     
- 
-     <!-- Right navbar links -->
-     <ul class="navbar-nav ml-auto">
-       
-       <!-- Messages Dropdown Menu -->
-       <li *ngIf="is_logged_in && CurrentUserStateService.getCurrentUser().is_client" class="nav-item dropdown">
-         <a class="nav-link" data-toggle="dropdown" href="#">
-           <i class="far fa-comments"></i>
-           <span class="badge badge-danger navbar-badge">3</span>
-         </a>
-         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-           <a href="#" class="dropdown-item">
-             <!-- Message Start -->
-             <div class="media">
-               <img src="../../../../assets/images/profile_2.jpeg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
-               <div class="media-body">
-                 <h3 class="dropdown-item-title">
-                   Brad Diesel
-                   <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
-                 </h3>
-                 <p class="text-sm">Call me whenever you can...</p>
-                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-               </div>
-             </div>
-             <!-- Message End -->
-           </a>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item">
-             <!-- Message Start -->
-             <div class="media">
-               <img src="../../../../assets/images/profile_2.jpeg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-               <div class="media-body">
-                 <h3 class="dropdown-item-title">
-                   John Pierce
-                   <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                 </h3>
-                 <p class="text-sm">I got your message bro</p>
-                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-               </div>
-             </div>
-             <!-- Message End -->
-           </a>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item">
-             <!-- Message Start -->
-             <div class="media">
-               <img src="../../../../assets/images/profile_2.jpeg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-               <div class="media-body">
-                 <h3 class="dropdown-item-title">
-                   Nora Silvester
-                   <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                 </h3>
-                 <p class="text-sm">The subject goes here</p>
-                 <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-               </div>
-             </div>
-             <!-- Message End -->
-           </a>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
-         </div>
-       </li>
-       <!-- Notifications Dropdown Menu -->
-       <li *ngIf="is_logged_in && CurrentUserStateService.getCurrentUser().is_client" class="nav-item dropdown">
-         <a class="nav-link" data-toggle="dropdown" href="#">
-           <i class="far fa-bell"></i>
-           <span class="badge badge-warning navbar-badge">15</span>
-         </a>
-         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-           <span class="dropdown-item dropdown-header">15 Notifications</span>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item">
-             <i class="fas fa-envelope mr-2"></i> 4 new messages
-             <span class="float-right text-muted text-sm">3 mins</span>
-           </a>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item">
-             <i class="fas fa-users mr-2"></i> 8 friend requests
-             <span class="float-right text-muted text-sm">12 hours</span>
-           </a>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item">
-             <i class="fas fa-file mr-2"></i> 3 new reports
-             <span class="float-right text-muted text-sm">2 days</span>
-           </a>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
-         </div>
-       </li>
-       <!-- Upload Button -->
-       <!-- <li class="nav-item dropdown">
-         <a class="nav-link" data-toggle="dropdown" href="#">
-           <button class="btn btn-primary"><i class="fas fa-cloud-upload-alt"></i> Upload</button>
-         </a>
-         
-       </li> -->
-       <!-- <li class="nav-item">
-         <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#"><i
-             class="fas fa-th-large"></i></a>
-       </li> -->
 
 
-       <!-- Userinfo Avatar -->
-       <!-- *ngIf="is_logged_in" -->
-       <li *ngIf="is_logged_in" class="nav-item dropdown">
-         <a class="nav-link navbar_profile" data-toggle="dropdown" href="#">
-           <!-- <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle"> -->
-           <i *ngIf="!user.image" class="fas fa-user-circle fa-2x"></i>
-           <div>{{user.username}}</div>
-           <!-- <i class="far fa-bell"></i> -->
-           <!-- <span class="badge badge-warning navbar-badge">15</span> -->
-         </a>
-         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-           <span class="dropdown-item dropdown-header">{{CurrentUserStateService.getCurrentUser().username}}</span>
-           <div class="dropdown-divider"></div>
-           <a *ngIf="CurrentUserStateService.getCurrentUser().is_client" href="#" class="dropdown-item navbar_profile_dropdown">
-             <!-- <i class="fas fa-envelope mr-2"></i> 4 new messages
-             <span class="float-right text-muted text-sm">3 mins</span> -->
-             <i class="fas fa-users-cog"></i>
-             <div>Profile Settings</div>
-             
-           </a>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item navbar_profile_dropdown" (click)="onLogOut()">
-             <i class="fas fa-sign-out-alt"></i>
-             <div>Log Out</div>
-           </a>
-           <div class="dropdown-divider"></div>
-           <!-- <a href="#" class="dropdown-item">
-             <i class="fas fa-file mr-2"></i> 3 new reports
-             <span class="float-right text-muted text-sm">2 days</span>
-           </a>
-           <div class="dropdown-divider"></div>
-           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
-         </div>
-       </li>
-       <li *ngIf="!is_logged_in" class="nav-item">
-           <!-- <app-auth-user></app-auth-user> -->
-           <a class="btn btn-primary ml-2" (click)="openLoginModal()">Log In</a>
-           <a class="btn btn-info ml-2" (click)="openRegisterModal()">Sign Up</a>
-       </li>
-     </ul>
-
-
-     <!-- <button type="button" class="btn btn-default" data-toggle="modal" data-target="#modal-default">
-      Launch Default Modal
-    </button> -->
+  <!-- <router-outlet></router-outlet> -->
   
-    
-     
-   </nav>
-   
-
-
-  
-   <!-- /.navbar -->
- 
-   <!-- Main Sidebar Container -->
-   <aside class="main-sidebar sidebar-dark-primary elevation-4">
-     
-     
- 
-     <!-- Sidebar -->
-     <div class="sidebar">
-       <!-- Sidebar user panel (optional) -->
-       <!-- <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-         <div class="image">
-           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-         </div>
-         <div class="info">
-           <a href="#" class="d-block">Alexander Pierce</a>
-         </div>
-       </div> -->
- 
-       <!-- Sidebar Menu -->
-       <nav class="mt-4">
-         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-           <!-- Add icons to the links using the .nav-icon class
-                with font-awesome or any other icon font library -->
-               <li class="nav-item" (click)="show_posts_of_type('')">
-                 <a [class.active]="selected===1" (click)="[set_active(1),set_filter_type('')]"  class="nav-link">
-                   <img src="../../../../assets/icons/blog.svg">
-                   <div>All Posts</div>
-                 </a>
-               </li>
-               <li class="nav-item" (click)="show_posts_of_type('image')">
-                 <a [class.active]="selected===3" (click)="[set_active(3),set_filter_type('image')]" class="nav-link" >
-                   <img src="../../../../assets/icons/image-gallery.svg">
-                   <div>Images</div>
-                 </a>
-               </li>
-               <li class="nav-item" (click)="show_posts_of_type('video')">
-                 <a [class.active]="selected===2" (click)="[set_active(2),set_filter_type('video')]" class="nav-link" >
-                   <img src="../../../../assets/icons/video-camera.svg">
-                   <div>Video</div>
-                 </a>
-               </li>
-               <li class="nav-item" (click)="show_posts_of_type('audio')">
-                 <a [class.active]="selected===4" (click)="[set_active(4),set_filter_type('audio')]" class="nav-link" >
-                   <img src="../../../../assets/icons/audio.svg" fill="white">
-                   <div>Audio</div>
-                 </a>
-               </li>
-               
-           </ul>
-       </nav>
-       <!-- /.sidebar-menu -->
-     </div>
-     <!-- /.sidebar -->
-   </aside>
- 
-
-
-
-   <!-- Content Wrapper. Contains page content -->
-   <div class="content-wrapper" style="padding: 10px;">
-     <!-- <router-outlet></router-outlet> -->
-     <!-- <ul>
-       <li *ngFor="let post of posts | filter_posts: filter_type">
-          {{ post.name + ' : ' + post.type }}
-       </li>
-    </ul> -->
-
-    <!-- <router-outlet></router-outlet> -->
-    
-    <!-- Client Cover Photo -->
-    <div class="client_cover_container">
-      <div class="client_cover_image_container" style="background: linear-gradient(to bottom,rgba(255,255,255,0.2),rgba(0,0,0,0.2)), url('../../../../assets/images/landing_page_2.jpg') no-repeat;background-size: cover;">
+  <!-- Client Cover Photo -->
+  <div class="client_cover_container">
+  <div class="client_cover_image_container" style="background: linear-gradient(to bottom,rgba(255,255,255,0.2),rgba(0,0,0,0.2)), url('../../../../assets/images/landing_page_2.jpg') no-repeat;background-size: cover;">
+  </div>
+  <div style="width: 100%;height: 50%;"></div>
+  <div class="client_cover_info">
+      <div class="client_name">
+      {{CurrentUserStateService.getClient().username}}
       </div>
-      <div style="width: 100%;height: 50%;"></div>
-      <div class="client_cover_info">
-        <div class="client_name">
-          {{CurrentUserStateService.getClient().username}}
-        </div>
-        <div *ngIf="is_logged_in" class="client_message_tip_container">
-          <div class="meaasge_me_btn" (click)="openChat()">Message Me</div>
-          <div class="tip_me_btn" data-toggle="modal" data-target="#tipClientModal">Tip Me</div>
-        </div>
-        <div *ngIf="is_logged_in && !CurrentUserStateService.getCurrentUser().is_subscribed" class="client_subscribe_btn_container">
-          <div class="subscribe_btn" data-toggle="modal" data-target="#subscribeModal">
-            Subscribe for $50/month
-          </div>
-        </div>
-        <div *ngIf="!is_logged_in" class="client_login_signup_container">
-          <div class="logIn_btn" (click)="openLoginModal()">Log In</div>
-          <div class="signUp_btn" (click)="openRegisterModal()">Sign Up</div>
-        </div>
+      <div *ngIf="is_logged_in" class="client_message_tip_container">
+      <div class="meaasge_me_btn" (click)="openChat()">Message Me</div>
+      <div class="tip_me_btn" data-toggle="modal" data-target="#tipClientModal">Tip Me</div>
       </div>
-    </div>
-
-
-    <div *ngIf="post_container_spinner" style="width: 100%;height: 100vh;display: flex;justify-content: center;align-items: center;">
-      <div class="spinner-border" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-    </div>
-    
-    
-
-    <app-user-chat></app-user-chat>
-    <div class="posts_container">
-      <div *ngFor="let post of PostsStateService.posts_list$ | async | postType:post_media_type">
-        <app-post [post_details]="post" (newTipPostEvent)="openTipModal($event)"></app-post>
+      <div *ngIf="is_logged_in && !CurrentUserStateService.getCurrentUser().is_subscribed" class="client_subscribe_btn_container">
+      <div class="subscribe_btn" data-toggle="modal" data-target="#subscribeModal">
+          Subscribe for $50/month
       </div>
-    </div>
-    
-
-    
-    <div class="modal fade" id="modal-default">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h4 class="modal-title">Default Modal</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <p>One fine body&hellip;</p>
-          </div>
-          <div class="modal-footer justify-content-between">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-          </div>
-        </div>
-        <!-- /.modal-content -->
       </div>
-      <!-- /.modal-dialog -->
-    </div>
-    <!-- /.modal -->
-   </div>
-   <!-- /.content-wrapper -->
- 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
- 
-   <!-- Main Footer -->
-   <!-- <footer class="main-footer">
-     <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
-     All rights reserved.
-     <div class="float-right d-none d-sm-inline-block">
-       <b>Version</b> 3.0.0
-     </div>
-   </footer> -->
-
-
-  
-
-  
-   
-</div>
-<!-- Modals -->
-<app-modals [tip_post_details]="tip_to_unlock_post"></app-modals>
-
-<!-- LogIn/SIgnUp Modal -->
-<div style="position: absolute;" class="modal fade login" id="loginModal" tabindex="-1">
-  <div class="modal-dialog login animated">
-      <div class="modal-content">
-        <div class="modal-header">
-            <h4 class="modal-title">Login with</h4>
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            
-        </div>
-        <div class="modal-body">
-            <div class="box">
-                <div class="content">
-                    <div class="social">
-                        <a class="circle github" href="#">
-                            <i class="fa fa-github fa-fw"></i>
-                        </a>
-                        <a id="google_login" class="circle google" href="#">
-                            <i class="fa fa-google-plus fa-fw"></i>
-                        </a>
-                        <a id="facebook_login" class="circle facebook" href="#">
-                            <i class="fa fa-facebook fa-fw"></i>
-                        </a>
-                    </div>
-                    <div class="division">
-                        <div class="line l"></div>
-                          <span>or</span>
-                        <div class="line r"></div>
-                    </div>
-                    <div class="error"></div>
-                    <div style="color: red;margin: 0;" class="alert" *ngIf="serverErrorMessages">
-                        {{serverErrorMessages}}
-                      </div>
-                    <div class="form loginBox">
-                        <form [formGroup]="logInForm" (ngSubmit)="logInForm.valid && onSubmitLogIn(logInForm)" method="" action="" accept-charset="UTF-8">
-                            <small style="color: red;" *ngIf="logInForm.get('email').invalid && (logInForm.get('email').dirty || logInForm.get('email').touched)">
-                                Please provide a valid email address.
-                            </small>
-                            <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
-                            <small style="color: red;" *ngIf="logInForm.get('password').invalid && (logInForm.get('password').dirty || logInForm.get('password').touched)">
-                                Password is Required.
-                            </small>
-                            <input id="password" class="form-control" type="password" placeholder="Password" name="password" formControlName="password">
-                            <input class="btn btn-default btn-login" type="submit" value="Log In" [disabled]="logInForm.invalid"> 
-                            <!-- <input class="btn btn-default btn-login" type="submit" value="Log In" (click)="loginAjax()"> -->
-                        </form>
-                    </div>
-                </div> 
-            </div>
-            <div class="box">
-                <div class="content registerBox" style="display:none;">
-                <div class="form">
-                    <form [formGroup]="signUpForm" (ngSubmit)="signUpForm.valid && onSubmitSignUp(signUpForm)" method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
-                        <small style="color: red;" *ngIf="signUpForm.get('username').invalid && (signUpForm.get('username').dirty || signUpForm.get('username').touched)">
-                            Please provide a valid Username.
-                        </small>
-                        <input id="username" class="form-control" type="text" placeholder="Username" formControlName="username">
-                        <small style="color: red;" *ngIf="signUpForm.get('email').invalid && (signUpForm.get('email').dirty || signUpForm.get('email').touched)">
-                            Please provide a valid email address.
-                        </small>
-                        <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
-                        <small style="color: red;" *ngIf="signUpForm.get('password').invalid && (signUpForm.get('password').dirty || signUpForm.get('password').touched)">
-                            Password is Required.
-                        </small>
-                        <input id="password" class="form-control" type="password" placeholder="Password" formControlName="password">
-                        <small style="color: red;" *ngIf="(signUpForm.get('password_confirmation').value != signUpForm.get('password').value) && (signUpForm.get('password_confirmation').dirty || signUpForm.get('password_confirmation').touched)">
-                            Password doesn't match.
-                        </small>
-                        <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" formControlName="password_confirmation">
-                        <input class="btn btn-default btn-register" type="submit" value="Sign Up" name="commit" [disabled]="signUpForm.invalid || (signUpForm.get('password_confirmation').value != signUpForm.get('password').value)">
-                    </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal-footer">
-            <div class="forgot login-footer">
-                <span>Looking to
-                    <span style="color: aqua;cursor: pointer;" (click)="showRegisterForm()">create an account</span>
-                ?</span>
-            </div>
-            <div class="forgot register-footer" style="display:none">
-                <span>Already have an account?</span>
-                <span style="color: aqua;cursor: pointer;" (click)="showLoginForm()">Login</span>
-            </div>
-        </div>
+      <div *ngIf="!is_logged_in" class="client_login_signup_container">
+      <div class="logIn_btn" (click)="openLoginModal()">Log In</div>
+      <div class="signUp_btn" (click)="openRegisterModal()">Sign Up</div>
       </div>
   </div>
-</div>
-
-<!-- Subscribe Modal -->
-<app-subscribe-modal></app-subscribe-modal>
-
-<!-- Tip Client Modal -->
-<app-tip-client-modal></app-tip-client-modal>
-
-
-<!-- Footer -->
-<footer id="footer" style="position: relative;z-index: 1050;">
-  <div class="footer-wrap">
-  <div class="container first_class">
-      <div class="row">
-        <div class="col-md-4 col-sm-6">
-          <h3>BE THE FIRST TO KNOW</h3>
-          <p>Get all the latest information on  Triedge Services, Events, Jobs
-            and Fairs. Sign up for our newsletter today.</p>
-        </div>
-        <div class="col-md-4 col-sm-6">
-        <form class="newsletter">
-          <input type="text" placeholder="Email Address"> 
-                                                        <button class="newsletter_submit_btn" type="submit"><i class="fa fa-paper-plane"></i></button>  
-        </form>
-        
-        </div>
-        <div class="col-md-4 col-sm-6">
-        <div class="col-md-12">
-          <div class="standard_social_links">
-        <div>
-          <li class="round-btn btn-facebook"><a href="#"><i class="fab fa-facebook-f"></i></a>
-
-          </li>
-          <li class="round-btn btn-linkedin"><a href="#"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-
-          </li>
-          <li class="round-btn btn-twitter"><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
-
-          </li>
-          <li class="round-btn btn-instagram"><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
-
-          </li>
-          <li class="round-btn btn-whatsapp"><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
-
-          </li>
-          <li class="round-btn btn-envelop"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
-
-          </li>
-        </div>
-      </div>  
-        </div>
-          <div class="clearfix"></div>
-        <div class="col-md-12"><h3 style="text-align: right;">Stay Connected</h3></div>
-        </div>
-      </div>
-  </div>
-    <div class="second_class">
-      <div class="container second_class_bdr">
-      <div class="row">
-        <div class="col-md-4 col-sm-6">
-
-          <div class="footer-logo"><img src="http://localhost/lrn/img/footer_logo.png" alt="logo">
-          </div>
-          <p>Your one-stop career platform to find Jobs, Internships, Professional Trainings, Projects, and Volunteering Opportunities.</p>
-          <h6 style="color: white;">Disclaimer : </h6>
-          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate delectus, magnam, voluptatem repellendus dignissimos, totam impedit aliquid quod quas sapiente magni. Quod, nihil? Suscipit, ea?</p>
-        </div>
-        <div class="col-md-2 col-sm-6">
-          <h3>Quick  LInks</h3>
-          <ul class="footer-links">
-            <li><a href="#">Home</a>
-            </li>
-            <li><a href="#">About us</a>
-            </li>
-            <li><a href="#">Triedge Partners</a>
-            </li>
-            <li><a href="#">Contact Us</a>
-            </li>
-            <li><a href="#" target="_blank">Terms &amp; Conditions</a>
-            </li>
-            <li><a href="#" target="_blank">Privacy Policy</a>
-            </li>
-            <li><a href="#">Sitemap</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <h3>OUR SERVICES</h3>
-          <ul class="footer-category">
-            <li><a href="#">Fresher Jobs</a>
-            </li>
-            <li><a href="#">InternEdge - Internships &amp; Projects </a>
-            </li>
-            <li><a href="#">Resume Edge - Resume Writing Services</a>
-            </li>
-            <li><a href="#">Readers Galleria - Curated Library</a>
-            </li>
-            <li><a href="#">Trideus - Campus Ambassadors</a>
-            </li>
-          </ul>
-          <div class="clearfix"></div>
-        </div>
-        <div class="col-md-3 col-sm-6">
-          <h3>triedge Events</h3>
-          <ul class="footer-links">
-            <li><a href="#">Triedge Events</a>
-            </li>
-
-            <li><a href="#">Jobs Internship Fair 2019</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-      
-    </div>
-    </div>
-    
-    <div class="row">
-      
-      <div class="container-fluid">
-      <div class="copyright"> Copyright 2019 | All Rights Reserved by code2transform Pvt. Ltd.</div>
-      </div>
-      
-    </div>
   </div>
   
-</footer>
+  
+  <div id="content_type_container" class="content_type_container">
+    <div class="content_type" (click)="show_posts_of_type('')" [ngClass]="{'active_content_type' : post_media_type==''}">
+        <img src="../../../../assets/icons/blog.svg" class="mr-1">
+        <div>All Posts</div>
+    </div>
+    <div class="content_type" (click)="show_posts_of_type('image')" [ngClass]="{'active_content_type' : post_media_type=='image'}">
+        <img src="../../../../assets/icons/image-gallery.svg" class="mr-1">
+        <div>Image</div>
+    </div>
+    <div class="content_type" (click)="show_posts_of_type('video')" [ngClass]="{'active_content_type' : post_media_type=='video'}">
+        <img src="../../../../assets/icons/video-camera.svg" class="mr-1">
+        <div>Video</div>
+    </div>
+    <div class="content_type" (click)="show_posts_of_type('audio')" [ngClass]="{'active_content_type' : post_media_type=='audio'}">
+        <img src="../../../../assets/icons/audio.svg" class="mr-1">
+        <div>Audio</div>
+    </div>
+  </div>
+
+  <!-- Chat bot -->
+  <app-user-chat></app-user-chat>
+  
+
+  <!-- Loading Icon -->
+  <div *ngIf="post_container_spinner" style="width: 100%;height: 100vh;display: flex;justify-content: center;align-items: center;">
+  <div class="spinner-border" role="status">
+      <span class="sr-only">Loading...</span>
+  </div>
+  </div>
 
 
+  <div class="posts_container">
+  <div *ngFor="let post of PostsStateService.posts_list$ | async | postType:post_media_type">
+      <app-post [post_details]="post" (newTipPostEvent)="openTipModal($event)"></app-post>
+  </div>
+  </div>
+
+   <!-- Modals -->
+ <app-modals [tip_post_details]="tip_to_unlock_post"></app-modals>

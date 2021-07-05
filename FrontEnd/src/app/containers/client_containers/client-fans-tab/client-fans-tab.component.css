@@ -130,6 +130,7 @@
 }
 .message_btn img{
     max-width: 1rem;
+    max-height: 1rem;
     margin-right: 5px;
 }
 .user_action_container{

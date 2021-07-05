@@ -60,6 +60,11 @@ import { TipClientModalComponent } from './components/modals/tip-client-modal/ti
 import { CommentService } from './services/comment_services/comment.service';
 import { CommentStateService } from './services/State Services/comment-state.service';
 import { UpdatePostService } from './services/client_services/update-post.service';
+import { UserLikedPostsComponent } from './containers/user_containers/user-liked-posts/user-liked-posts.component';
+import { UserProfileSettingsComponent } from './containers/user_containers/user-profile-settings/user-profile-settings.component';
+import { UserDashboardComponent } from './containers/user_containers/user-dashboard/user-dashboard.component';
+import { UserMessagingComponent } from './containers/user_containers/user-messaging/user-messaging.component';
+import { ClientEditPostComponent } from './components/modals/client-edit-post/client-edit-post.component';
 
 
 
@@ -91,6 +96,11 @@ import { UpdatePostService } from './services/client_services/update-post.servic
     ClientChangeProfilePictureModalComponent,
     ClientChangeUsernameModalComponent,
     TipClientModalComponent,
+    UserLikedPostsComponent,
+    UserProfileSettingsComponent,
+    UserDashboardComponent,
+    UserMessagingComponent,
+    ClientEditPostComponent,
     // TimeAgoPipe
   ],
   imports: [

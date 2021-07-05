@@ -60,6 +60,15 @@
 .post_media img{
     width: 100%;
 }
+.post_media video{
+    margin: 0 auto;
+    width: 100%;
+}
+.post_media audio{
+    margin: 0 auto;
+    width: 100%;
+}
+
 .post_footer{
     width: 100%;
     display: flex;

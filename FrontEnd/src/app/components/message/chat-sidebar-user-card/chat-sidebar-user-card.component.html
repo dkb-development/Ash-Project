@@ -2,7 +2,11 @@
   <div class="chat_sidebar_card_avatar">
     <!-- <img src="../../../../assets/images/profile_picture.jpeg" class="rounded-circle"> -->
     
-    <img *ngIf="chatting_friend" src={{GetUserProfilePicService.getProfilePicUrlFromUsername(chatting_friend.username)}} class="rounded-circle">
+    <!-- <img *ngIf="chatting_friend && chatting_friend.profile_picture" src={{GetUserProfilePicService.getProfilePicUrlFromUsername(chatting_friend.username)}} class="rounded-circle"> -->
+    <img *ngIf="chatting_friend && chatting_friend.profile_picture" src={{chatting_friend.profile_picture}} class="rounded-circle">
+    <i *ngIf="chatting_friend && !chatting_friend.profile_picture" class="fas fa-user-circle fa-3x"></i>
+
+
   </div>
   <div class="chat_sidebar_card_body ml-1">
     <div *ngIf="chatting_friend" class="chat_sidebar_card_username">{{chatting_friend.username}}</div>

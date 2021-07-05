@@ -25,12 +25,15 @@ export class ChatSidebarUserCardComponent implements OnInit {
   user: any;
   chatting_friend: any;
   ngOnInit(): void {
+    console.log(this.conversation_info);
     this.user = this.AuthService.getUser();
     for(var member of this.conversation_info.members){
       if(member != this.user._id){
         this.AuthService.getUserFromId(member).subscribe(
           (res: any)=>{
+            res.profile_picture = res.profile_picture?.split('?')[0];
             this.chatting_friend = res;
+            console.log(this.chatting_friend);
           },
           (err: any)=>{
             console.log(err);
@@ -42,7 +45,6 @@ export class ChatSidebarUserCardComponent implements OnInit {
   }
 
   showConversationMessages(){
-    
     this.ChatStateService.setCurrentConversation(this.conversation_info);
     // this.MessageService.updateChattingFriendInfo(()=>{
     //   for(var member of this.conversation_info.members){

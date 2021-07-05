@@ -42,7 +42,8 @@ export class PostComponent implements OnInit {
   tip_post:any = null;
   post_to_be_deleted: any = null;
   ngOnInit(): void {
-    // console.log(this.post_details);
+    console.log(this.post_details);
+    this.post_details.post_info.media = this.post_details.post_info.media.split('?')[0];
     this.is_logged_in = this.AuthService.isLoggedIn();
     var datetime = moment(this.post_details.post_info.date_created);
     this.dt = datetime.format('YYYY-MM-DD');
@@ -65,15 +66,26 @@ export class PostComponent implements OnInit {
   // Like/Dislike Feature
   likeOrDislikePost(pd: any){
     // console.log(pd);
+
+    // Dislike
+    if(this.post_details.is_liked){
+      this.post_details.post_info.no_of_likes -= 1;
+      this.post_details.is_liked = false;
+    }
+    else{
+      this.post_details.post_info.no_of_likes += 1;
+      this.post_details.is_liked = true;
+    }
+    this.PostsStateService.updatePost(this.post_details);
     this.UserPostService.like_or_dislike_post(pd).subscribe(
       (res: any)=>{
         this.post_details.is_liked = res.is_liked
-        if(res.is_liked){
-          this.post_details.post_info.no_of_likes += 1;
-        }
-        else{
-          this.post_details.post_info.no_of_likes -= 1;
-        }
+        // if(res.is_liked){
+        //   this.post_details.post_info.no_of_likes += 1;
+        // }
+        // else{
+        //   this.post_details.post_info.no_of_likes -= 1;
+        // }
 
         // Update Post State
         this.PostsStateService.updatePost(this.post_details);
@@ -81,6 +93,18 @@ export class PostComponent implements OnInit {
       },
       (err: any)=>{
         console.log(err);
+        // Revert Changes
+        // Dislike
+        if(this.post_details.is_liked){
+          this.post_details.post_info.no_of_likes -= 1;
+          this.post_details.is_liked = false;
+        }
+        else{
+          this.post_details.post_info.no_of_likes += 1;
+          this.post_details.is_liked = true;
+        }
+        this.PostsStateService.updatePost(this.post_details);
+
       }
     );
   }
@@ -309,5 +333,12 @@ export class PostComponent implements OnInit {
         console.log(err);
       }
     )
+  }
+
+  // Edit Post
+  set_post_to_be_edited(post_info: any){
+    this.PostsStateService.setPostToBeEdited(post_info);
+    // console.log(post_info);
+
   }
 }

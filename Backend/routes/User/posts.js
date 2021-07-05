@@ -73,8 +73,25 @@ router.get('/posts',user_auth.verifyJwtToken,async (req,res)=>{
     //         res.status(400).json({"Error": err});
     //     })
 
-
+    // Updating Post Likes Count
     var psts = await Post.find({}).sort({date_created: -1}).exec();
+    for(var post of psts){
+        try {
+            var like_entries = await Like.find({
+                "liked_post_id": post._id
+            });
+            post.no_of_likes = like_entries.length;
+            try {
+                await post.save();
+            } catch (error) {
+                return res.status(500).json(error);
+            }
+
+        } catch (error) {
+            return res.status(500).json(error);
+        }
+        
+    }
     
     if(!user.is_client){
         for(var post of psts) {
@@ -469,17 +486,18 @@ router.post('/like_or_dislike_post',user_auth.verifyJwtToken,async (req,res)=>{
     var token = user_auth.getTokenFromReq(req);
     var user_id = user_auth.getUserFromToken(token);
     var user;
+    console.log()
     if(user_id == req.body.user_id){
         user = await User.findById(req.body.user_id);
         // Preventing client from liking its own content
         if(user.is_client){
-            return res.status(400);
+            return res.status(500).json("Client can't like it's own content");
         }
         else{
             var like_info = await Like.findOne({liked_post_id: req.body.post_info._id,liked_by: user_id});
             var post = await Post.findById(req.body.post_info._id);
             if(like_info){
-                // console.log(like_info);
+                console.log(like_info);
                 // Dislike the Post
                 Like.deleteOne({liked_post_id: req.body.post_info._id,liked_by: user_id},(err,success)=>{
                     if(err){
@@ -504,7 +522,7 @@ router.post('/like_or_dislike_post',user_auth.verifyJwtToken,async (req,res)=>{
                 })
             }
             else{
-                // console.log("No info");
+                console.log("No info");
                 // Like the Post
                 var new_like = new Like({
                     liked_post_id : req.body.post_info._id,
@@ -534,6 +552,11 @@ router.post('/like_or_dislike_post',user_auth.verifyJwtToken,async (req,res)=>{
         }
     }
     // user = User.findById(user_id)
+    else{
+        console.log("USer Id doesn't match");
+        return res.status(500).json("User ID incorrect");
+    }
+    
 })
 router.get('/get_subscription_fee',user_auth.verifyJwtToken,(req,res)=>{
     return res.status(200).json({
@@ -570,6 +593,132 @@ router.post('/pay_to_subscribe',user_auth.verifyJwtToken,async (req,res)=>{
     }
     // user = User.findById(user_id)
 })
+router.post('/get_liked_posts',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var user_id = user_auth.getUserFromToken(token);
+
+    // console.log(req.body.post_id);
+    // console.log(req.body.user_id);
+    // console.log(req.body.client_id);
+    // console.log(req.body.tip_amount);
+    if(user_id == req.body.user_id){
+        try {
+            var user = await User.findById(user_id);
+        } catch (error) {
+            return res.status(500).json({
+                "Error": error
+            })
+        }
+        if(user.is_client){
+            return res.status(500).json({
+                "Error": "Only accessible to users not client"
+            }) 
+        }   
+        else{
+            try {
+                var liked_posts = await Like.find({
+                    "liked_by": user._id
+                }).sort({updatedAt: -1}).exec();
+                var posts = [];
+                for(let liked_post of liked_posts){
+                    try {
+                        var temp_post = await Post.findById(liked_post.liked_post_id);
+                        
+                    } catch (error) {
+                        return res.status(500).json({
+                            "Error": error
+                        }) 
+                    }
+                    posts.push(temp_post);
+                    
+                }
+                // Updating Post Likes Count
+                var psts = await Post.find({}).sort({date_created: -1}).exec();
+                for(var post of psts){
+                    try {
+                        var like_entries = await Like.find({
+                            "liked_post_id": post._id
+                        });
+                        post.no_of_likes = like_entries.length;
+                        try {
+                            await post.save();
+                        } catch (error) {
+                            return res.status(500).json(error);
+                        }
+
+                    } catch (error) {
+                        return res.status(500).json(error);
+                    }
+                }
+
+                
+                // Getting Client Username
+                var client = await User.findOne({
+                    "is_client": true
+                }).exec();
+
+                // Getting client Subscriber Count
+                var no_of_subscribers = 0;
+                var usrs = await User.find({}).exec();
+                for(var usr of usrs){
+                    if(usr.is_subscribed){
+                        no_of_subscribers += 1;
+                    }
+                }
+
+                var posts_with_details = [];
+                for(let post of posts){
+                    var post_details = {};
+                    post_details.client_username = client.username;
+                    post_details.client_subscriber_count = no_of_subscribers - 1; // " -1 " is for client itself
+                    post_details.user_is_subscribed = user.is_subscribed;
+                    post_details.user_id = user._id;
+                    post_details.client_id = client._id;
+                    post_details.is_liked = true;
+                    post_details.post_info = post;
+                    // Post Tip Details
+                    if(post.is_tipped){
+                        var tip_details = await Tip.findOne({tip_post_id: post._id,tip_by: user._id}).exec();
+                        if(tip_details){
+                            if(tip_details.tip_amount >= post.tip_to_unlock){
+                                console.log("Tip is enough");
+                            }
+                            else{
+                                console.log("tip_details.tip_amount < post.tip_to_unlock");
+                                post.media = null;
+                                post_details.isTipEnough = false;
+                            }   
+                        }
+                        else{
+                            // console.log("Tip Find Else Block");
+                            post.media = null;
+                            post_details.isTipEnough = false;
+                        }
+                    }
+
+                    posts_with_details.push(post_details);
+
+                }
+
+                return res.status(200).json(posts_with_details);
+            } catch (error) {
+                return res.status(500).json({
+                    "Error": error
+                }) 
+            }
+            
+        }
+        
+    }
+    else{
+        return res.status(500).json({
+            "Error": "JWT Token doesn't match"
+        })
+    }
+    
+
+    // return res.status(200).json("Success");
+});
 
 
 module.exports = router;

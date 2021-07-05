@@ -1,0 +1,131 @@
+<div class="client_chat_container">
+    <div id="chat_sidebar" class="chat_sidebar">
+      <div class="chat_sidebar_header">
+        
+        <div>
+          <img *ngIf="user.image" src={user.image} class="rounded-circle">
+          <i *ngIf="!user.image" class="fas fa-user-circle fa-3x"></i>
+          <div *ngIf="user" class="own_username ml-2">{{user.username}}</div>
+        </div>
+        <i class="fas fa-times fa-lg close_sidebar_btn mr-2"></i>
+        
+      </div>
+      <div class="search_for_fan_to_chat_container">
+        <input type="text" class="search_for_fan_to_chat mt-1 mb-1" placeholder="Search Here">
+      </div>
+      
+      <div class="chat_sidebar_userlist_container">
+        <div *ngFor="let conversation of ChatStateService.conversation_list$ | async" style="height: 10%;width: 100%;">
+          <app-chat-sidebar-user-card  [conversation_info] = "conversation"></app-chat-sidebar-user-card>
+        </div>
+        
+        <!-- *ngFor="let conversation of ChatStateService.conversation_list$ | async" -->
+        
+        <!-- <div class="chat_sidebar_user_card">
+          <div class="chat_sidebar_card_avatar">
+            <img src="../../../../assets/images/profile_picture.jpeg" class="rounded-circle">
+          </div>
+          <div class="chat_sidebar_card_body ml-1">
+            <div class="chat_sidebar_card_username">User1 Username</div>
+            <div class="chat_sidebar_card_last_message">last message was hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui veniam facilis quae nulla modi iure laudantium? Similique voluptates est deserunt sit, harum maxime ab in magnam fuga nihil, dignissimos impedit.</div>
+          </div>
+          <div class="chat_sidebar_card_add_info">
+            <div class="last_message_time">9:54 PM</div>
+          </div>
+        </div>
+        <div class="chat_sidebar_user_card">
+          <div class="chat_sidebar_card_avatar">
+            <img src="../../../../assets/images/profile_picture.jpeg" class="rounded-circle">
+          </div>
+          <div class="chat_sidebar_card_body ml-1">
+            <div class="chat_sidebar_card_username">User1 Username</div>
+            <div class="chat_sidebar_card_last_message">last message was hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui veniam facilis quae nulla modi iure laudantium? Similique voluptates est deserunt sit, harum maxime ab in magnam fuga nihil, dignissimos impedit.</div>
+          </div>
+          <div class="chat_sidebar_card_add_info">
+            <div class="last_message_time">9:54 PM</div>
+          </div>
+        </div>
+        <div class="chat_sidebar_user_card">
+          <div class="chat_sidebar_card_avatar">
+            <img src="../../../../assets/images/profile_picture.jpeg" class="rounded-circle">
+          </div>
+          <div class="chat_sidebar_card_body ml-1">
+            <div class="chat_sidebar_card_username">User1 Username</div>
+            <div class="chat_sidebar_card_last_message">last message was hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui veniam facilis quae nulla modi iure laudantium? Similique voluptates est deserunt sit, harum maxime ab in magnam fuga nihil, dignissimos impedit.</div>
+          </div>
+          <div class="chat_sidebar_card_add_info">
+            <div class="last_message_time">9:54 PM</div>
+          </div>
+        </div>
+        <div class="chat_sidebar_user_card">
+          <div class="chat_sidebar_card_avatar">
+            <img src="../../../../assets/images/profile_picture.jpeg" class="rounded-circle">
+          </div>
+          <div class="chat_sidebar_card_body ml-1">
+            <div class="chat_sidebar_card_username">User1 Username</div>
+            <div class="chat_sidebar_card_last_message">last message was hello Lorem ipsum dolor sit amet consectetur adipisicing elit. Qui veniam facilis quae nulla modi iure laudantium? Similique voluptates est deserunt sit, harum maxime ab in magnam fuga nihil, dignissimos impedit.</div>
+          </div>
+          <div class="chat_sidebar_card_add_info">
+            <div class="last_message_time">9:54 PM</div>
+          </div>
+        </div> -->
+      </div>
+    </div>
+    <div class="chat_main_container">
+      
+      <div class="chat_main_container_header">
+        <i class="fas fa-bars hamberger mr-4"></i>
+        <!-- <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0" src="{{(ChatStateService.chattting_friend$ | async).avatar}}" class="rounded-circle"> -->
+        <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0 && (ChatStateService.chattting_friend$ | async).profile_picture!=null" src="{{(ChatStateService.chattting_friend$ | async).profile_picture}}" class="rounded-circle">
+        <i *ngIf="(ChatStateService.chattting_friend$ | async).length != 0 && (ChatStateService.chattting_friend$ | async).profile_picture==null" class="fas fa-user-circle fa-3x"></i>
+        <!-- <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0" src={{GetUserProfilePicService.getProfilePicUrlFromUsername((ChatStateService.chattting_friend$ | async).username)}} class="rounded-circle"> -->
+        <div class="user_to_chat_with_username ml-1">{{(ChatStateService.chattting_friend$ | async).username}}</div>
+      </div>
+      <div class="chat_main_container_body" #scrollMe>
+        <div *ngFor="let message of ChatStateService.messages$ | async">
+  
+          <div *ngIf="message.sender==user._id" class="message_sent_container">
+            <div  class="message_sent">
+              <div class="message_sent_add_info">
+                <div></div>
+                <div class="message_sent_time">{{ message.createdAt | myDateAgoPipe}}</div>
+              </div>
+              <div class="message_body">
+                {{message.message_text}}
+              </div>
+            </div>
+          </div>
+          <div *ngIf="message.sender!=user._id" class="message_received_container">
+            <div class="message_received">
+              <div class="message_received_add_info">
+                <div class="message_received_username mr-2">{{(ChatStateService.chattting_friend$ | async).username}}</div>
+                <div class="message_received_time">{{ message.createdAt | myDateAgoPipe}}</div>
+              </div>
+              <div class="message_body">
+                {{message.message_text}}
+              </div> 
+            </div>
+          </div>
+          
+          
+          
+        </div>
+        
+        
+      </div>
+      <div *ngIf="ChatStateService.conversation$ | async" class="chat_main_container_footer">
+        <div class="chat_container_footer_attachment_btn_container">
+          <!-- <img src="../../../../assets/icons/attachment.svg"> -->
+        </div>
+        <div class="chat_container_footer_input_area">
+          <input #message_to_be_sent_text class="chat_message_input_text" placeholder="Type Your Message here ...">
+        </div>
+        <div class="chat_container_footer_send_btn_container">
+          <div class="btn rounded-circle message_send_btn" *ngIf="(ChatStateService.conversation$ | async).length != 0" (click)="send_message(message_to_be_sent_text)">
+            <i class="fas fa-paper-plane fa-lg" style="color: white;"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+  

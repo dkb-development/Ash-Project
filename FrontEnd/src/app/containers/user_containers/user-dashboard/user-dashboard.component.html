@@ -1,0 +1,312 @@
+<div id="wrapper" class="wrapper">
+   
+   
+   
+    <div id="sidenav" class="sidenav">
+     <a href="javascript:void(0)" id="close_btn_sidenav" class="closebtn" (click)="closeNav()">&times;</a>
+     <div [routerLink]="[ '/user/home']" routerLinkActive="active_sidebar_menu" (click)="changeNavigation($event)">
+       <img src="../../../../assets/icons/blog.svg">
+       <a href="#">Posts</a>
+     </div>
+     <div [routerLink]="[ '/user/liked_posts']" routerLinkActive="active_sidebar_menu" (click)="changeNavigation($event)">
+       <img src="../../../../assets/icons/like.png">
+       <a href="#">Liked</a>
+     </div>
+     <div [routerLink]="[ '/user/messaging']" routerLinkActive="active_sidebar_menu" (click)="changeNavigation($event)">
+      <img src="../../../../assets/icons/chatting.svg">
+      <a href="#">Messaging</a>
+     </div>
+     <div [routerLink]="[ '/user/profile']" routerLinkActive="active_sidebar_menu" (click)="changeNavigation($event)">
+       <img src="../../../../assets/icons/Edit_Profile.svg">
+       <a href="#">Profile Settings</a>
+     </div>
+     <!-- <a href="#">Liked</a>
+     <a href="#">Profile Settings</a> -->
+    </div>
+ 
+ 
+    <!-- Content Wrapper. Contains page content -->
+    
+    <div id="contentWrapper" class="contentWrapper" style="position: relative;">
+      
+      <div id="top_nav" class="top_nav">
+        <a class="nav-link mr-2" style="width: 2%;" data-widget="pushmenu" href="#" (click)="toggleNav()"><i class="fas fa-bars"></i></a>
+        <div class="top_nav_content">
+            <div class="user_nav_client_name" style="font-size: x-large;font-weight: 600;float: left;">{{CurrentUserStateService.getClient().username}}</div>
+            
+            <div class="top_nav_right_menus_container">
+              <div *ngIf="is_logged_in" class="nav-item dropdown">
+                  <a class="nav-link navbar_profile" data-toggle="dropdown" href="#">
+                  <img *ngIf="CurrentUserStateService.getCurrentUser().profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}} class="rounded-circle">
+                  <i *ngIf="!CurrentUserStateService.getCurrentUser().profile_picture" class="fas fa-user-circle fa-2x"></i>
+                  <div>{{CurrentUserStateService.getCurrentUser().username}}</div>
+                  <!-- <i class="far fa-bell"></i> -->
+                  <!-- <span class="badge badge-warning navbar-badge">15</span> -->
+                  </a>
+                  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                  <span class="dropdown-item dropdown-header">{{CurrentUserStateService.getCurrentUser().username}}</span>
+                  <div class="dropdown-divider"></div>
+                  <a *ngIf="CurrentUserStateService.getCurrentUser()" href="#" class="dropdown-item navbar_profile_dropdown" [routerLink]="[ '/user/profile' ]">
+                      <!-- <i class="fas fa-envelope mr-2"></i> 4 new messages
+                      <span class="float-right text-muted text-sm">3 mins</span> -->
+                      <i class="fas fa-users-cog"></i>
+                      <div>Profile Settings</div>
+                      
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item navbar_profile_dropdown" (click)="onLogOut()">
+                      <i class="fas fa-sign-out-alt"></i>
+                      <div>Log Out</div>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <!-- <a href="#" class="dropdown-item">
+                      <i class="fas fa-file mr-2"></i> 3 new reports
+                      <span class="float-right text-muted text-sm">2 days</span>
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
+                  </div>
+              </div>
+              <div *ngIf="!is_logged_in" class="nav-item">
+                  <!-- <app-auth-user></app-auth-user> -->
+                  <a class="btn btn-primary ml-2" (click)="openLoginModal()">Log In</a>
+                  <a class="btn btn-info ml-2" (click)="openRegisterModal()">Sign Up</a>
+              </div>
+            </div>
+        </div>
+        
+      </div>
+
+
+      <div style="width: 100%;margin-top: 6vh;">
+        <router-outlet></router-outlet>
+      </div>
+        
+        
+     
+ 
+     
+     
+    </div>
+ 
+ 
+</div>
+
+ 
+ <!-- LogIn/SIgnUp Modal -->
+ <div style="position: absolute;" class="modal fade login" id="loginModal" tabindex="-1">
+   <div class="modal-dialog login animated">
+       <div class="modal-content">
+         <div class="modal-header">
+             <h4 class="modal-title">Login with</h4>
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             
+         </div>
+         <div class="modal-body">
+             <div class="box">
+                 <div class="content">
+                     <div class="social">
+                         <a class="circle github" href="#">
+                             <i class="fa fa-github fa-fw"></i>
+                         </a>
+                         <a id="google_login" class="circle google" href="#">
+                             <i class="fa fa-google-plus fa-fw"></i>
+                         </a>
+                         <a id="facebook_login" class="circle facebook" href="#">
+                             <i class="fa fa-facebook fa-fw"></i>
+                         </a>
+                     </div>
+                     <div class="division">
+                         <div class="line l"></div>
+                           <span>or</span>
+                         <div class="line r"></div>
+                     </div>
+                     <div class="error"></div>
+                     <div style="color: red;margin: 0;" class="alert" *ngIf="serverErrorMessages">
+                         {{serverErrorMessages}}
+                       </div>
+                     <div class="form loginBox">
+                         <form [formGroup]="logInForm" (ngSubmit)="logInForm.valid && onSubmitLogIn(logInForm)" method="" action="" accept-charset="UTF-8">
+                             <small style="color: red;" *ngIf="logInForm.get('email').invalid && (logInForm.get('email').dirty || logInForm.get('email').touched)">
+                                 Please provide a valid email address.
+                             </small>
+                             <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
+                             <small style="color: red;" *ngIf="logInForm.get('password').invalid && (logInForm.get('password').dirty || logInForm.get('password').touched)">
+                                 Password is Required.
+                             </small>
+                             <input id="password" class="form-control" type="password" placeholder="Password" name="password" formControlName="password">
+                             <input class="btn btn-default btn-login" type="submit" value="Log In" [disabled]="logInForm.invalid"> 
+                             <!-- <input class="btn btn-default btn-login" type="submit" value="Log In" (click)="loginAjax()"> -->
+                         </form>
+                     </div>
+                 </div> 
+             </div>
+             <div class="box">
+                 <div class="content registerBox" style="display:none;">
+                 <div class="form">
+                     <form [formGroup]="signUpForm" (ngSubmit)="signUpForm.valid && onSubmitSignUp(signUpForm)" method="" html="{:multipart=>true}" data-remote="true" action="" accept-charset="UTF-8">
+                         <small style="color: red;" *ngIf="signUpForm.get('username').invalid && (signUpForm.get('username').dirty || signUpForm.get('username').touched)">
+                             Please provide a valid Username.
+                         </small>
+                         <input id="username" class="form-control" type="text" placeholder="Username" formControlName="username">
+                         <small style="color: red;" *ngIf="signUpForm.get('email').invalid && (signUpForm.get('email').dirty || signUpForm.get('email').touched)">
+                             Please provide a valid email address.
+                         </small>
+                         <input id="email" class="form-control" type="text" placeholder="Email" formControlName="email">
+                         <small style="color: red;" *ngIf="signUpForm.get('password').invalid && (signUpForm.get('password').dirty || signUpForm.get('password').touched)">
+                             Password is Required.
+                         </small>
+                         <input id="password" class="form-control" type="password" placeholder="Password" formControlName="password">
+                         <small style="color: red;" *ngIf="(signUpForm.get('password_confirmation').value != signUpForm.get('password').value) && (signUpForm.get('password_confirmation').dirty || signUpForm.get('password_confirmation').touched)">
+                             Password doesn't match.
+                         </small>
+                         <input id="password_confirmation" class="form-control" type="password" placeholder="Repeat Password" formControlName="password_confirmation">
+                         <input class="btn btn-default btn-register" type="submit" value="Sign Up" name="commit" [disabled]="signUpForm.invalid || (signUpForm.get('password_confirmation').value != signUpForm.get('password').value)">
+                     </form>
+                     </div>
+                 </div>
+             </div>
+         </div>
+         <div class="modal-footer">
+             <div class="forgot login-footer">
+                 <span>Looking to
+                     <span style="color: aqua;cursor: pointer;" (click)="showRegisterForm()">create an account</span>
+                 ?</span>
+             </div>
+             <div class="forgot register-footer" style="display:none">
+                 <span>Already have an account?</span>
+                 <span style="color: aqua;cursor: pointer;" (click)="showLoginForm()">Login</span>
+             </div>
+         </div>
+       </div>
+   </div>
+ </div>
+ 
+ <!-- Subscribe Modal -->
+ <app-subscribe-modal></app-subscribe-modal>
+ 
+ <!-- Tip Client Modal -->
+ <app-tip-client-modal></app-tip-client-modal>
+ 
+ 
+ <!-- Footer -->
+ <footer id="footer" style="position: relative;z-index: 1050;">
+   <div class="footer-wrap">
+   <div class="container first_class">
+       <div class="row">
+         <div class="col-md-4 col-sm-6">
+           <h3>BE THE FIRST TO KNOW</h3>
+           <p>Get all the latest information on  Triedge Services, Events, Jobs
+             and Fairs. Sign up for our newsletter today.</p>
+         </div>
+         <div class="col-md-4 col-sm-6">
+         <form class="newsletter">
+           <input type="text" placeholder="Email Address"> 
+                                                         <button class="newsletter_submit_btn" type="submit"><i class="fa fa-paper-plane"></i></button>  
+         </form>
+         
+         </div>
+         <div class="col-md-4 col-sm-6">
+         <div class="col-md-12">
+           <div class="standard_social_links">
+         <div>
+           <li class="round-btn btn-facebook"><a href="#"><i class="fab fa-facebook-f"></i></a>
+ 
+           </li>
+           <li class="round-btn btn-linkedin"><a href="#"><i class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+ 
+           </li>
+           <li class="round-btn btn-twitter"><a href="#"><i class="fab fa-twitter" aria-hidden="true"></i></a>
+ 
+           </li>
+           <li class="round-btn btn-instagram"><a href="#"><i class="fab fa-instagram" aria-hidden="true"></i></a>
+ 
+           </li>
+           <li class="round-btn btn-whatsapp"><a href="#"><i class="fab fa-whatsapp" aria-hidden="true"></i></a>
+ 
+           </li>
+           <li class="round-btn btn-envelop"><a href="#"><i class="fa fa-envelope" aria-hidden="true"></i></a>
+ 
+           </li>
+         </div>
+       </div>  
+         </div>
+           <div class="clearfix"></div>
+         <div class="col-md-12"><h3 style="text-align: right;">Stay Connected</h3></div>
+         </div>
+       </div>
+   </div>
+     <div class="second_class">
+       <div class="container second_class_bdr">
+       <div class="row">
+         <div class="col-md-4 col-sm-6">
+ 
+           <div class="footer-logo"><img src="http://localhost/lrn/img/footer_logo.png" alt="logo">
+           </div>
+           <p>Your one-stop career platform to find Jobs, Internships, Professional Trainings, Projects, and Volunteering Opportunities.</p>
+           <h6 style="color: white;">Disclaimer : </h6>
+           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate delectus, magnam, voluptatem repellendus dignissimos, totam impedit aliquid quod quas sapiente magni. Quod, nihil? Suscipit, ea?</p>
+         </div>
+         <div class="col-md-2 col-sm-6">
+           <h3>Quick  LInks</h3>
+           <ul class="footer-links">
+             <li><a href="#">Home</a>
+             </li>
+             <li><a href="#">About us</a>
+             </li>
+             <li><a href="#">Triedge Partners</a>
+             </li>
+             <li><a href="#">Contact Us</a>
+             </li>
+             <li><a href="#" target="_blank">Terms &amp; Conditions</a>
+             </li>
+             <li><a href="#" target="_blank">Privacy Policy</a>
+             </li>
+             <li><a href="#">Sitemap</a>
+             </li>
+           </ul>
+         </div>
+         <div class="col-md-3 col-sm-6">
+           <h3>OUR SERVICES</h3>
+           <ul class="footer-category">
+             <li><a href="#">Fresher Jobs</a>
+             </li>
+             <li><a href="#">InternEdge - Internships &amp; Projects </a>
+             </li>
+             <li><a href="#">Resume Edge - Resume Writing Services</a>
+             </li>
+             <li><a href="#">Readers Galleria - Curated Library</a>
+             </li>
+             <li><a href="#">Trideus - Campus Ambassadors</a>
+             </li>
+           </ul>
+           <div class="clearfix"></div>
+         </div>
+         <div class="col-md-3 col-sm-6">
+           <h3>triedge Events</h3>
+           <ul class="footer-links">
+             <li><a href="#">Triedge Events</a>
+             </li>
+ 
+             <li><a href="#">Jobs Internship Fair 2019</a>
+             </li>
+           </ul>
+         </div>
+       </div>
+       
+     </div>
+     </div>
+     
+     <div class="row">
+       
+       <div class="container-fluid">
+       <div class="copyright"> Copyright 2019 | All Rights Reserved by code2transform Pvt. Ltd.</div>
+       </div>
+       
+     </div>
+   </div>
+   
+ </footer>
+ 
+ 
+ 

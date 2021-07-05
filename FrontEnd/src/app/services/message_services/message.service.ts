@@ -99,6 +99,7 @@ export class MessageService {
   updateChattingFriendInfo(chatting_friend_id: any){
     this.AuthService.getUserFromId(chatting_friend_id).subscribe(
       (chatting_friend_info: any)=>{
+        
         var chatting_friend_info_with_avatar = {
           ...chatting_friend_info,
           "avatar": this.GetUserProfilePicService.getProfilePicUrlFromUsername(chatting_friend_info.username)

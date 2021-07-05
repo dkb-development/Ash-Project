@@ -2,11 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 
+
 // Services
-import { FetchPostsService } from '../../../services/user_services/fetch-posts.service';
 import { AuthService } from '../../../services/user_services/auth.service';
-import { PostsStateService } from '../../../services/State Services/posts-state.service';
 import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service';
+import { PostsStateService } from '../../../services/State Services/posts-state.service';
+import { FetchPostsService } from '../../../services/user_services/fetch-posts.service';
+
+
+
 
 @Component({
   selector: 'app-user-home',
@@ -17,35 +21,29 @@ export class UserHomeComponent implements OnInit {
 
   constructor(
     private AuthService: AuthService,
-    private fb: FormBuilder,
     private Router: Router,
-    private FetchPostsService: FetchPostsService,
-    public PostsStateService: PostsStateService,
     public CurrentUserStateService: CurrentUserStateService,
+    public PostsStateService: PostsStateService,
+    private FetchPostsService: FetchPostsService,
+    
     
     ) { }
 
-  selected:number = 1;
   filter_type = "";
-  is_logged_in : boolean = false;
+  selected:number = 1;
+  tip_to_unlock_post: any = null;
+  post_container_spinner = true;
   logInForm: FormGroup;
   signUpForm: FormGroup;
+  is_logged_in : boolean = false;
   user: any = {};
   posts:any = []; 
-  post_container_spinner = true;
-  tip_to_unlock_post: any = null;
+
+
+
+
   ngOnInit(): void {
 
-    // Get Client Info
-    this.AuthService.getClient().subscribe(
-      (res: any)=>{
-        this.CurrentUserStateService.setClient(res);
-        console.log(this.CurrentUserStateService.getClient());
-      },
-      (err: any)=>{
-        console.log(err);
-      }
-    )
     this.is_logged_in = this.AuthService.isLoggedIn();
     if(this.is_logged_in){
       // Get Username
@@ -122,24 +120,7 @@ export class UserHomeComponent implements OnInit {
       )
     }
 
-
-    this.logInForm = this.fb.group({
-      // name: ['Sammy', Validators.required],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      // message: ['', [Validators.required, Validators.minLength(15)]],
-    });
     
-    this.signUpForm = this.fb.group(
-      {
-      // name: ['Sammy', Validators.required],
-      username: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-      password_confirmation: ['', Validators.required],
-    },
-    );
-
 
 
     // Height adjustment of parent element
@@ -147,7 +128,36 @@ export class UserHomeComponent implements OnInit {
     // var chile_height = $('.client_cover_image_container').height()
     // console.log(chile_height)
     // $('.client_cover_container').height(chile_height);
-    // console.log($('.client_cover_container').height())
+    // console.log($('.client_cover_container').height());
+
+    var wrapper = $("#wrapper");
+    $(window).scroll(function(e) {
+      // this.adjustContentTypeContainer();
+      let scrollY = window.scrollY;
+      if(scrollY > $(window).height()*0.9){
+        $(".content_type_container").addClass("fixedTop");
+        if(document.getElementById("sidenav").style.width!="0px"){
+          document.getElementById("content_type_container").classList.add('fixedTopOpenSideNav');
+        }
+        else{
+          document.getElementById("content_type_container").classList.remove('fixedTopOpenSideNav');
+
+        }
+      }
+      
+      else{
+        $(".content_type_container")?.removeClass("fixedTop");
+        document.getElementById("content_type_container")?.classList.remove('fixedTopOpenSideNav');
+
+      }
+      // console.log(this.scrollTop);
+      // if (this.scrollTop > 500) {
+      //   wrapper.addClass("fixedTop");
+      // } else {
+      //   wrapper.removeClass("fixedTop");
+      // }
+      
+    });
   }
   openChat(){
     console.log("Clicked")
@@ -158,32 +168,57 @@ export class UserHomeComponent implements OnInit {
     
     this.tip_to_unlock_post = event;
   }
-  // posts = [
-  //   {
-  //     "name": "post 1",
-  //     "type": "image",
-  //   },
-  //   {
-  //     "name": "post 2",
-  //     "type": "video",
-  //   },
-  //   {
-  //     "name": "post 3",
-  //     "type": "audio",
-  //   },
-  //   {
-  //     "name": "post 4",
-  //     "type": "image",
-  //   },
-  // ];
-  set_active(index: number){
-    this.selected = index;
+
+  
+   
+  
+  
+
+
+  // loginAjax(){
+  //   /*   Remove this comments when moving to server
+  //   $.post( "/login", function( data ) {
+  //           if(data == 1){
+  //               window.location.replace("/home");            
+  //           } else {
+  //               shakeModal(); 
+  //           }
+  //       });
+  //   */
+
+  // /*   Simulate error message from the server   */
+  //   this.shakeModal();
+  // }
+  // loginAjax(){
+  //   /*   Remove this comments when moving to server
+  //   $.post( "/login", function( data ) {
+  //           if(data == 1){
+  //               window.location.replace("/home");            
+  //           } else {
+  //               shakeModal(); 
+  //           }
+  //       });
+  //   */
+
+  // /*   Simulate error message from the server   */
+  //   this.shakeModal();
+  // }
+
+  
+
+  
+
+  
+
+  post_media_type = "";
+  show_posts_of_type(media_type: any){
+    this.post_media_type = media_type;
   }
+
   set_filter_type(type: string){
     this.filter_type = type;
   }
-   
-  
+
   serverErrorMessages: string;
   onSubmitLogIn(form: FormGroup){
     if(!form.valid){
@@ -192,7 +227,7 @@ export class UserHomeComponent implements OnInit {
     form.value.email = form.value.email.toLowerCase();
     console.log(form.value);
     this.AuthService.login(form.value).subscribe(
-      (res: Response)=>{
+      (res: any)=>{
         this.AuthService.setToken(res['token']);
         this.AuthService.setUser();
         this.Router.navigateByUrl('/');
@@ -216,7 +251,7 @@ export class UserHomeComponent implements OnInit {
     }
     
     this.AuthService.signUp(form.value).subscribe(
-      (res: Response)=>{
+      (res: any)=>{
         this.AuthService.setToken(res['token']);
         this.AuthService.setUser();
         this.Router.navigateByUrl('/');
@@ -230,13 +265,7 @@ export class UserHomeComponent implements OnInit {
       }
     );
   }
-  onLogOut(){
-    if(this.is_logged_in){
-      this.AuthService.logout();
-      this.Router.navigateByUrl('/');
-      window.location.reload();
-    }
-  }
+
   shakeModal(){
     $('#loginModal .modal-dialog').addClass('shake');
             $('.error').addClass('alert alert-danger').html("Invalid email/password combination");
@@ -298,42 +327,6 @@ export class UserHomeComponent implements OnInit {
     
   }
 
-  post_media_type = "";
-  show_posts_of_type(media_type: any){
-    this.post_media_type = media_type;
-  }
-
-
-  // loginAjax(){
-  //   /*   Remove this comments when moving to server
-  //   $.post( "/login", function( data ) {
-  //           if(data == 1){
-  //               window.location.replace("/home");            
-  //           } else {
-  //               shakeModal(); 
-  //           }
-  //       });
-  //   */
-
-  // /*   Simulate error message from the server   */
-  //   this.shakeModal();
-  // }
-  // loginAjax(){
-  //   /*   Remove this comments when moving to server
-  //   $.post( "/login", function( data ) {
-  //           if(data == 1){
-  //               window.location.replace("/home");            
-  //           } else {
-  //               shakeModal(); 
-  //           }
-  //       });
-  //   */
-
-  // /*   Simulate error message from the server   */
-  //   this.shakeModal();
-  // }
-
-  
 
 }
 

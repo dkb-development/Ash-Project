@@ -1,0 +1,72 @@
+<div *ngIf="CurrentUserStateService.getCurrentUser().is_client" class="modal fade " id="editPostModal">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Edit Post</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="editPostForm" #post_form="ngForm">
+            <div class="form-group mt-4">
+                
+                <label style="line-height: 0.8rem;">Title/Caption</label>
+                <!-- <small style="color: red;display: block;" *ngIf="(post_caption.invalid &&( post_caption.dirty || post_caption.touched))">
+                    Please provide a caption for your Post
+                </small> -->
+                <!-- <textarea formControlName="caption" class="form-control" rows="3" placeholder="Add your Post Title/Caption Here ...." name="post_caption" #post_caption="ngModel" ngModel required></textarea> -->
+                <textarea id="caption" formControlName="caption" class="form-control" rows="3" placeholder="Add your Post Title/Caption Here ...." name="post_caption" equired></textarea>
+            </div>
+
+            <label style="line-height: 0.8rem;">User Accessibility</label>
+            <div class="d-flex flex-row justify-content-start pl-4" >
+              <div class="accessibility_all_container mr-2">
+                <input formControlName="accessibility" class="form-check-input" type="radio" name="accessibility" id="accessibility_all"  value="all">
+                <label class="form-check-label" for="accessibility_all">
+                    <div>
+                        All
+                    </div>
+                    <div>
+                        <small style="color: gray;">(Free for all Users)</small>
+                    </div>
+                </label>
+              </div>
+              <div class="accessibility_subscribed_container d-flex flex-column pl-4">
+                <div>
+                  <input formControlName="accessibility" class="form-check-input" type="radio" name="accessibility" id="accessibility_subscribed" value="subscribed">
+                  <label class="form-check-label" for="accessibility_subscribed">
+                      Subscribed User
+                  </label>
+                </div>
+                
+                
+                <div *ngIf="editPostFormControl.accessibility.value == 'subscribed' || editPostFormControl.accessibility.value == 'tipped' || (PostsStateService.posts_to_be_edited$ | async).accessibility == 'subscribed' || (PostsStateService.posts_to_be_edited$ | async).accessibility == 'tipped' " class="form-group row">
+                    <label for="tip_amount" class="col-1 col-form-label">$</label>
+                    <div class="col-11">
+                      <input formControlName="tipAmount" class="form-control ml-1" type="number" id="tip_amount" placeholder="Tip Amount" name="post_tip_to_unlock" >
+
+                    </div>
+                </div>
+              </div>
+              
+            </div>
+            
+            <div *ngIf="editPostFormControl.caption.dirty || editPostFormControl.accessibility.dirty || editPostFormControl.tipAmount.dirty " class="btn btn-primary mt-4" (click)="editPostChanges()">
+              <span *ngIf="edit_post_spinner" class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+              <span *ngIf="edit_post_spinner"> Saving ...</span>
+              <span *ngIf="!edit_post_spinner">Save Changes</span>
+              
+            </div>
+
+          </form>
+
+          
+        </div>
+
+        <div class="modal-footer justify-content-between">
+          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+        </div>
+      </div>
+    </div>
+</div>
