@@ -176,10 +176,11 @@ export class UserMessagingComponent implements OnInit {
       "sender" : this.user._id,
       "message_text" : message_to_be_sent_text.value
     }
+    message_to_be_sent_text.value = "";
+
     this.MessageService.sendMessage(new_message).subscribe(
       (res:any)=>{
         this.ChatStateService.appendMessage(res);
-        message_to_be_sent_text.value = "";
 
         // Send message to socket server
         var message_to_socket_server = {

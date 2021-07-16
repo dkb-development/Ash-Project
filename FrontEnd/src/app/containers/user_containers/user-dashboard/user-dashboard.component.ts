@@ -87,6 +87,7 @@ export class UserDashboardComponent implements OnInit {
     );
 
     if(window.matchMedia('(max-width: 768px)').matches){
+      console.log("Mobile Devices for User")
       this.closeNav();
     }
 

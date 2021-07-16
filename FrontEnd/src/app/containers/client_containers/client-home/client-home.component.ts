@@ -47,7 +47,7 @@ export class ClientHomeComponent implements OnInit {
       let scrollY = window.scrollY;
       if(scrollY > $(window).height()*0.1){
         $(".content_type_container").addClass("fixedTop");
-        if(document.getElementById("sidenav").style.width!="0px"){
+        if(document.getElementById("client_sidenav").style.width!="0px"){
           document.getElementById("content_type_container")?.classList.add('fixedTopOpenSideNav');
         }
         else{

@@ -5,7 +5,7 @@
 
 <div id="wrapper" class="wrapper">
   
-  <div id="sidenav" class="sidenav">
+  <div id="client_sidenav" class="sidenav">
     <a href="javascript:void(0)" id="close_btn_sidenav" class="closebtn" (click)="closeNav()">&times;</a>
     <i  class="fas fa-user-circle fa-9x" *ngIf="!(CurrentUserStateService.current_user$ | async).profile_picture"></i>
     <img class="rounded-circle" *ngIf="(CurrentUserStateService.current_user$ | async).profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}}>
@@ -59,10 +59,10 @@
   
 
   <!-- Content Wrapper. Contains page content -->
-  <div id="contentWrapper" class="contentWrapper" style="position: relative;">
+  <div id="client_contentWrapper" class="contentWrapper" style="position: relative;">
       
-    <div id="top_nav" class="top_nav">
-      <a class="nav-link mr-2" style="width: 2%;" data-widget="pushmenu" href="#" (click)="toggleNav()"><i class="fas fa-bars"></i></a>
+    <div id="client_top_nav" class="top_nav">
+      <a class="nav-link mr-2" style="width: 2%;" data-widget="pushmenu" (click)="toggleNav()"><i class="fas fa-bars"></i></a>
       <div class="top_nav_content">
           <div class="user_nav_client_name" style="font-size: x-large;font-weight: 600;float: left;">{{CurrentUserStateService.getClient().username}}</div>
           
@@ -79,21 +79,21 @@
                 <!-- <i class="far fa-bell"></i> -->
                 <!-- <span class="badge badge-warning navbar-badge">15</span> -->
                 </a>
-                <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                <span class="dropdown-item dropdown-header">{{CurrentUserStateService.getCurrentUser().username}}</span>
-                <div class="dropdown-divider"></div>
-                <a *ngIf="CurrentUserStateService.getCurrentUser().is_client" href="#" class="dropdown-item navbar_profile_dropdown" [routerLink]="[ '/client/profile' ]">
-                    <!-- <i class="fas fa-envelope mr-2"></i> 4 new messages
-                    <span class="float-right text-muted text-sm">3 mins</span> -->
-                    <i class="fas fa-users-cog"></i>
-                    <div>Profile Settings</div>
-                    
-                </a>
-                <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item navbar_profile_dropdown" (click)="onLogOut()">
-                    <i class="fas fa-sign-out-alt"></i>
-                    <div>Log Out</div>
-                </a>
+                <div class="dropdown-menu dropdown-menu dropdown-menu-right">
+                  <span class="dropdown-item dropdown-header text-center">{{CurrentUserStateService.getCurrentUser().username}}</span>
+                  <div class="dropdown-divider"></div>
+                  <a *ngIf="CurrentUserStateService.getCurrentUser().is_client" href="#" class="dropdown-item navbar_profile_dropdown" [routerLink]="[ '/client/profile' ]">
+                      <!-- <i class="fas fa-envelope mr-2"></i> 4 new messages
+                      <span class="float-right text-muted text-sm">3 mins</span> -->
+                      <i class="fas fa-users-cog"></i>
+                      <div>Profile Settings</div>
+                      
+                  </a>
+                  <div class="dropdown-divider"></div>
+                  <a href="#" class="dropdown-item navbar_profile_dropdown" (click)="onLogOut()">
+                      <i class="fas fa-sign-out-alt"></i>
+                      <div>Log Out</div>
+                  </a>
                 <div class="dropdown-divider"></div>
                 <!-- <a href="#" class="dropdown-item">
                     <i class="fas fa-file mr-2"></i> 3 new reports

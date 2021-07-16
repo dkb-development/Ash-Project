@@ -30,7 +30,7 @@
     <div id="contentWrapper" class="contentWrapper" style="position: relative;">
       
       <div id="top_nav" class="top_nav">
-        <a class="nav-link mr-2" style="width: 2%;" data-widget="pushmenu" href="#" (click)="toggleNav()"><i class="fas fa-bars"></i></a>
+        <a class="nav-link mr-2" style="width: 2%;" data-widget="pushmenu" (click)="toggleNav()"><i class="fas fa-bars"></i></a>
         <div class="top_nav_content">
             <div class="user_nav_client_name" style="font-size: x-large;font-weight: 600;float: left;">{{CurrentUserStateService.getClient().username}}</div>
             
@@ -99,7 +99,7 @@
        <div class="modal-content">
          <div class="modal-header">
              <h4 class="modal-title">Login with</h4>
-             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+             <button type="button" class="close" data-dismiss="modal" aria-hidden="true" data-target="#loginModal">&times;</button>
              
          </div>
          <div class="modal-body">

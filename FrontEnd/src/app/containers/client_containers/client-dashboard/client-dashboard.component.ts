@@ -36,6 +36,9 @@ export class ClientDashboardComponent implements OnInit {
           console.log(err)
         }
       )
+      if(window.matchMedia('(max-width: 768px)').matches){
+        this.closeNav();
+      }
     }
     else{
       // this.Router.navigateByUrl('../');
@@ -45,6 +48,7 @@ export class ClientDashboardComponent implements OnInit {
     }
 
     if(window.matchMedia('(max-width: 768px)').matches){
+      console.log("Mobile Devices for client")
       this.closeNav();
     }
   }
@@ -65,32 +69,32 @@ export class ClientDashboardComponent implements OnInit {
     console.log("Nav to be opened ...");
     
     if(window.matchMedia('(max-width: 768px)').matches){
-      document.getElementById("sidenav").style.width = "80%";
-      document.getElementById("contentWrapper").style.marginLeft  = "0%";
-      document.getElementById("contentWrapper").style.width = "100%";
-      document.getElementById("top_nav").style.width = "100%";
+      document.getElementById("client_sidenav").style.width = "80%";
+      document.getElementById("client_contentWrapper").style.marginLeft  = "0%";
+      document.getElementById("client_contentWrapper").style.width = "100%";
+      document.getElementById("client_top_nav").style.width = "100%";
       document.getElementById("close_btn_sidenav").style.marginTop = "5vh";
     }
     else{
-      document.getElementById("sidenav").style.width = "20%";
-      document.getElementById("contentWrapper").style.marginLeft  = "20%";
-      document.getElementById("contentWrapper").style.width = "80%";
-      document.getElementById("top_nav").style.width = "80%";
+      document.getElementById("client_sidenav").style.width = "20%";
+      document.getElementById("client_contentWrapper").style.marginLeft  = "20%";
+      document.getElementById("client_contentWrapper").style.width = "80%";
+      document.getElementById("client_top_nav").style.width = "80%";
       document.getElementById("close_btn_sidenav").style.marginTop = "0vh";
 
     }
 
   }
   closeNav(){
-    document.getElementById("sidenav").style.width = "0";
-    document.getElementById("contentWrapper").style.width = "100%";
-    document.getElementById("contentWrapper").style.marginLeft = "0";
-    document.getElementById("top_nav").style.width = "100%";
+    document.getElementById("client_sidenav").style.width = "0";
+    document.getElementById("client_contentWrapper").style.width = "100%";
+    document.getElementById("client_contentWrapper").style.marginLeft = "0";
+    document.getElementById("client_top_nav").style.width = "100%";
 
   }
   toggleNav(){
-    console.log(document.getElementById("sidenav").style.width)
-    if(document.getElementById("sidenav").style.width=="0px"){
+    console.log(document.getElementById("client_sidenav").style.width)
+    if(document.getElementById("client_sidenav").style.width=="0px"){
       this.openNav();
       this.adjustContentTypeContainer();
     }
