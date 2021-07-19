@@ -17,7 +17,9 @@
     padding: 7px;
 }
 .chat_sidebar_card_avatar > img{
-    max-height: 100%;
+    object-fit: cover;
+    width: 2.5rem;
+    height: 2.5rem;
 }
 .chat_sidebar_card_body{
     width: 65%;

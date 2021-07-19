@@ -31,7 +31,7 @@ router.get("/get_conversation/:userId",user_auth.verifyJwtToken, async (req, res
       members: { $in: [req.params.userId] },
     });
     if(conversation){
-      res.status(200).json(conversation);
+      return res.status(200).json(conversation);
     }
     else{
       console.log("No conversation");
@@ -52,7 +52,7 @@ router.get("/get_conversation/:firstUserId/:secondUserId",user_auth.verifyJwtTok
       return res.status(200).json(conversation);
     }
     else{
-      return res.status(200)  .json({
+      return res.status(200).json({
         "conversation": null
       })
     }

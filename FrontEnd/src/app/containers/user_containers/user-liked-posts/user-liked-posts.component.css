@@ -34,6 +34,18 @@
     left: 0;
 }
 .fixedTopOpenSideNav{
-    width: 80%;
-    margin-left: 20%;
+    width: 85%;
+    margin-left: 15%;
+}
+
+@media screen and (max-width: 760px){
+    .content_type{
+        width: 20%;
+        padding: 15px 20px;
+
+    }
+    .content_type img{
+        max-height: 90%;
+        max-width: 50%;
+    }
 }

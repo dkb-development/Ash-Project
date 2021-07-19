@@ -43,4 +43,12 @@ export class CommentService {
     }
     return this.http.post(environment.apiBaseUrl + 'comment/like_dislike_comment',comment,this.authHeaders)
   }
+
+  deleteComment(comment_id: any){
+    var comment = {
+      "comment_id": comment_id,
+      "user_id": this.CurrentUserStateService.getCurrentUser()._id
+    }
+    return this.http.post(environment.apiBaseUrl + 'comment/delete_comment',comment,this.authHeaders)
+  }
 }

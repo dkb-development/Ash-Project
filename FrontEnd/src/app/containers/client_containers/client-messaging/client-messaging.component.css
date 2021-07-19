@@ -42,6 +42,11 @@
     align-items: center;
     padding: 5px;
 }
+.chat_sidebar_header_user_info_container > img{
+    object-fit: cover;
+    width: 3rem;
+    height: 3rem;
+}
 .own_profile_picture{
     max-height: 85%;
 }
@@ -148,7 +153,9 @@ input:focus{
     color: white;
 }
 .chat_main_container_header > img{
-    max-height: 90%;
+    object-fit: cover;
+    width: 3.5rem;
+    height: 3.5rem;
 }
 .user_to_chat_with_username{
     font-size: large;

@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { environment } from '../../../../environments/environment';
 import { io } from "socket.io-client";
+import { ActivatedRoute } from '@angular/router';
 
 
 
@@ -8,6 +9,8 @@ import { io } from "socket.io-client";
 import { ChatStateService } from '../../../services/State Services/chat-state.service';
 import { MessageService } from '../../../services/message_services/message.service';
 import { AuthService } from '../../../services/user_services/auth.service';
+import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service';
+
 
 @Component({
   selector: 'app-user-messaging',
@@ -32,14 +35,16 @@ export class UserMessagingComponent implements OnInit {
   }
 
   constructor(
+    private route: ActivatedRoute,
     public ChatStateService: ChatStateService,
     private MessageService: MessageService,
     private AuthService: AuthService,
+    public CurrentUserStateService: CurrentUserStateService
 
 
   ) { }
 
-  user = this.AuthService.getUser();
+  user = this.CurrentUserStateService.getCurrentUser();
   chat_with_friend: any={};
   conversations: any;
   current_conversation: any;   
@@ -47,6 +52,16 @@ export class UserMessagingComponent implements OnInit {
   create_new_conversation = false;
   current_chatting_friend: any;
   async ngOnInit() {
+    this.CurrentUserStateService.current_user$.subscribe(
+      (res: any)=>{
+        this.user = res;
+        console.log(this.user);
+        return res;
+      },
+      (err: any)=>{
+        console.log(err);
+      }
+    );
     this.socket = io(this.backend_chat_url);
     // Set Socket in the state
     this.ChatStateService.setSocket(this.socket);
@@ -57,7 +72,7 @@ export class UserMessagingComponent implements OnInit {
     this.socket.on("welcome",(msg: any)=>{
       console.log(msg);
     })
-
+  
     this.socket.on("getUsers",(users: any)=>{
       console.log(users);
     })
@@ -82,6 +97,8 @@ export class UserMessagingComponent implements OnInit {
       this.MessageService.getConversations(this.user._id).subscribe(
         (res: any)=>{
           this.ChatStateService.setConversationList(res);
+          console.log(res);
+
           resolve(true);
         },
         (err: any)=>{
@@ -91,16 +108,17 @@ export class UserMessagingComponent implements OnInit {
       )
       
     })
-
     // Set Current Conversation in the state
     var current_conv_set: any;
     if(conv_list_set){
+      console.log(this.ChatStateService.getConversationList());
       current_conv_set = await new Promise((resolve,reject)=>{
         this.ChatStateService.setCurrentConversation(this.ChatStateService.getConversationList()[0]);
         console.log(this.ChatStateService.getCurrentConversation())
         resolve(true)
       })
     }
+    console.log(this.ChatStateService.getCurrentConversation());
     
     // Get Current Conversation from the state and set the local variable here
     var set_current_conv;
@@ -123,7 +141,7 @@ export class UserMessagingComponent implements OnInit {
     var set_chatting_friend;
     if(set_current_conv){
       set_chatting_friend = await new Promise((resolve,reject)=>{
-        for(var member of this.current_conversation.members){
+        for(var member of this.ChatStateService.getCurrentConversation().members){
           if(member != this.user._id){
             this.AuthService.getUserFromId(member).subscribe(
               (res: any)=>{
@@ -200,15 +218,15 @@ export class UserMessagingComponent implements OnInit {
 
   adjust_sidebar_for_mobile(){
     if($(window).width()<760){
-      $('#chat_sidebar').addClass("outside_mobile_view");
+      $('#user_chat_sidebar').addClass("outside_mobile_view");
     }
     $(".hamberger").click(()=>{ 
-      $('#chat_sidebar').removeClass("outside_mobile_view");
-      $('#chat_sidebar').addClass("inside_mobile_view");
+      $('#user_chat_sidebar').removeClass("outside_mobile_view");
+      $('#user_chat_sidebar').addClass("inside_mobile_view");
     })
     $('.close_sidebar_btn').click(()=>{
-      $('#chat_sidebar').removeClass("inside_mobile_view");
-      $('#chat_sidebar').addClass("outside_mobile_view");
+      $('#user_chat_sidebar').removeClass("inside_mobile_view");
+      $('#user_chat_sidebar').addClass("outside_mobile_view");
     })
   }
 

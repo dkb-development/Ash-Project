@@ -1,11 +1,12 @@
 <div class="client_chat_container">
-    <div id="chat_sidebar" class="chat_sidebar">
+    <div id="user_chat_sidebar" class="chat_sidebar">
       <div class="chat_sidebar_header">
         
-        <div>
-          <img *ngIf="user.image" src={user.image} class="rounded-circle">
-          <i *ngIf="!user.image" class="fas fa-user-circle fa-3x"></i>
+        <div class="chat_sidebar_header_user_info_container">
+          <img *ngIf="CurrentUserStateService.getCurrentUser().profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}} class="rounded-circle">
+          <i *ngIf="!CurrentUserStateService.getCurrentUser().profile_picture" class="fas fa-user-circle fa-3x"></i>
           <div *ngIf="user" class="own_username ml-2">{{user.username}}</div>
+          
         </div>
         <i class="fas fa-times fa-lg close_sidebar_btn mr-2"></i>
         

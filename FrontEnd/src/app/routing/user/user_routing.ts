@@ -26,6 +26,7 @@ export var User_auth_routes: Route[] = [
           { path: 'messaging', component: UserMessagingComponent },
           { path: 'profile', component: UserProfileSettingsComponent },
           { path: '**', redirectTo: 'home' }, 
+
         ]
   }
 

@@ -29,6 +29,7 @@ export class UserDashboardComponent implements OnInit {
   user: any = {};
   
   ngOnInit(): void {
+    console.log("User dashboard ngoninit");
     // Get Client Info
     this.AuthService.getClient().subscribe(
       (res: any)=>{
@@ -51,6 +52,7 @@ export class UserDashboardComponent implements OnInit {
           console.log(res);
           var user = res.user_info;
           this.CurrentUserStateService.setCurrentUser(user);
+          
           if(res.user_info.is_client){
             console.log("Client is Here ...")
             this.Router.navigateByUrl('/client');
@@ -104,17 +106,17 @@ export class UserDashboardComponent implements OnInit {
     console.log("Nav to be opened ...");
     
     if(window.matchMedia('(max-width: 768px)').matches){
-      document.getElementById("sidenav").style.width = "80%";
+      document.getElementById("sidenav").style.width = "85%";
       document.getElementById("contentWrapper").style.marginLeft  = "0%";
       document.getElementById("contentWrapper").style.width = "100%";
       document.getElementById("top_nav").style.width = "100%";
       document.getElementById("close_btn_sidenav").style.marginTop = "5vh";
     }
     else{
-      document.getElementById("sidenav").style.width = "20%";
-      document.getElementById("contentWrapper").style.marginLeft  = "20%";
-      document.getElementById("contentWrapper").style.width = "80%";
-      document.getElementById("top_nav").style.width = "80%";
+      document.getElementById("sidenav").style.width = "15%";
+      document.getElementById("contentWrapper").style.marginLeft  = "15%";
+      document.getElementById("contentWrapper").style.width = "85%";
+      document.getElementById("top_nav").style.width = "85%";
       document.getElementById("close_btn_sidenav").style.marginTop = "0vh";
 
     }

@@ -677,7 +677,7 @@ router.post('/get_liked_posts',user_auth.verifyJwtToken,async (req,res)=>{
                     post_details.is_liked = true;
                     post_details.post_info = post;
                     // Post Tip Details
-                    if(post.is_tipped){
+                    if(post != null && post.is_tipped){
                         var tip_details = await Tip.findOne({tip_post_id: post._id,tip_by: user._id}).exec();
                         if(tip_details){
                             if(tip_details.tip_amount >= post.tip_to_unlock){
@@ -695,8 +695,10 @@ router.post('/get_liked_posts',user_auth.verifyJwtToken,async (req,res)=>{
                             post_details.isTipEnough = false;
                         }
                     }
+                    if(post != null){
+                        posts_with_details.push(post_details);
 
-                    posts_with_details.push(post_details);
+                    }
 
                 }
 

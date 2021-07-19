@@ -131,14 +131,17 @@ ul,li{
         flex-direction: column;
     }
     .client_earning_card_container{
-        width: 95%;
+        width: 100%;
+        margin: 10px auto;
     }
     .client_transcation_history_table_container{
-        width: 95%;
+        width: 100%;
+        margin: 10px auto;
     }
     .client_earning_graph_analysis{
-        width: 95%;
+        width: 100%;
         margin-top: 20px;
         margin: 20px auto;
+        margin: 10px auto;
     }
 }

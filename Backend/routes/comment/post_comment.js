@@ -21,10 +21,11 @@ router.post('/make_comment',user_auth.verifyJwtToken,async (req,res)=>{
             var comment_user = await User.findById(comment.user_id);
             var is_liked_by_user = false;
             var user_profile_picture = null;
-            if(comment_user.profile_picture){
-                user_profile_picture = user_profile_picture;
+            if(comment_user.profile_picture != null){
+                user_profile_picture = comment_user.profile_picture;
             }
             var this_comment = {
+                "comment_id": comment._id,
                 "post_id": comment.post_id,
                 "user_id": comment.user_id,
                 "username": comment_user.username,
@@ -82,8 +83,8 @@ router.post('/get_comments_for_post',user_auth.verifyJwtToken,async (req,res)=>{
                     
                     var comment_user = await User.findById(comment.user_id);
                     var user_profile_picture = null;
-                    if(comment_user.profile_picture){
-                        user_profile_picture = user_profile_picture;
+                    if(comment_user.profile_picture != null){
+                        user_profile_picture = comment_user.profile_picture ;
                     }
                     var this_comment = {
                         "comment_id": comment._id,
@@ -163,6 +164,46 @@ router.post('/like_dislike_comment',user_auth.verifyJwtToken,async (req,res)=>{
                 }
             })
         }
+    }
+    else{
+        return res.status(500).json("JWT Token doesn't match");
+    }
+})
+router.post('/delete_comment',user_auth.verifyJwtToken,async (req,res)=>{
+    var token = user_auth.getTokenFromReq(req);
+    var user_id = user_auth.getUserFromToken(token);
+
+    if(user_id == req.body.user_id){
+        try {
+            var comment_info = await Comment.findById(req.body.comment_id);
+            if(comment_info){
+                if(comment_info.user_id == user_id){
+                    Comment.deleteOne({
+                        "_id": comment_info._id
+                    },(err,success)=>{
+                        if(err){
+                            return res.status(500).json(err);
+                        }
+                        else{
+                            return res.status(200).json({
+                                "success": true,
+                                "deleted": true,
+                                "message": "Comment Successfully deleted"
+                            })
+                        }
+                    })
+                }
+            }
+            else{
+                return res.status(500).json("No Comment Found");
+            }
+        } catch (error) {
+            return res.status(500).json(error);
+            
+        }
+    }
+    else{
+        return res.status(500).json("JWT Token doesn't match");
     }
 })
 

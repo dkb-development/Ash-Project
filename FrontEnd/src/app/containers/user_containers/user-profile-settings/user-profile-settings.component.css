@@ -18,7 +18,10 @@
     align-items: center;
 }
 .client_profile_picture > img{
-    max-width: 70%;
+    object-fit: cover;
+    width: 7rem;
+    height: 7rem;
+
 }
 .client_change_profile_btn{
     background-color: #1D3557;

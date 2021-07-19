@@ -3,8 +3,9 @@
   <div id="chat_sidebar" class="chat_sidebar">
     <div class="chat_sidebar_header">
       
-      <div>
-        <img src="../../../../assets/images/profile_2.jpeg" class="rounded-circle own_profile_picture">
+      <div class="chat_sidebar_header_user_info_container">
+        <img *ngIf="CurrentUserStateService.getCurrentUser().profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}} class="rounded-circle">
+        <i *ngIf="!CurrentUserStateService.getCurrentUser().profile_picture" class="fas fa-user-circle fa-3x"></i>
         <div *ngIf="user" class="own_username ml-2">{{user.username}}</div>
       </div>
       <i class="fas fa-times fa-lg close_sidebar_btn mr-2"></i>
@@ -76,7 +77,7 @@
     <div class="chat_main_container_header">
       <i class="fas fa-bars hamberger mr-4"></i>
       <!-- <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0" src="{{(ChatStateService.chattting_friend$ | async).avatar}}" class="rounded-circle"> -->
-      <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0 && (ChatStateService.chattting_friend$ | async).profile_picture!=''" src="{{(ChatStateService.chattting_friend$ | async).profile_picture}}" class="rounded-circle">
+      <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0 && (ChatStateService.chattting_friend$ | async).profile_picture" src="{{(ChatStateService.chattting_friend$ | async).profile_picture}}" class="rounded-circle">
       <i *ngIf="(ChatStateService.chattting_friend$ | async).length != 0 && (ChatStateService.chattting_friend$ | async).profile_picture==null" class="fas fa-user-circle fa-3x"></i>
       <!-- <img *ngIf="(ChatStateService.chattting_friend$ | async).length != 0" src={{GetUserProfilePicService.getProfilePicUrlFromUsername((ChatStateService.chattting_friend$ | async).username)}} class="rounded-circle"> -->
       <div class="user_to_chat_with_username ml-1">{{(ChatStateService.chattting_friend$ | async).username}}</div>

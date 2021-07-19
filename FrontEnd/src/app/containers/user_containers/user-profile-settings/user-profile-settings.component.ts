@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // Services
-import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service'
+import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service';
 
 
 @Component({

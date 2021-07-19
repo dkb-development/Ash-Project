@@ -42,8 +42,8 @@ export class PostComponent implements OnInit {
   tip_post:any = null;
   post_to_be_deleted: any = null;
   ngOnInit(): void {
-    console.log(this.post_details);
-    this.post_details.post_info.media = this.post_details.post_info.media.split('?')[0];
+    // console.log(this.post_details);
+    this.post_details.post_info.media = this.post_details.post_info.media?.split('?')[0];
     this.is_logged_in = this.AuthService.isLoggedIn();
     var datetime = moment(this.post_details.post_info.date_created);
     this.dt = datetime.format('YYYY-MM-DD');
@@ -234,20 +234,23 @@ export class PostComponent implements OnInit {
   }
 
   open_comment_container = false;
-
+  prev_comment_loading_spinner = false;
   // Comment Feature
   show_hide_comment(){
+    this.prev_comment_loading_spinner = true;
     // console.log(this.CommentStateService.getCommentsForPost(this.post_details.post_info._id));
     this.open_comment_container = !this.open_comment_container;
     this.CommentService.getCommnetsForPost(this.post_details.post_info).subscribe(
       (res: any)=>{
+        this.prev_comment_loading_spinner = false;
         if(res.length > 0){
           this.CommentStateService.updateCommentsForPost(res)
         } 
         
-        console.log(res);
+        // console.log(res);
       },
       (err: any)=>{
+        this.prev_comment_loading_spinner = false;
         console.log(err);
       }
     )
@@ -261,10 +264,10 @@ export class PostComponent implements OnInit {
       "post_id": this.post_details.post_info._id,
       "comment_text": comment_text.value
     }
-    console.log(comment_info);
+    comment_text.value="";
     this.CommentService.makeComment(comment_info).subscribe(
       (res: any)=>{
-        this.CommentStateService.updateSingleCommentForPost(res);
+        this.CommentStateService.addSingleCommentForPost(res);
       },
       (err: any)=>{
         console.log(err);
@@ -297,6 +300,23 @@ export class PostComponent implements OnInit {
         console.log(err);
       }
     )
+  }
+  delete_comment(comment_id: any){
+    this.CommentService.deleteComment(comment_id).subscribe(
+      (res: any)=>{
+        if(res.deleted){
+          this.CommentStateService.deleteSingleCommentForPost(comment_id,this.post_details.post_info._id);
+        }
+        else{
+          console.log(res);
+        }
+        // console.log(res);
+      },
+      (err: any)=>{
+        console.log(err);
+      }
+    )
+    console.log(comment_id);
   }
 
 

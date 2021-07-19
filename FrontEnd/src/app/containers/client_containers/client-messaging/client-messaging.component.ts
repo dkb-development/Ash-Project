@@ -8,6 +8,8 @@ import { AuthService } from '../../../services/user_services/auth.service';
 import { MessageService } from '../../../services/message_services/message.service';
 import { ChatStateService } from '../../../services/State Services/chat-state.service';
 import { GetUserProfilePicService } from '../../../services/user_services/get-user-profile-pic.service';
+import { CurrentUserStateService } from '../../../services/State Services/current-user-state.service';
+
 
 
 @Component({
@@ -37,17 +39,29 @@ export class ClientMessagingComponent implements OnInit,OnDestroy {
     private MessageService: MessageService,
     private AuthService: AuthService,
     public ChatStateService: ChatStateService,
-    private GetUserProfilePicService: GetUserProfilePicService
+    private GetUserProfilePicService: GetUserProfilePicService,
+    public CurrentUserStateService: CurrentUserStateService
+
   ) { 
 
   }
-  user: any = {};
+  user = this.CurrentUserStateService.getCurrentUser();
   chat_with_friend: any={};
   conversations: any;
   current_conversation: any;   
   chat_with_fan_username: any ;
   create_new_conversation = false;
   ngOnInit(): void {
+    this.CurrentUserStateService.current_user$.subscribe(
+      (res: any)=>{
+        this.user = res;
+        console.log(this.user);
+        return res;
+      },
+      (err: any)=>{
+        console.log(err);
+      }
+    );
     // Socket
 
     this.socket = io(this.backend_chat_url);
