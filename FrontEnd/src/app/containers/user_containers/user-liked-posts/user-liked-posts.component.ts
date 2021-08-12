@@ -24,6 +24,8 @@ export class UserLikedPostsComponent implements OnInit {
   liked_posts: any =[];
   is_logged_in : boolean = false;
   liked_post_container_spinner = true;
+  tip_to_unlock_post: any = null;
+
 
   ngOnInit(): void {
     this.is_logged_in = this.AuthService.isLoggedIn();

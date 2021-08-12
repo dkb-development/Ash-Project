@@ -233,7 +233,7 @@ input:focus{
 }
 .message_sent{
     /* background: linear-gradient(45deg, #8027E0,#013CF0); */
-    background: linear-gradient(135deg,#e95950,#fccc63) ;
+    background: linear-gradient(45deg, var(--primary), var(--secondary));
     padding: 10px;
     max-width: 70%;
     border-radius: 10px;
@@ -252,7 +252,7 @@ input:focus{
 }
 .message_received{
     /* background: linear-gradient(135deg,#F015B3,#CE17F5) ; */
-    background: linear-gradient(135deg,#F75C7C,#2670F7) ;
+    background: linear-gradient(225deg, var(--primary), var(--secondary));
     padding: 10px;
     max-width: 70%;
     border-radius: 10px;

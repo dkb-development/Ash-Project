@@ -9,11 +9,11 @@
        <a>Posts</a>
      </div>
      <div [routerLink]="[ '/user/liked_posts']" routerLinkActive="active_sidebar_menu" >
-       <img src="../../../../assets/icons/like.png">
+       <img src="../../../../assets/icons/thumbs-up-regular.svg">
        <a>Liked</a>
      </div>
      <div [routerLink]="[ '/user/messaging']" routerLinkActive="active_sidebar_menu" >
-      <img src="../../../../assets/icons/chatting.svg">
+      <img src="../../../../assets/icons/chatting_black.svg">
       <a>Messaging</a>
      </div>
      <div [routerLink]="[ '/user/profile']" routerLinkActive="active_sidebar_menu" >
@@ -30,20 +30,20 @@
     <div id="contentWrapper" class="contentWrapper" style="position: relative;">
       
       <div id="top_nav" class="top_nav">
-        <a class="nav-link mr-2" style="width: 2%;" data-widget="pushmenu" (click)="toggleNav()"><i class="fas fa-bars"></i></a>
+        <a class="nav-link mr-2" style="width: 2%;" data-widget="pushmenu" (click)="toggleNav()"><i class="fas fa-bars" style="color: var(--primary);"></i></a>
         <div class="top_nav_content">
             <div class="user_nav_client_name" style="font-size: x-large;font-weight: 600;float: left;">{{CurrentUserStateService.getClient().username}}</div>
             
             <div class="top_nav_right_menus_container">
               <div *ngIf="is_logged_in" class="nav-item dropdown">
-                  <a class="nav-link navbar_profile" data-toggle="dropdown" href="#">
+                  <a class="nav-link navbar_profile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img *ngIf="CurrentUserStateService.getCurrentUser().profile_picture" src={{CurrentUserStateService.getCurrentUser().profile_picture}} class="rounded-circle">
                     <i *ngIf="!CurrentUserStateService.getCurrentUser().profile_picture" class="fas fa-user-circle fa-2x"></i>
                     <div>{{CurrentUserStateService.getCurrentUser().username}}</div>
                     <!-- <i class="far fa-bell"></i> -->
                     <!-- <span class="badge badge-warning navbar-badge">15</span> -->
                   </a>
-                  <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                  <div class="dropdown-menu dropdown-menu-lg" style="z-index: 1050; position: relative;">
                     <div class="dropdown-item dropdown-header text-center">{{CurrentUserStateService.getCurrentUser().username}}</div>
                     <div class="dropdown-divider"></div>
                     <a *ngIf="CurrentUserStateService.getCurrentUser()" href="#" class="dropdown-item navbar_profile_dropdown" [routerLink]="[ '/user/profile' ]">
@@ -67,11 +67,13 @@
                     <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> -->
                   </div>
               </div>
-              <div *ngIf="!is_logged_in" class="nav-item">
+              <div *ngIf="!is_logged_in" class="nav-item login_signup_container">
                   <!-- <app-auth-user></app-auth-user> -->
-                  <a class="btn btn-primary ml-2" (click)="openLoginModal()">Log In</a>
-                  <a class="btn btn-info ml-2" (click)="openRegisterModal()">Sign Up</a>
+                  <a class="btn ml-2 login_btn" (click)="openLoginModal()">Log In</a>
+                  <a class="btn ml-2 signup_btn" (click)="openRegisterModal()">Sign Up</a>
               </div>
+
+              
             </div>
         </div>
         
@@ -190,7 +192,7 @@
  
  
  <!-- Footer -->
- <footer id="footer" style="position: relative;z-index: 1050;">
+ <footer id="footer">
   <div class="footer-wrap">
   <div class="container first_class">
       <div class="row">

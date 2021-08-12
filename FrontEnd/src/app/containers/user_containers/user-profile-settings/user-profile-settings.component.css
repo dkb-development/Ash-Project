@@ -19,12 +19,12 @@
 }
 .client_profile_picture > img{
     object-fit: cover;
-    width: 7rem;
-    height: 7rem;
+    width: 10rem;
+    height: 10rem;
 
 }
 .client_change_profile_btn{
-    background-color: #1D3557;
+    background-color: var(--primary);
     color: white;
     font-weight: 600;
     max-width: 95%;
@@ -37,17 +37,27 @@
     align-items: center;
 }
 .client_username{
-    font-size: larger;
+    font-size: 2.5rem;
     font-weight: 600;
     text-align: center;
-    width: 30%;
 }
 .client_change_username_btn{
-    background-color: #1D3557;
+    background-color: var(--secondary);
     color: white;
     font-weight: 600;
 }
+.client_add_info{
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.client_add_info > div{
+    width: 50%;
+    margin: 15px;
+    padding: 14px;
+    font-size: 1.1rem;
 
+}
 @media screen and (max-width: 760px) {
     .client_profile_container{
         width: 95%;

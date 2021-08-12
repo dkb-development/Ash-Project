@@ -6,7 +6,7 @@
                 <h2>Drag and drop Files to Upload</h2>
                 <h6>Or</h6>
             </div>
-            <button class="btn" style="background-color: #457B9D;color: white;font-weight: 600;">Browse Files</button>
+            <button class="btn" style="background-color: var(--primary);color: white;font-weight: 600;">Browse Files</button>
         </ngx-dropzone-label>
         <ngx-dropzone-image-preview  ngProjectAs="ngx-dropzone-preview" *ngFor="let f of files" [file]="f" [removable]="true" (removed)="onRemove(f)">
             <ngx-dropzone-label style="margin: auto;">{{ f.name }} ({{ f.type }})</ngx-dropzone-label>
@@ -59,16 +59,16 @@
                 </label>
             </div>
             <div class="accessibility_subscribed_container d-flex flex-column pl-4">
-                <div>
+                <div class="subscribed_user_radio_container">
                     <input class="form-check-input" type="radio" name="accessibility" id="accessibility_subscribed" [(ngModel)]="post.accessibility" value="subscribed">
                     <label class="form-check-label" for="accessibility_subscribed">
                         Subscribed User
                     </label>
                 </div>
 
-                <div *ngIf="post.accessibility === 'subscribed' " class="form-group row ml-2">
-                    <label for="tip_amount" class="col-form-label">$</label>
-                    <input class="form-control ml-1" type="number" id="tip_amount" placeholder="Tip Amount" name="post_tip_to_unlock" #post_tip_to_unlock="ngModel" [(ngModel)]="post.tip_to_unlock">
+                <div *ngIf="post.accessibility === 'subscribed' " class="tip_amount_container">
+                    <label for="tip_amount">$</label>
+                    <input class="form-control col-10 ml-1" type="number" id="tip_amount" placeholder="Tip Amount" name="post_tip_to_unlock" #post_tip_to_unlock="ngModel" [(ngModel)]="post.tip_to_unlock">
                 </div>
             </div>
           

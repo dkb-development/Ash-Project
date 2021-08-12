@@ -30,30 +30,33 @@
       </div>
     </div>
     
-    <div [routerLink]="[ '/client/home']" routerLinkActive="active_sidebar_menu">
-      <img src="../../../../assets/icons/home.svg">
-      <div>Home</div>
+    <div class="client_sidenav_menu_container">
+      <div class="client_sidebar_nav_menu" [routerLink]="[ '/client/home']" routerLinkActive="active_sidebar_menu">
+        <img src="../../../../assets/icons/home.svg">
+        <div>Home</div>
+      </div>
+      <div class="client_sidebar_nav_menu" [routerLink]="[ '/client/upload']" routerLinkActive="active_sidebar_menu">
+        <img src="../../../../assets/icons/upload.svg">
+        <div>Upload</div>
+      </div>
+      <div class="client_sidebar_nav_menu" [routerLink]="[ '/client/messaging']" routerLinkActive="active_sidebar_menu">
+        <img src="../../../../assets/icons/chatting.svg">
+        <div>Messaging</div>
+      </div>
+      <div class="client_sidebar_nav_menu" [routerLink]="[ '/client/fans_tab']" routerLinkActive="active_sidebar_menu">
+        <img src="../../../../assets/icons/fans.svg" fill="white">
+        <div>Fans Tab</div>
+      </div>
+      <div class="client_sidebar_nav_menu" [routerLink]="[ '/client/finance']" routerLinkActive="active_sidebar_menu">
+        <img src="../../../../assets/icons/finance.svg">
+        <div>Finance</div>
+      </div>
+      <div class="client_sidebar_nav_menu" [routerLink]="[ '/client/profile']" routerLinkActive="active_sidebar_menu">
+        <img src="../../../../assets/icons/Edit_Profile.svg">
+        <div>Profile</div>
+      </div>
     </div>
-    <div [routerLink]="[ '/client/upload']" routerLinkActive="active_sidebar_menu">
-      <img src="../../../../assets/icons/upload.svg">
-      <div>Upload</div>
-    </div>
-    <div [routerLink]="[ '/client/messaging']" routerLinkActive="active_sidebar_menu">
-      <img src="../../../../assets/icons/chatting.svg">
-      <div>Messaging</div>
-    </div>
-    <div [routerLink]="[ '/client/fans_tab']" routerLinkActive="active_sidebar_menu">
-      <img src="../../../../assets/icons/fans.svg" fill="white">
-      <div>Fans Tab</div>
-    </div>
-    <div [routerLink]="[ '/client/finance']" routerLinkActive="active_sidebar_menu">
-      <img src="../../../../assets/icons/finance.svg">
-      <div>Finance</div>
-    </div>
-    <div [routerLink]="[ '/client/profile']" routerLinkActive="active_sidebar_menu">
-      <img src="../../../../assets/icons/Edit_Profile.svg">
-      <div>Profile</div>
-    </div>
+    
   </div>
 
   

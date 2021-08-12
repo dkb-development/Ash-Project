@@ -1,6 +1,6 @@
 <div id="content_type_container" class="content_type_container">
     <div class="content_type" (click)="show_posts_of_type('')" [ngClass]="{'active_content_type' : post_media_type==''}">
-        <img src="../../../../assets/icons/blog.svg" class="mr-1">
+        <img src="../../../../assets/icons/blog_white.svg" class="mr-1">
         <div>Posts</div>
     </div>
     <div class="content_type" (click)="show_posts_of_type('image')" [ngClass]="{'active_content_type' : post_media_type=='image'}">
@@ -27,3 +27,6 @@
         <app-post [post_details]="post" (newTipPostEvent)="openTipModal($event)"></app-post>
     </div>
 </div>
+
+   <!-- Modals -->
+   <app-modals [tip_post_details]="tip_to_unlock_post"></app-modals>

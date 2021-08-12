@@ -56,7 +56,7 @@
               <input #tipPostAmount="ngModel" type="number" class="form-control" id="tip_amount" name="tip_amount" placeholder="Tip Amount" ngModel>
               
             </div>
-            <button type="submit" class="btn btn-primary mb-2" (click)="tipToPost(tipPostForm)" [class.disabled]="tipPostForm.value.tip_amount <= 0">Pay Tip</button>
+            <button type="submit" class="btn btn-secondary mb-2" (click)="tipToPost(tipPostForm)" [class.disabled]="tipPostForm.value.tip_amount <= 0">Pay Tip</button>
           </form>
           <div *ngIf="tipPostForm.value.tip_amount <= 0 && tipPostAmount.touched">
             <small style="color: red;">Enter a valid Postitive amount</small>
@@ -64,7 +64,7 @@
         </div>
 
         <div class="modal-footer justify-content-between">
-          <button type="button" class="btn btn-danger" data-dismiss="modal" >Close</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal" >Close</button>
         </div>
       </div>
     </div>

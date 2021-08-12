@@ -17,7 +17,9 @@ footer{
     height: 100vh;
     overflow-y: scroll;
 } */
-
+.dropdown-menu{
+    transform: translate3d(-8rem, 3rem, 0px)!important;
+}
 .top_nav{
     width: 85%;
     height: 6vh;
@@ -35,7 +37,18 @@ footer{
     justify-content: space-between;
     align-items: center;
 }
-
+.login_signup_container a{
+    padding: 10px 30px;
+    border-radius: 30px;
+    color: white;
+    font-weight: 600;
+}
+.login_btn{
+    background-color: var(--primary);
+}
+.signup_btn{
+    background-color: var(--secondary);
+}
 .posts_container{
     width: 100%;
     min-height: 70vh;
@@ -92,6 +105,9 @@ footer{
    .start_container img{
        max-width: 5vw;
    }
+   .dropdown-menu{
+        transform: translate3d(-80%, 3rem, 0px)!important;
+    }
 }
 .star_type{
    color: gray;
@@ -133,7 +149,7 @@ footer{
     z-index: 1; /* Stay on top */
     top: 0;
     left: 0;
-    background-color: #14213D; /* Black*/
+    background-color: white; /* Black*/
     overflow-x: hidden; /* Disable horizontal scroll */
     padding-top: 20vh; /* Place content 60px from the top */
     transition: 0.5s; /* 0.5 second transition effect to slide in the sidenav */
@@ -141,6 +157,7 @@ footer{
     flex-direction: column;
     align-items: center;
     font-size: 2rem;
+    box-shadow: -10px 10px 30px var(--primary);
 
 
 }  
@@ -165,10 +182,13 @@ footer{
     border-radius: 2px;
     cursor: pointer;
     color: #818181;
+    border-radius: 60px;
+    
 
 } 
 .sidenav > div:hover{
     background-color: gray;
+    color: black;
 }
 .sidenav > div > img{
     max-width: 15%;
@@ -176,7 +196,7 @@ footer{
     margin-right: 10px;
 }
 .active_sidebar_menu{
-    background-color: #007bb6;
+    background-color: var(--primary);
     
 }
 .active_sidebar_menu a{
@@ -193,6 +213,7 @@ footer{
     right: 25px;
     font-size: 36px;
     margin-left: 50px;
+    color: var(--primary);
 }
 
 
@@ -466,11 +487,13 @@ footer{
 
 
 footer{
-    position: absolute;
+    position: relative;
+    width: 100%;
     left: 0;
     bottom: 0;
     margin-bottom: 0;
     bottom: 0;
+    z-index: 1050;
 }
 .footer-wrap {
     padding-top: 43px;

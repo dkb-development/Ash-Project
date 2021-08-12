@@ -2,6 +2,23 @@
 @import "~ng-pick-datetime/assets/style/picker.min.css";
 @import "../node_modules/font-awesome/css/font-awesome.min.css";
 
+:root{
+    --primary:#FA26A0;
+    --secondary: #007bff;
+}
 .dropdown-menu {
     min-width: 300px;
+}
+.btn{
+    border-radius: 30px;
+    padding: 8px 20px;
+}
+.btn-primary{
+    background-color: var(--primary);
+    border: 0;
+}
+.btn-secondary{
+    background-color: var(--secondary);
+    border: 0;
+
 }
